@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 15:44:06 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="DAO.Projeto" table="projeto" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="situacao" class="DAO.Situacao" fetch="select">
+            <column name="id_situacao" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuario" class="DAO.Usuario" fetch="select">
+            <column name="lider" not-null="true" />
+        </many-to-one>
+        <property name="nome" type="string">
+            <column name="nome" length="100" not-null="true" unique="true" />
+        </property>
+        <property name="criadoEm" type="timestamp">
+            <column name="criado_em" length="29" not-null="true" />
+        </property>
+        <property name="atualizadoEm" type="timestamp">
+            <column name="atualizado_em" length="29" not-null="true" />
+        </property>
+        <set name="respostas" table="resposta" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_projeto" not-null="true" />
+            </key>
+            <one-to-many class="DAO.Resposta" />
+        </set>
+        <set name="parecers" table="parecer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_projeto" not-null="true" />
+            </key>
+            <one-to-many class="DAO.Parecer" />
+        </set>
+        <set name="equipes" table="equipe" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_projeto" not-null="true" />
+            </key>
+            <one-to-many class="DAO.Equipe" />
+        </set>
+    </class>
+</hibernate-mapping>
