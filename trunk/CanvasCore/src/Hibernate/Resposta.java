@@ -1,4 +1,4 @@
-package DAO;
+package Hibernate;
 // Generated 05/02/2014 15:44:05 by Hibernate Tools 3.6.0
 
 

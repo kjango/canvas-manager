@@ -8,18 +8,18 @@
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">root</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <mapping resource="DAO/Parecer.hbm.xml"/>
-    <mapping resource="DAO/Usuario.hbm.xml"/>
-    <mapping resource="DAO/Tipousuario.hbm.xml"/>
-    <mapping resource="DAO/Credencial.hbm.xml"/>
-    <mapping resource="DAO/Historico.hbm.xml"/>
-    <mapping resource="DAO/Pergunta.hbm.xml"/>
-    <mapping resource="DAO/Resultado.hbm.xml"/>
-    <mapping resource="DAO/Equipe.hbm.xml"/>
-    <mapping resource="DAO/Resposta.hbm.xml"/>
-    <mapping resource="DAO/Situacao.hbm.xml"/>
-    <mapping resource="DAO/Avaliacao.hbm.xml"/>
-    <mapping resource="DAO/Status.hbm.xml"/>
-    <mapping resource="DAO/Projeto.hbm.xml"/>
+    <mapping resource="Hibernate/Parecer.hbm.xml"/>
+    <mapping resource="Hibernate/Usuario.hbm.xml"/>
+    <mapping resource="Hibernate/Tipousuario.hbm.xml"/>
+    <mapping resource="Hibernate/Credencial.hbm.xml"/>
+    <mapping resource="Hibernate/Historico.hbm.xml"/>
+    <mapping resource="Hibernate/Pergunta.hbm.xml"/>
+    <mapping resource="Hibernate/Resultado.hbm.xml"/>
+    <mapping resource="Hibernate/Equipe.hbm.xml"/>
+    <mapping resource="Hibernate/Resposta.hbm.xml"/>
+    <mapping resource="Hibernate/Situacao.hbm.xml"/>
+    <mapping resource="Hibernate/Avaliacao.hbm.xml"/>
+    <mapping resource="Hibernate/Status.hbm.xml"/>
+    <mapping resource="Hibernate/Projeto.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
