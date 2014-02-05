@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 15:44:06 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class name="Hibernate.Situacao" schema="public" table="situacao">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="sequence">
+           <param name="sequence">situacao_id_seq</param>
+      </generator>
+    </id>
+    <property name="descricao" type="string">
+      <column length="50" name="descricao" not-null="true" unique="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="projetos" table="projeto">
+      <key>
+        <column name="id_situacao" not-null="true"/>
+      </key>
+      <one-to-many class="Hibernate.Projeto"/>
+    </set>
+  </class>
+</hibernate-mapping>

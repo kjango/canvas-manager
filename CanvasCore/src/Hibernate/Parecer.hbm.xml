@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/02/2014 15:44:06 by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+  <class name="Hibernate.Parecer" schema="public" table="parecer">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="sequence">
+           <param name="sequence">parecer_id_seq</param>
+      </generator>
+    </id>
+    <many-to-one class="Hibernate.Usuario" fetch="select" name="usuario">
+      <column name="id_admin" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Hibernate.Projeto" fetch="select" name="projeto">
+      <column name="id_projeto" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="Hibernate.Resultado" fetch="select" name="resultado">
+      <column name="id_resultado" not-null="true"/>
+    </many-to-one>
+    <property name="comentario" type="string">
+      <column length="500" name="comentario"/>
+    </property>
+    <property name="criadoEm" type="timestamp">
+      <column length="29" name="criado_em" not-null="true"/>
+    </property>
+    <property name="modificadoEm" type="timestamp">
+      <column length="29" name="modificado_em" not-null="true"/>
+    </property>
+  </class>
+</hibernate-mapping>
