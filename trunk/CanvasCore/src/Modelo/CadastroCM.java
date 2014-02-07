@@ -32,4 +32,5 @@ public class CadastroCM {
         this.credencial = credencial;
     }
     
+    
 }
