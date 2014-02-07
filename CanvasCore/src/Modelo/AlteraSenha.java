@@ -1,10 +1,11 @@
 package Modelo;
 
 /**
- *
+ * Classe de apoio para a função de alteração de senha
  * @author ROSANA
  */
 public class AlteraSenha {
+    
     private String usuario;
     private String senha1;
     private String senha2;
