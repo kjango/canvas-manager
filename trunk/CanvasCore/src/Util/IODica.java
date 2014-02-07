@@ -15,13 +15,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * Classe para efetuar a leitura do arquivo contendo as dicas das perguntas do Canvas
  * @author Rosana
  */
 public class IODica {
     
     private static Map<Integer, String> dicas;
         
+    /**
+     * Método que retorna o texto das dicas
+     * @param pergunta Int contendo o índice da pergunta para aquela dica
+     * @return String contendo a dica
+     * @throws IOException Erros de leitura
+     */
     public static String getText(int pergunta) throws IOException{
         if(dicas == null){
             lerArquivo();

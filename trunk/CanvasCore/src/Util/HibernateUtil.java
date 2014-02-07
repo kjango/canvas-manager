@@ -31,6 +31,10 @@ public class HibernateUtil {
         }
     }
     
+    /**
+     * Método que retorna o factory de sessão
+     * @return
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
