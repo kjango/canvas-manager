@@ -2,6 +2,8 @@ package Hibernate;
 // Generated 05/02/2014 15:44:05 by Hibernate Tools 3.6.0
 
 
+import Util.IODica;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ public class Pergunta  implements java.io.Serializable {
 
      private int id;
      private String descricao;
+     private String dica;
      private Set respostas = new HashSet(0);
 
     public Pergunta() {
@@ -51,7 +54,9 @@ public class Pergunta  implements java.io.Serializable {
         this.respostas = respostas;
     }
 
-
+    public String getDica() throws IOException{
+        return IODica.getText(id);
+    }            
 
 
 }
