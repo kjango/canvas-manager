@@ -10,7 +10,7 @@ package View;
  */
 public class vList extends javax.swing.JFrame {
 
-    String myTitle;
+    private String myTitle;
     /**
      * Creates new form vList
      */
