@@ -9,7 +9,7 @@ import org.hibernate.Session;
  * @author Francisco
  */
 
-public class TipousuarioDAO {
+public class TipoUsuarioDAO {
     
     private Session session;
     
