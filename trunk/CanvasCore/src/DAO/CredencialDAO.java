@@ -1,7 +1,9 @@
 package DAO;
 
 import Hibernate.Credencial;
+import Modelo.Login;
 import Util.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -47,5 +49,26 @@ public class CredencialDAO {
         session.delete(credencial);
         session.getTransaction().commit();
     }
+    
+    public boolean existeCredencial(Login login){
+        /*
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        
+        Query query = session.createQuery("count(*) FROM Credencial where usuaio= :user and senha= :senha");
+        query.setParameter("user", login.getUsuario());
+        query.setParameter("senha", login.getSenha());
+        int result = (int) query.uniqueResult();
+        if(result == 1){
+            return true;
+        }
+        return false;/*/
+        return true;
+    }
+
+    public CredencialDAO() {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+    }
+    
+    
 
 }
