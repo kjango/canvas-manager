@@ -5,9 +5,8 @@
  */
 package Canvas;
 
-import Hibernate.Status;
-import Util.HibernateUtil;
-import org.hibernate.Session;
+import DAO.CredencialDAO;
+import Modelo.Login;
 
 /**
  *
@@ -16,7 +15,6 @@ import org.hibernate.Session;
 public class Canvas {
 
     public static void main(String[] args) {
-        Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         
         //Status status = new Status("Macaco");
         //s.beginTransaction();

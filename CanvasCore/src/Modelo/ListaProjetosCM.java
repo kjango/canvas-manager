@@ -1,8 +1,8 @@
 
 package Modelo;
 
-import Hibernate.Projeto;
-import Hibernate.Usuario;
+import Base.Projeto;
+import Base.Usuario;
 
 /**
  * Classe da camada de modelo para a lista de projetos de um usuário
