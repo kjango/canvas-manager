@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Modelo;
 
 import DAO.CredencialDAO;
@@ -14,9 +13,17 @@ import DAO.UsuarioDAO;
  * @author Rosana
  */
 public class Login {
+
     private String usuario;
     private String senha;
-    private CredencialDAO cred;
+
+    public Login() {
+    }
+
+    public Login(String usuario, String senha) {
+        this.usuario = usuario;
+        this.senha = senha;
+    }
 
     public String getUsuario() {
         return usuario;
@@ -34,13 +41,14 @@ public class Login {
         this.senha = senha;
     }
 
-    public Login() {
-     //  this.cred = new CredencialDAO(); 
+    public boolean logar() {
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        int user = usuarioDao.getIdUsuario(usuario);
+        if (user != -1) {
+            CredencialDAO credencialDao = new CredencialDAO();
+            return (credencialDao.login(user, senha));
+        }
+        return false;
     }
 
-    public Login(String usuario, String senha) {
-        this.usuario = usuario;
-        this.senha = senha;
-    }
-    
 }
