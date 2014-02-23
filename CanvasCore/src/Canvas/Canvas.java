@@ -18,10 +18,10 @@ public class Canvas {
     public static void main(String[] args) {
         Session s = HibernateUtil.getSessionFactory().getCurrentSession();
         
-        Status status = new Status("Macaco");
-        s.beginTransaction();
-        s.save(status);
-        s.getTransaction().commit();
+        //Status status = new Status("Macaco");
+        //s.beginTransaction();
+        //s.save(status);
+        //s.getTransaction().commit();
     }
 
 }

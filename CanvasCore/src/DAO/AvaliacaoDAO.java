@@ -10,6 +10,8 @@ import org.hibernate.Session;
  */
 public class AvaliacaoDAO {
 
+    
+    
     private Session session;
     
     /**
