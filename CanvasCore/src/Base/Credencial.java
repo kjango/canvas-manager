@@ -24,6 +24,10 @@ public class Credencial {
         this.atualizado_em = atualizado_em;
     }
 
+    public Credencial() {
+        
+    }
+
     public int getId_usuario() {
         return id_usuario;
     }
