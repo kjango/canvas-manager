@@ -29,6 +29,7 @@ public class LoginController {
     
     public void logar(){
         boolean resposta = login.logar();       
+        login = new Login();
     }
 
     public LoginController() {
