@@ -22,10 +22,14 @@
                             <p:password value="#{loginController.login.senha}" required="true"/>
 
                             <p:commandButton value="Logar" actionListener="#{loginController.logar()}"/>
-                            <p:commandButton value="Cancelar" type="reset" ajax="false" /> 
+                            <p:commandButton value="Cancelar" type="reset" /> 
+                            
+                            <h:link outcome="esqueciSenha" value="Esqueci a senha" />
+                            <h:link outcome="novoCadastro" value="Novo Cadastro" />
                         </h:panelGrid>
                     </p:panel>
                 </h:panelGrid>
+                
             </h:form>
         </center>
     </h:body>
