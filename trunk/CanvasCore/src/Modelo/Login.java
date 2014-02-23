@@ -39,5 +39,6 @@ public class Login {
     
     public boolean logar(){        
         //return (cred.existeCredencial(this));
+        return true;
     }
 }
