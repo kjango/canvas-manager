@@ -7,6 +7,7 @@
 package Modelo;
 
 import DAO.CredencialDAO;
+import DAO.UsuarioDAO;
 
 /**
  *
@@ -34,11 +35,12 @@ public class Login {
     }
 
     public Login() {
-       this.cred = new CredencialDAO(); 
+     //  this.cred = new CredencialDAO(); 
+    }
+
+    public Login(String usuario, String senha) {
+        this.usuario = usuario;
+        this.senha = senha;
     }
     
-    public boolean logar(){        
-        //return (cred.existeCredencial(this));
-        return true;
-    }
 }

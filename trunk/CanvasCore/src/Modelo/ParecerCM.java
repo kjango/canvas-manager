@@ -1,8 +1,8 @@
 package Modelo;
 
-import Hibernate.Parecer;
-import Hibernate.Resultado;
-import Hibernate.Usuario;
+import Base.Parecer;
+import Base.Resultado;
+import Base.Usuario;
 
 /**
  * Classe da camada de modelo para os pareceres gerados pelos administradores

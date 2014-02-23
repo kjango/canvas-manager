@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package Util;
+package DAO;
 
+import Util.Constantes;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

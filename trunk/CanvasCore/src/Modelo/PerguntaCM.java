@@ -1,7 +1,7 @@
 package Modelo;
 
-import Hibernate.Pergunta;
-import Hibernate.Resposta;
+import Base.Pergunta;
+import Base.Resposta;
 
 /**
  * Classe da camada de modelo para as perguntas

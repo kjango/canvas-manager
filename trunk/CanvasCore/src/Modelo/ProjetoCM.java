@@ -1,9 +1,9 @@
 package Modelo;
 
-import Hibernate.Avaliacao;
-import Hibernate.Projeto;
-import Hibernate.Situacao;
-import Hibernate.Usuario;
+import Base.Avaliacao;
+import Base.Projeto;
+import Base.Situacao;
+import Base.Usuario;
 import java.util.ArrayList;
 
 /**

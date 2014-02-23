@@ -1,7 +1,8 @@
 package Modelo;
 
-import Hibernate.Credencial;
-import Hibernate.Usuario;
+import Base.Credencial;
+import Base.Usuario;
+
 
 /**
  * Classe da Camada de Modelo para cadastro de usuário
