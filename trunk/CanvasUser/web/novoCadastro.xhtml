@@ -28,12 +28,10 @@ and open the template in the editor.
                             <p:inputText id="curso" value="#{cadastro.cadastroCM.usuario.curso}" />
                             <h:outputText value="Data de Conclusao: "/>
                             <p:inputMask id="conclusao" value="#{cadastro.cadastroCM.usuario.data_conclusao_curso}" mask="99/99/9999"/>
-                            <h:outputText value="Concluído: "/>
-                            <p:selectBooleanCheckbox value="#{cadastro.concluido}" />
-
+                            
                             <h:outputText value="Senha: "/>
                             <p:password id="senha" value="#{cadastro.cadastroCM.credencial.senha}"/>
-                            <h:outputText value="Confirmação: "/>
+                            <h:outputText value="Repita a senha: "/>
                             <p:password id="senha2" value="#{cadastro.cadastroCM.credencial.senha2}"/>
                             <p:commandButton value="SALVAR" actionListener="#{cadastro.cadastrar()}"/>
                             <p:commandButton value="LIMPAR" type="reset"/>

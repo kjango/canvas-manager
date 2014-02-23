@@ -18,8 +18,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class CadastroController {
     private CadastroCM cadastroCM;
-    private boolean concluido;
-
+    
     public CadastroCM getCadastroCM() {
         return cadastroCM;
     }
@@ -32,14 +31,6 @@ public class CadastroController {
         cadastroCM = new CadastroCM();
     }
 
-    public boolean isConcluido() {
-        return concluido;
-    }
-
-    public void setConcluido(boolean concluido) {
-        this.concluido = concluido;
-    }
-    
     public void cadastrar(){
         
     }
