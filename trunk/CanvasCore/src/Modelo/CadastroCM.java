@@ -9,17 +9,23 @@ import Base.Usuario;
  * @author ROSANA
  */
 public class CadastroCM {
+    
     private Usuario usuario;
-    private Credencial credencial;
+    private CredencialCM credencial;
 
     /**
      * Construtor da classe
      * @param usuario Objeto usuario
      * @param credencial Objeto credencial
      */
-    public CadastroCM(Usuario usuario, Credencial credencial) {
+    public CadastroCM(Usuario usuario, CredencialCM credencial) {
         this.usuario = usuario;
         this.credencial = credencial;
+    }
+
+    public CadastroCM() {
+        usuario= new Usuario();
+        credencial = new CredencialCM();
     }
 
     /**
@@ -42,7 +48,7 @@ public class CadastroCM {
      * Método que retorna o objeto credencial
      * @return Objeto credencial
      */
-    public Credencial getCredencial() {
+    public CredencialCM getCredencial() {
         return credencial;
     }
 
@@ -50,7 +56,7 @@ public class CadastroCM {
      * Método que define o objeto credencial
      * @param credencial Objeto credencial
      */
-    public void setCredencial(Credencial credencial) {
+    public void setCredencial(CredencialCM credencial) {
         this.credencial = credencial;
     }
     

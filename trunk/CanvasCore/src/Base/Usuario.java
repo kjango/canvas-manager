@@ -37,6 +37,10 @@ public class Usuario {
         this.id_tipo = id_tipo;
     }
 
+    public Usuario() {
+        
+    }
+
     public int getId() {
         return id;
     }
