@@ -15,11 +15,8 @@ import Modelo.Login;
 public class Canvas {
 
     public static void main(String[] args) {
-        
-        //Status status = new Status("Macaco");
-        //s.beginTransaction();
-        //s.save(status);
-        //s.getTransaction().commit();
+        Login login = new Login("Rosana", "teste");
+        System.out.println(login.logar());
     }
 
 }

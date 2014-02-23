@@ -32,15 +32,15 @@ public class ConnectionFactory {
     public static Connection getConnection() {
         Connection con = null;
         try {
-            //Class.forName(driver);
+            Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + host + ":" + port + "/" + database + "?user=" + user + "&password=" + password;
 
             con = DriverManager.getConnection(url);
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
 
             try {
-//                Class.forName(driver);
+                Class.forName("org.postgresql.Driver");
                 System.err.println("conectar ao debian");
                 con = null;
 
