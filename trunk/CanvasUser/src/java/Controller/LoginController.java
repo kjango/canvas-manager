@@ -6,8 +6,6 @@
 package Controller;
 
 import Modelo.Login;
-import java.io.Serializable;
-import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -17,11 +15,9 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name = "loginController")
 @SessionScoped
-public class LoginController implements Serializable {
+public class LoginController {
 
     private Login login;
-    
-    private ArrayList<Login> logins;
 
     public Login getLogin() {
         return login;
@@ -32,13 +28,11 @@ public class LoginController implements Serializable {
     }
     
     public void logar(){
-        login.logar();
-       
+        boolean resposta = login.logar();       
     }
 
     public LoginController() {
-        this.login = new Login();
-        this.logins = new ArrayList();
+        login = new Login();
     }
     
 }
