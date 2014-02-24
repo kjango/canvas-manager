@@ -1,33 +1,42 @@
 package View;
 
-import Modelo.PPerguntaCM;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-
 import java.awt.BorderLayout;
-
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.JTextArea;
-
 import java.awt.Color;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
+import Modelo.PPerguntaCM;
 
 public class PPergunta extends JPanel {
 	
 	private String pergunta;
 	private String resposta;
 	private String dica;
+	private String avaliador;
+	private String comentario;
+	private double nota;
+	private JTextField textFieldNota;
+	private JTextArea txtrResposta;
+	private JTextArea txtrPergunta;
+	private JTextArea txtrAvaliacao;
+
 
 	/**
 	 * Create the panel.
 	 */
-	public PPergunta(PPerguntaCM conteudo) {
+	public PPergunta(PPerguntaCM conteudo, boolean isAvaliacao) {
 		pergunta = conteudo.getPergunta();
 		resposta = conteudo.getResposta();
 		dica = conteudo.getDica();
+		avaliador = conteudo.getAvaliador();
+		comentario = conteudo.getComentario();
+		nota = conteudo.getNota();
 		
 		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setLayout(new BorderLayout(0, 0));
@@ -38,7 +47,7 @@ public class PPergunta extends JPanel {
 		add(panelPergunta, BorderLayout.NORTH);
 		panelPergunta.setLayout(new BorderLayout(0, 0));
 		
-		JTextArea txtrPergunta = new JTextArea();
+		txtrPergunta = new JTextArea();
 		txtrPergunta.setText(pergunta);
 		txtrPergunta.setWrapStyleWord(true);
 		txtrPergunta.setLineWrap(true);
@@ -52,7 +61,7 @@ public class PPergunta extends JPanel {
 		add(panelResposta, BorderLayout.CENTER);
 		panelResposta.setLayout(new BorderLayout(0, 0));
 		
-		JTextArea txtrResposta = new JTextArea();
+		txtrResposta = new JTextArea();
 		txtrResposta.setText(resposta);
 		txtrResposta.setLineWrap(true);
 		txtrResposta.setWrapStyleWord(true);
@@ -60,6 +69,36 @@ public class PPergunta extends JPanel {
 		txtrResposta.setEditable(false);
 		txtrResposta.setColumns(2);
 		panelResposta.add(txtrResposta, BorderLayout.CENTER);
+		
+		JPanel panelAvaliacao = new JPanel();
+		panelAvaliacao.setBorder(new TitledBorder(null, "Avaliação de " + avaliador, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		add(panelAvaliacao, BorderLayout.SOUTH);
+		panelAvaliacao.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelNota = new JPanel();
+		panelAvaliacao.add(panelNota, BorderLayout.EAST);
+		panelNota.setLayout(new BorderLayout(0, 0));
+		
+		JLabel label = new JLabel("Nota:");
+		panelNota.add(label, BorderLayout.NORTH);
+		textFieldNota = new JTextField();
+		
+		textFieldNota.setToolTipText("De 0 a 10");
+		textFieldNota.setText(String.valueOf(nota));
+		textFieldNota.setColumns(10);
+		panelNota.add(textFieldNota, BorderLayout.SOUTH);
+		
+		txtrAvaliacao = new JTextArea();
+		txtrAvaliacao.setWrapStyleWord(true);
+		txtrAvaliacao.setText(comentario);
+		txtrAvaliacao.setLineWrap(true);
+		txtrAvaliacao.setColumns(2);
+		panelAvaliacao.add(txtrAvaliacao, BorderLayout.CENTER);
+		
+		if(isAvaliacao){
+			textFieldNota.setEnabled(true);
+			txtrAvaliacao.setEnabled(true);
+		}
 
 	}
 
