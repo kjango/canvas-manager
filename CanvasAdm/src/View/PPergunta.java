@@ -48,6 +48,7 @@ public class PPergunta extends JPanel {
 		panelPergunta.setLayout(new BorderLayout(0, 0));
 		
 		txtrPergunta = new JTextArea();
+		txtrPergunta.setToolTipText(dica);
 		txtrPergunta.setText(pergunta);
 		txtrPergunta.setWrapStyleWord(true);
 		txtrPergunta.setLineWrap(true);
@@ -95,10 +96,8 @@ public class PPergunta extends JPanel {
 		txtrAvaliacao.setColumns(2);
 		panelAvaliacao.add(txtrAvaliacao, BorderLayout.CENTER);
 		
-		if(isAvaliacao){
-			textFieldNota.setEnabled(true);
-			txtrAvaliacao.setEnabled(true);
-		}
+		textFieldNota.setEditable(isAvaliacao);
+		txtrAvaliacao.setEditable(isAvaliacao);
 
 	}
 

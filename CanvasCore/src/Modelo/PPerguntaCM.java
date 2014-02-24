@@ -4,18 +4,20 @@ public class PPerguntaCM {
 	private String pergunta;
 	private String resposta;
 	private String dica;
+	private String grupo;
 //	private String nomeProjeto;
 //	private String autor;
 	private String avaliador;
 	private String comentario;
 	private double nota;
-	
+
 	public PPerguntaCM(String pergunta, String resposta, String dica,
-			String avaliador, String comentario, double nota) {
+			String grupo, String avaliador, String comentario, double nota) {
 		super();
 		this.pergunta = pergunta;
 		this.resposta = resposta;
 		this.dica = dica;
+		this.grupo = grupo;
 		this.avaliador = avaliador;
 		this.comentario = comentario;
 		this.nota = nota;
@@ -67,6 +69,14 @@ public class PPerguntaCM {
 
 	public void setNota(double nota) {
 		this.nota = nota;
+	}
+
+	public String getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(String grupo) {
+		this.grupo = grupo;
 	}
 	
 	
