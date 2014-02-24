@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-import Modelo.VPrincipalProjetosCM;
+import Modelo.PProjetoCM;
 
 
 public class PProjeto extends JPanel {
@@ -21,12 +21,12 @@ public class PProjeto extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PProjeto(VPrincipalProjetosCM conteudo) {
+	public PProjeto(PProjetoCM conteudo) {
 		this.liderProjeto = conteudo.getLiderProjeto();
 		this.nomeProjeto = conteudo.getNomeProjeto();
 		this.statusProjeto = conteudo.getStatusProjeto();
 		
-		setBorder(new TitledBorder(null, "Líder: " + liderProjeto, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(null, "LÃ­der: " + liderProjeto, TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
