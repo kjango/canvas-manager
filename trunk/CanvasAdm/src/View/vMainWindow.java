@@ -6,7 +6,7 @@ package View;
 
 /**
  *
- * @author kji
+ * @author kjia
  */
 public class vMainWindow extends javax.swing.JFrame {
 
