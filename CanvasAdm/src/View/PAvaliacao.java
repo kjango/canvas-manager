@@ -1,13 +1,17 @@
 package View;
 
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+
+import Modelo.PAvaliacaoCM;
 
 public class PAvaliacao extends JPanel {
 	private JTextField textFieldNota;
@@ -18,12 +22,12 @@ public class PAvaliacao extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PAvaliacao(Abano conteudo) {
-		avaliador = conteudo.avaliador;
-		comentario = conteudo.comentario;
-		nota = conteudo.nota;
+	public PAvaliacao(PAvaliacaoCM conteudo) {
+		avaliador = conteudo.getAvaliador();
+		comentario = conteudo.getComentario();
+		nota = conteudo.getNota();
 		
-		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Avaliação de " + avaliador, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "AvaliaÃ§Ã£o de " + avaliador, TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelNota = new JPanel();

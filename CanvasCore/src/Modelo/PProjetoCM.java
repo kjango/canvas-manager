@@ -1,12 +1,12 @@
 package Modelo;
 
-public class VPrincipalProjetosCM {
+public class PProjetoCM {
 	
     private String statusProjeto;
     private String liderProjeto;
     private String nomeProjeto;
     
-	public VPrincipalProjetosCM(String statusProjeto, String liderProjeto,
+	public PProjetoCM(String statusProjeto, String liderProjeto,
 			String nomeProjeto) {
 		super();
 		this.statusProjeto = statusProjeto;

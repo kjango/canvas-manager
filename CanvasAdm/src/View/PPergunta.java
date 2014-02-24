@@ -1,14 +1,19 @@
 package View;
 
+import Modelo.PPerguntaCM;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import java.awt.BorderLayout;
+
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextArea;
+
 import java.awt.Color;
+
 import javax.swing.border.TitledBorder;
+
 
 public class PPergunta extends JPanel {
 	
@@ -19,10 +24,10 @@ public class PPergunta extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PPergunta(Abaco conteudo) {
-		pergunta = conteudo.pergunta;
-		resposta = conteudo.resposta;
-		dica = conteudo.dica;
+	public PPergunta(PPerguntaCM conteudo) {
+		pergunta = conteudo.getPergunta();
+		resposta = conteudo.getResposta();
+		dica = conteudo.getDica();
 		
 		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setLayout(new BorderLayout(0, 0));
