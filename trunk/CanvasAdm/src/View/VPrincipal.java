@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -13,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 import Modelo.PProjetoCM;
 
