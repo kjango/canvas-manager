@@ -1,5 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package View;
 
+/**
+ *
+ * @author falbernaz
+ */
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -16,14 +25,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-import Modelo.PPerguntaAvaliacaoCM;
+import Modelo.PPerguntaCM;
 
-public class VAvaliacao extends JFrame {
+public class VPergunta extends JFrame {
 
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
     private JButton btnEnviar;
-    private boolean isAvaliacao;
 
     /**
      * Launch the application.
@@ -32,17 +40,17 @@ public class VAvaliacao extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> hasha = new HashMap<>();
+                HashMap<String, ArrayList<PPerguntaCM>> hasha = new HashMap<>();
                 for (int i = 0; i < 20; i++) {
-                    ArrayList<PPerguntaAvaliacaoCM> aba = new ArrayList<PPerguntaAvaliacaoCM>();
+                    ArrayList<PPerguntaCM> aba = new ArrayList<PPerguntaCM>();
                     for (int j = 0; j < 100; j++) {
-                        aba.add(new PPerguntaAvaliacaoCM("pergunta" + j, "resposta" + j, "dica" + j, "grupo" + i, "avaliador" + i, "comentario" + 1, (double) j));
+                        aba.add(new PPerguntaCM("pergunta" + j, "resposta" + j, "dica" + j, "grupo" + i));
                     }
                     hasha.put("grupo" + i, aba);
                 }
 
                 try {
-                    VAvaliacao frame = new VAvaliacao(hasha, "projetoso", false);
+                    VPergunta frame = new VPergunta(hasha, "projetoso");
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -54,8 +62,7 @@ public class VAvaliacao extends JFrame {
     /**
      * Create the frame.
      */
-    public VAvaliacao(HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> conteudo, String nomeProjeto, Boolean isAvaliacao) {
-        this.isAvaliacao = isAvaliacao;
+    public VPergunta(HashMap<String, ArrayList<PPerguntaCM>> conteudo, String nomeProjeto) {
         setTitle(nomeProjeto);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 655, 455);
@@ -83,10 +90,9 @@ public class VAvaliacao extends JFrame {
 
         atualiza(conteudo);
 
-
     }
 
-    public void atualiza(HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> conteudo) {
+    public void atualiza(HashMap<String, ArrayList<PPerguntaCM>> conteudo) {
 
         JPanel jpOuter = null;
         JPanel jpInner = null;
@@ -110,8 +116,8 @@ public class VAvaliacao extends JFrame {
             sp.setViewportView(jpInner);
             jpInner.setLayout(new GridLayout(0, 1, 0, 0));
 
-            for (PPerguntaAvaliacaoCM cont : conteudo.get(grupoPergunta)) {
-                jpInner.add(new PPerguntaAvaliacao(cont, isAvaliacao));
+            for (PPerguntaCM cont : conteudo.get(grupoPergunta)) {
+                jpInner.add(new PPergunta(cont));
             }
         }
     }
