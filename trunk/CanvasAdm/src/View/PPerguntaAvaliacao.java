@@ -1,40 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
-/**
- *
- * @author falbernaz
- */
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
-import Modelo.PPerguntaCM;
+import Modelo.PPerguntaAvaliacaoCM;
 
-public class PPergunta extends JPanel {
+public class PPerguntaAvaliacao extends JPanel {
 
     private String pergunta;
     private String resposta;
     private String dica;
+    private String avaliador;
+    private String comentario;
+    private double nota;
+    private JTextField textFieldNota;
     private JTextArea txtrResposta;
     private JTextArea txtrPergunta;
+    private JTextArea txtrAvaliacao;
 
     /**
      * Create the panel.
      */
-    public PPergunta(PPerguntaCM conteudo) {
+    public PPerguntaAvaliacao(PPerguntaAvaliacaoCM conteudo, boolean isAvaliacao) {
         pergunta = conteudo.getPergunta();
         resposta = conteudo.getResposta();
         dica = conteudo.getDica();
+        avaliador = conteudo.getAvaliador();
+        comentario = conteudo.getComentario();
+        nota = conteudo.getNota();
 
         setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
         setLayout(new BorderLayout(0, 0));
@@ -64,9 +65,38 @@ public class PPergunta extends JPanel {
         txtrResposta.setText(resposta);
         txtrResposta.setLineWrap(true);
         txtrResposta.setWrapStyleWord(true);
-        txtrResposta.setBackground(new Color(255, 255, 255));
+        txtrResposta.setBackground(new Color(240, 240, 240));
+        txtrResposta.setEditable(false);
         txtrResposta.setColumns(2);
         panelResposta.add(txtrResposta, BorderLayout.CENTER);
+
+        JPanel panelAvaliacao = new JPanel();
+        panelAvaliacao.setBorder(new TitledBorder(null, "Avaliação de " + avaliador, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        add(panelAvaliacao, BorderLayout.SOUTH);
+        panelAvaliacao.setLayout(new BorderLayout(0, 0));
+
+        JPanel panelNota = new JPanel();
+        panelAvaliacao.add(panelNota, BorderLayout.EAST);
+        panelNota.setLayout(new BorderLayout(0, 0));
+
+        JLabel label = new JLabel("Nota:");
+        panelNota.add(label, BorderLayout.NORTH);
+        textFieldNota = new JTextField();
+
+        textFieldNota.setToolTipText("De 0 a 10");
+        textFieldNota.setText(String.valueOf(nota));
+        textFieldNota.setColumns(10);
+        panelNota.add(textFieldNota, BorderLayout.SOUTH);
+
+        txtrAvaliacao = new JTextArea();
+        txtrAvaliacao.setWrapStyleWord(true);
+        txtrAvaliacao.setText(comentario);
+        txtrAvaliacao.setLineWrap(true);
+        txtrAvaliacao.setColumns(2);
+        panelAvaliacao.add(txtrAvaliacao, BorderLayout.CENTER);
+
+        textFieldNota.setEditable(isAvaliacao);
+        txtrAvaliacao.setEditable(isAvaliacao);
 
     }
 

@@ -1,15 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Modelo;
 
-/**
- *
- * @author falbernaz
- */
-public class PPerguntaCM {
+public class PPerguntaAvaliacaoCM {
 
     private String pergunta;
     private String resposta;
@@ -17,15 +8,20 @@ public class PPerguntaCM {
     private String grupo;
 //	private String nomeProjeto;
 //	private String autor;
+    private String avaliador;
+    private String comentario;
+    private double nota;
 
-    public PPerguntaCM(String pergunta, String resposta, String dica,
-        String grupo) {
+    public PPerguntaAvaliacaoCM(String pergunta, String resposta, String dica,
+        String grupo, String avaliador, String comentario, double nota) {
         super();
         this.pergunta = pergunta;
         this.resposta = resposta;
         this.dica = dica;
         this.grupo = grupo;
-
+        this.avaliador = avaliador;
+        this.comentario = comentario;
+        this.nota = nota;
     }
 
     public String getPergunta() {
@@ -50,6 +46,30 @@ public class PPerguntaCM {
 
     public void setDica(String dica) {
         this.dica = dica;
+    }
+
+    public String getAvaliador() {
+        return avaliador;
+    }
+
+    public void setAvaliador(String avaliador) {
+        this.avaliador = avaliador;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public double getNota() {
+        return nota;
+    }
+
+    public void setNota(double nota) {
+        this.nota = nota;
     }
 
     public String getGrupo() {
