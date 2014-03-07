@@ -18,6 +18,10 @@ import javax.swing.border.EmptyBorder;
 
 import Modelo.PPerguntaAvaliacaoCM;
 
+/**
+ * View usada para a avaliação e parecer de um projeto.
+ * @author Francisco
+ */
 public class VAvaliacao extends JFrame {
 
     private JPanel contentPane;
@@ -26,7 +30,8 @@ public class VAvaliacao extends JFrame {
     private boolean isAvaliacao;
 
     /**
-     * Launch the application.
+     * Main usada para testes.
+     * @param args argumentos.
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -52,7 +57,10 @@ public class VAvaliacao extends JFrame {
     }
 
     /**
-     * Create the frame.
+     * Cria o frame.
+     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (a pergunta, a resposta e a dica da pergunta, grupo da pergunta, avaliador, nota e comentário).
+     * @param nomeProjeto String contendo o nome do projeto.
+     * @param isAvaliacao Boolean indicando se é uma avaliação ou um parecer.
      */
     public VAvaliacao(HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> conteudo, String nomeProjeto, Boolean isAvaliacao) {
         this.isAvaliacao = isAvaliacao;
@@ -86,6 +94,10 @@ public class VAvaliacao extends JFrame {
 
     }
 
+    /**
+     * Método para atualizar toda a view.
+     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (a pergunta, a resposta e a dica da pergunta, grupo da pergunta, avaliador, nota e comentário).
+     */
     public void atualiza(HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> conteudo) {
 
         JPanel jpOuter = null;

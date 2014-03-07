@@ -20,8 +20,13 @@ import javax.swing.border.TitledBorder;
 
 import Modelo.PPerguntaCM;
 
+/**
+ * Classe utilizada para exibir as perguntas e respostas do Canvas. Ela ajuda a compor a view principal.
+ * @author Francisco
+ */
 public class PPergunta extends JPanel {
 
+    
     private String pergunta;
     private String resposta;
     private String dica;
@@ -29,7 +34,8 @@ public class PPergunta extends JPanel {
     private JTextArea txtrPergunta;
 
     /**
-     * Create the panel.
+     * Cria o panel.
+     * @param conteudo Objeto da camada de modelo contendo tudo o que é necessário para esse panel (a pergunta, a resposta e a dica da pergunta)
      */
     public PPergunta(PPerguntaCM conteudo) {
         pergunta = conteudo.getPergunta();

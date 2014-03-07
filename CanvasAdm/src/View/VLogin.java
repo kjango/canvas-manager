@@ -11,14 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.Dimension;
 
+/**
+ * View para o login dos usuários.
+ * @author Francisco
+ */
 public class VLogin extends JFrame {
 
 	private JPanel contentPane;
@@ -26,7 +25,8 @@ public class VLogin extends JFrame {
 	private JPasswordField passwordField;
 
 	/**
-	 * Launch the application.
+	 * Main usada para testes.
+         * @param args Argumentos.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -42,7 +42,7 @@ public class VLogin extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Construtor da classe.
 	 */
 	public VLogin() {
 		setTitle("Canvas Manager");

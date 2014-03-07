@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
 
-/**
- *
- * @author falbernaz
- */
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -27,6 +18,10 @@ import javax.swing.border.EmptyBorder;
 
 import Modelo.PPerguntaCM;
 
+/**
+ * Classe contendo a view para o preenchimento das respostas às perguntas do canvas.
+ * @author Francisco
+ */
 public class VPergunta extends JFrame {
 
     private JPanel contentPane;
@@ -34,7 +29,8 @@ public class VPergunta extends JFrame {
     private JButton btnEnviar;
 
     /**
-     * Launch the application.
+     * Main usada para testes.
+     * @param args Argumentos.
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -60,7 +56,9 @@ public class VPergunta extends JFrame {
     }
 
     /**
-     * Create the frame.
+     * Construtor da classe.
+     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (a pergunta, a resposta e a dica da pergunta e o grupo da pergunta).
+     * @param nomeProjeto Nome do projeto.
      */
     public VPergunta(HashMap<String, ArrayList<PPerguntaCM>> conteudo, String nomeProjeto) {
         setTitle(nomeProjeto);
@@ -92,6 +90,10 @@ public class VPergunta extends JFrame {
 
     }
 
+    /**
+     * Método para atualizar toda a view.
+     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (a pergunta, a resposta e a dica da pergunta e o grupo da pergunta).
+     */
     public void atualiza(HashMap<String, ArrayList<PPerguntaCM>> conteudo) {
 
         JPanel jpOuter = null;
