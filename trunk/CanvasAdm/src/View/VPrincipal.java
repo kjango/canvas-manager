@@ -15,13 +15,18 @@ import javax.swing.border.EmptyBorder;
 
 import Modelo.PProjetoCM;
 
+/**
+ * View principal, que mostra a lista de projetos disponíveis.
+ * @author Francisco
+ */
 public class VPrincipal extends JFrame {
 
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
 
     /**
-     * Launch the application.
+     * Main para testes.
+     * @param args Argumentos.
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -48,7 +53,8 @@ public class VPrincipal extends JFrame {
     }
 
     /**
-     * Create the frame.
+     * Construtor da classe.
+     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (o líder do projeto, o nome do projeto e o status do projeto).
      */
     public VPrincipal(HashMap<String, ArrayList<PProjetoCM>> conteudo) {
         setTitle("Canvas Manager");
@@ -65,6 +71,10 @@ public class VPrincipal extends JFrame {
         atualiza(conteudo);
     }
 
+    /**
+     * Método para atualizar toda a view.
+     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (o líder do projeto, o nome do projeto e o status do projeto).
+     */
     public void atualiza(HashMap<String, ArrayList<PProjetoCM>> conteudo){
 
         JPanel jpOuter = null;

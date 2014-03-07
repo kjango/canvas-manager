@@ -12,6 +12,10 @@ import javax.swing.border.TitledBorder;
 
 import Modelo.PProjetoCM;
 
+/**
+ * Classe com o panel usado na view VPrincipal, para a listagem dos projetos disponíveis.
+ * @author Francisco
+ */
 public class PProjeto extends JPanel {
 
     private String liderProjeto;
@@ -19,7 +23,8 @@ public class PProjeto extends JPanel {
     private String statusProjeto;
 
     /**
-     * Create the panel.
+     * Cria o panel.
+     * @param conteudo Objeto da camada de modelo contendo tudo o que é necessário para esse panel (nome do líder do projeto, nome do projeto e status do projeto)
      */
     public PProjeto(PProjetoCM conteudo) {
         this.liderProjeto = conteudo.getLiderProjeto();
