@@ -6,6 +6,7 @@
 package Canvas;
 
 import DAO.CredencialDAO;
+import DAO.StatusDAO;
 import Modelo.Login;
 
 /**

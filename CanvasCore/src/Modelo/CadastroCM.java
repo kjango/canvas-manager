@@ -1,7 +1,7 @@
 package Modelo;
 
-import Base.Credencial;
 import Base.Usuario;
+import DAO.UsuarioDAO;
 
 
 /**
@@ -58,6 +58,11 @@ public class CadastroCM {
      */
     public void setCredencial(CredencialCM credencial) {
         this.credencial = credencial;
+    }
+    
+    public void salvar(){
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        int id = usuarioDao.salvar(usuario);        
     }
     
     
