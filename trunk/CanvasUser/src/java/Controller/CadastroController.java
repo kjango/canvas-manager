@@ -6,7 +6,10 @@
 
 package Controller;
 
+import Modelo.BuscarStatus;
 import Modelo.CadastroCM;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -18,6 +21,14 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class CadastroController {
     private CadastroCM cadastroCM;
+    private List<String> status;
+
+    public List<String> getStatus() {
+        status = new ArrayList();
+        BuscarStatus buscar = new BuscarStatus();
+        status = buscar.getStatus();
+        return status;
+    }
     
     public CadastroCM getCadastroCM() {
         return cadastroCM;
@@ -32,6 +43,6 @@ public class CadastroController {
     }
 
     public void cadastrar(){
-        
+        cadastroCM.salvar();
     }
 }
