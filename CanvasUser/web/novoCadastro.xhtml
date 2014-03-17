@@ -26,9 +26,9 @@ and open the template in the editor.
                             <p:inputText id="nome" value="#{cadastro.cadastroCM.usuario.nome}" required="true"/>
                             <h:outputText value="Curso: "/>
                             <p:inputText id="curso" value="#{cadastro.cadastroCM.usuario.curso}" />
-                            <h:outputLabel for="city" value="Status do Curso:" />
+                            <h:outputLabel for="status" value="Status do Curso:" />
                             <h:selectOneMenu id="status" value="#{cadastro.status_curso}" required="true">
-                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="Selecione" itemValue="" />
                                 <f:selectItems value="#{cadastro.status}" />
                             </h:selectOneMenu>
                             <h:outputText value="Data de Conclusao: "/>

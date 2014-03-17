@@ -53,8 +53,9 @@ public class CadastroController {
     }
 
     public void cadastrar(){
-        
-       cadastroCM.getUsuario().setStatus_curso(buscar.getStatus().get(this.status_curso));
-        cadastroCM.salvar();
+        //if(cadastroCM.getCredencial().getSenha().equalsIgnoreCase(cadastroCM.getCredencial().getSenha2())){
+            cadastroCM.getUsuario().setStatus_curso(buscar.getStatus().get(this.status_curso));
+            cadastroCM.salvar();
+     //   }
     }
 }
