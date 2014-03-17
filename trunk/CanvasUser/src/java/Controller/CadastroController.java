@@ -22,11 +22,13 @@ import javax.faces.bean.ViewScoped;
 public class CadastroController {
     private CadastroCM cadastroCM;
     private List<String> status;
+    private String status_curso;
+    private BuscarStatus buscar;
 
     public List<String> getStatus() {
         status = new ArrayList();
-        BuscarStatus buscar = new BuscarStatus();
-        status = buscar.getStatus();
+        buscar = new BuscarStatus();
+        status = new ArrayList(buscar.getAllStatus().keySet());
         return status;
     }
     
@@ -38,11 +40,21 @@ public class CadastroController {
         this.cadastroCM = cadastroCM;
     }
 
+    public void setStatus_curso(String status_curso) {
+        this.status_curso = status_curso;
+    }
+
+    public String getStatus_curso() {
+        return status_curso;
+    }
+        
     public CadastroController() {
         cadastroCM = new CadastroCM();
     }
 
     public void cadastrar(){
+        
+       cadastroCM.getUsuario().setStatus_curso(buscar.getStatus().get(this.status_curso));
         cadastroCM.salvar();
     }
 }
