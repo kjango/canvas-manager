@@ -9,7 +9,9 @@ package Modelo;
 import Base.Status;
 import DAO.StatusDAO;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -17,17 +19,18 @@ import java.util.List;
  */
 public class BuscarStatus {
     
-    private List<Status> status;
+    private Map<String, Integer>  status;
     
-    public List<String> getStatus(){
+    public Map<String, Integer>  getAllStatus(){
         StatusDAO statusDao = new StatusDAO();
-        status = new ArrayList();
+       // status = new HashMap<Integer, String> ();
         status = statusDao.getAllStatus();
-        List<String> descricoes = new ArrayList();
-        for(Status t : this.status){
-            descricoes.add(t.getDescricao());
-        }
-        return descricoes;
+        return status;        
     }
+
+    public Map<String, Integer> getStatus() {
+        return status;
+    }
+    
     
 }
