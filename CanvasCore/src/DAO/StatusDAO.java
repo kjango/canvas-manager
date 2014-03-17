@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -21,20 +23,19 @@ public class StatusDAO {
     
     }
 
-    public List<Status> getAllStatus() {
+    public Map<String, Integer> getAllStatus() {
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT * FROM status;";
         
         ResultSet rs;
-        List<Status> resultado = new ArrayList();
+        Map<String, Integer> resultado = new HashMap<String, Integer>();
         
         try {
             CallableStatement stmt = con.prepareCall(query);            
             rs = stmt.executeQuery();
-            if(rs.next())
+            while(rs.next())
             {
-                Status st = new Status(rs.getInt("id"), rs.getString("descricao"));
-                resultado.add(st);
+                resultado.put(rs.getString("descricao"), rs.getInt("id"));
             }
             
         } catch (SQLException e) {

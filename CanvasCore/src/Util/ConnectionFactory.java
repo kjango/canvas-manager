@@ -25,14 +25,16 @@ public class ConnectionFactory {
 
 
     public static Connection getConnection() {
-        Connection con = null;
+        //Connection con = null;
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + host + ":" + port + "/" + database + "?user=" + user + "&password=" + password;
 
-            con = DriverManager.getConnection(url);
+             
+            return DriverManager.getConnection(url);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
+            //e.printStackTrace();
 
 //            try {
 //                Class.forName("org.postgresql.Driver");
@@ -49,6 +51,6 @@ public class ConnectionFactory {
 
 
         }
-        return con;
+      
     }
 }
