@@ -6,10 +6,19 @@
 
 package Controller;
 
+import Base.Projeto;
+import DAO.ProjetoDAO;
+
 /**
  *
  * @author falbernaz
  */
 public class ProjetoController {
+
+    public int inserir(String nomeProj, int idLider) {
+        Projeto projeto = new Projeto(nomeProj, idLider);
+        ProjetoDAO pd = new ProjetoDAO();
+        return pd.inserir(projeto);
+    }
     
 }

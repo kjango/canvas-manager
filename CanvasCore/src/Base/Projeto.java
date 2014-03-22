@@ -30,6 +30,11 @@ public class Projeto {
         this.atualizado_em = atualizado_em;
     }
 
+    public Projeto(String nomeProj, int idLider) {
+        this.nome = nomeProj;
+        this.lider = idLider;
+    }
+
     public int getId() {
         return id;
     }
