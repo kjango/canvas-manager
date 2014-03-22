@@ -114,6 +114,28 @@ public class UsuarioDAO {
         }
         return projetos;
     }
+
+    public boolean podeCriar(int id) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT count FROM projeto where id in (SELECT id_projeto FROM equipe where lider = ?) and ;";
+
+        ResultSet rs;
+        ArrayList<Integer> projetos = null;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, id_usuario);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                projetos.add(rs.getInt("id"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do UsuarioDAO.getProjetosParticipa");
+            e.printStackTrace();
+        }
+        return projetos;
+    }
     
    
 }
