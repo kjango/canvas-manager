@@ -16,7 +16,7 @@ and open the template in the editor.
     <body>
         <center>
             <h:form id="cadast">
-                <p:messages autoUpdate="true"/>
+                <p:messages autoUpdate="true" closable="true"/>
                 <h:panelGrid>
                     <p:panel header="Cadastrar Usuario">
                         <h:panelGrid columns="2" cellpadding="7">
@@ -25,7 +25,7 @@ and open the template in the editor.
                             <h:outputText value="Nome: "/>
                             <p:inputText id="nome" value="#{cadastro.cadastroCM.usuario.nome}" required="true"/>
                             <h:outputText value="Curso: "/>
-                            <p:inputText id="curso" value="#{cadastro.cadastroCM.usuario.curso}" />
+                            <p:inputText id="curso" value="#{cadastro.cadastroCM.usuario.curso}" required="true"/>
                             <h:outputLabel for="status" value="Status do Curso:" />
                             <h:selectOneMenu id="status" value="#{cadastro.status_curso}" required="true">
                                 <f:selectItem itemLabel="Selecione" itemValue="" />
@@ -38,8 +38,10 @@ and open the template in the editor.
                             <p:password id="senha" value="#{cadastro.cadastroCM.credencial.senha}" required="true"/>
                             <h:outputText value="Repita a senha: "/>
                             <p:password id="senha2" value="#{cadastro.cadastroCM.credencial.senha2}" required="true"/>
-                            <p:commandButton value="SALVAR" actionListener="#{cadastro.cadastrar()}"/>
+                            <p:commandButton value="SALVAR" action="#{cadastro.cadastrar}" onclick="execute"/>
                             <p:commandButton value="LIMPAR" type="reset"/>
+                            
+                            <h:link outcome="index" value="HOME" />
                         </h:panelGrid>
                     </p:panel>
                 </h:panelGrid>

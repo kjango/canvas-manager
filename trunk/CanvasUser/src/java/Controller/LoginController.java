@@ -27,9 +27,10 @@ public class LoginController {
         this.login = login;
     }
     
-    public void logar(){
+    public String logar(){
         boolean resposta = login.logar();       
         login = new Login();
+        return "logado.xhmtl?userSession=value1&facesRedirect=true";
     }
 
     public LoginController() {

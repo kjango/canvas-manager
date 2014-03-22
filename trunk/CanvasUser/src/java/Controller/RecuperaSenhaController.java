@@ -27,4 +27,7 @@ public class RecuperaSenhaController {
         this.email = email;
     }
     
+    public void cadastrar(){
+        this.email = "Email enviado para " + email;
+    }
 }

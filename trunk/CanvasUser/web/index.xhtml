@@ -21,7 +21,8 @@
                             <h:outputText value="Senha:" />
                             <p:password value="#{loginController.login.senha}" required="true"/>
 
-                            <p:commandButton value="Logar" actionListener="#{loginController.logar()}"/>
+                            <p:commandButton value="Logar" action="#{loginController.logar}" onclick="execute"/>
+                            
                             <p:commandButton value="Cancelar" type="reset" /> 
                             
                             <h:link outcome="esqueciSenha" value="Esqueci a senha" />
