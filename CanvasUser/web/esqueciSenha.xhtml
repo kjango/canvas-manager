@@ -15,17 +15,17 @@ and open the template in the editor.
     </h:head>
     <body>
         <center>
-            <h:form id="cadast">
+            <h:form id="cadast">  
                 <p:messages autoUpdate="true"/>
                 <h:panelGrid>
                     <p:panel header="Recuperar Senha">
                         <h:panelGrid columns="2" cellpadding="7">
                             <h:outputText value="Email: "/>
                             <p:inputText id="email" value="#{recupera.email}"/>
-                            <p:commandButton value="ENVIAR" type="update"/>
-                            <p:commandButton value="CANCELAR" type="reset"/>
-                            
-                            <h:outputText id="conf" value="Email enviado para #{recupera.email} "/>
+                            <p:commandButton value="ENVIAR" type="update, reset" update="conf" resetValues="true" actionListener="#{recupera.cadastrar()}"/>
+                            <p:commandButton value="CANCELAR" type="reset" update="conf"/>                            
+                            <h:outputText id="conf" value="#{recupera.email}" />
+                            <h:link outcome="index" value="HOME" />
                         </h:panelGrid>
                     </p:panel>
                 </h:panelGrid>
