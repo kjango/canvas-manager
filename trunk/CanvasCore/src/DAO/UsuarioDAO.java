@@ -39,7 +39,7 @@ public class UsuarioDAO {
         return cod;
     }
 
-    public int salvar(Usuario usuario) {
+    public int inserir(Usuario usuario) {
         Connection con = ConnectionFactory.getConnection();
         String query = "INSERT INTO usuario (nome, email, curso, status_curso, data_conclusao_curso, id_tipo) values(?,?,?,?,?,1) returnin id;";
 
@@ -59,9 +59,10 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
+            System.out.println("Erro no SQL do UsuarioDAO.inserir");
+            e.printStackTrace();     
             throw new RuntimeException(e);
-            //System.out.println("Erro no SQL do getIdUsuario");
-            //e.printStackTrace();            
+       
         }
         return cod;
     }
