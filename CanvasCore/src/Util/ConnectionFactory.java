@@ -22,15 +22,12 @@ public class ConnectionFactory {
     private static final String host = "localhost";
     private static final String port = "5432";
     
-
-
     public static Connection getConnection() {
         //Connection con = null;
         try {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://" + host + ":" + port + "/" + database + "?user=" + user + "&password=" + password;
-
-             
+            
             return DriverManager.getConnection(url);
         } catch (Exception e) {
             throw new RuntimeException(e);

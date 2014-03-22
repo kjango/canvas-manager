@@ -6,6 +6,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  * Classe responsável pelas operações de Banco de Dados para os objetos do tipo
@@ -17,7 +18,7 @@ public class CredencialDAO {
 
     public boolean login(int user, String senha) {
         Connection con = ConnectionFactory.getConnection();
-        String query = "SELECT count(*) as soma FROM credencial where id=? and senha=?;";
+        String query = "SELECT count(*) as soma FROM credencial where id_usuario=? and senha=?;";
 
         ResultSet rs;
         int cod = -1;
@@ -61,5 +62,4 @@ public class CredencialDAO {
         }
         return cod;
     }
-
 }
