@@ -7,6 +7,9 @@
 package Base;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -81,12 +84,20 @@ public class Usuario {
         this.status_curso = status_curso;
     }
 
-    public Date getData_conclusao_curso() {
+    public Date getData_conclusao_curso_Date() {
         return data_conclusao_curso;
     }
 
-    public void setData_conclusao_curso(Date data_conclusao_curso) {
-        this.data_conclusao_curso = data_conclusao_curso;
+    public String getData_conclusao_curso() {
+        if(data_conclusao_curso == null){
+            return "";
+        }
+        return data_conclusao_curso.toString();
+    }
+    
+    public void setData_conclusao_curso(String data_conclusao_curso) throws ParseException {       
+        DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+        this.data_conclusao_curso = new java.sql.Date(fmt.parse(data_conclusao_curso).getTime());
     }
 
     public Date getData_registro() {
