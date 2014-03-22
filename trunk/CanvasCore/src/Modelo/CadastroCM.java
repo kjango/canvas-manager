@@ -64,10 +64,31 @@ public class CadastroCM {
     public void salvar(){
         UsuarioDAO usuarioDao = new UsuarioDAO();
         int id = usuarioDao.inserir(usuario);  
-        credencial.setId_usuario(id);
-        CredencialDAO credencialDao = new CredencialDAO();
-        int result = credencialDao.salvar(credencial);
+        if(id == -1)
+        {
+            throw new RuntimeException();
+        }
+        else
+        {
+            credencial.setId_usuario(id);
+            CredencialDAO credencialDao = new CredencialDAO();
+            int result = credencialDao.salvar(credencial);
+        }
+    }
+
+    public int validarUsuario() {
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        return usuarioDao.validarUsuario(usuario.getEmail()); 
+    }
+
+    public boolean validarStatusCurso(String status_curso) {
         
+        if(status_curso.equalsIgnoreCase("Em Curso") && usuario.getData_conclusao_curso_Date().after(new java.sql.Date(new java.util.Date().getTime())) ||
+           status_curso.equalsIgnoreCase("Concluido") && usuario.getData_conclusao_curso_Date().before(new java.sql.Date(new java.util.Date().getTime()))){
+                return true;            
+        }
+        return false;
+            
     }
     
     

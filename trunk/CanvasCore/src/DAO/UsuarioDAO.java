@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 /**
  * Classe responsável pelas operações de Banco de Dados para os objetos do tipo
  * Usuario
@@ -40,8 +41,9 @@ public class UsuarioDAO {
     }
 
     public int inserir(Usuario usuario) {
+        
         Connection con = ConnectionFactory.getConnection();
-        String query = "INSERT INTO usuario (nome, email, curso, status_curso, data_conclusao_curso, id_tipo) values(?,?,?,?,?,1) returnin id;";
+        String query = "INSERT INTO usuario (nome, email, curso, status_curso, data_conclusao_curso, id_tipo) values(?,?,?,?,?,?) returning id;";
 
         ResultSet rs;
         int cod = -1;
@@ -52,7 +54,8 @@ public class UsuarioDAO {
             stmt.setString(2, usuario.getEmail());
             stmt.setString(3, usuario.getCurso());
             stmt.setInt(4, usuario.getStatus_curso());
-            stmt.setDate(5, usuario.getData_conclusao_curso());
+            stmt.setDate(5, usuario.getData_conclusao_curso_Date());
+            stmt.setInt(6, 1);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 cod = rs.getInt("id");
@@ -66,6 +69,30 @@ public class UsuarioDAO {
         }
         return cod;
     }
+
+
+    public int validarUsuario(String email) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT count(email) as total FROM usuario where email =?;";
+        
+        ResultSet rs;
+        int tot =-1;
+        
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+            if(rs.next())
+            {
+                tot = rs.getInt("total");
+            }
+            
+        } catch (SQLException e) {
+             throw new RuntimeException(e);           
+        }
+        return tot;
+    }
+
     //testar
 
     public ArrayList<Integer> getProjetosLider(int id_usuario) {
@@ -136,6 +163,6 @@ public class UsuarioDAO {
         }
         return projetos;
     }
-    
+
    
 }
