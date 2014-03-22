@@ -34,7 +34,7 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Erro no SQL do getIdUsuario");
+            System.out.println("Erro no SQL do UsuarioDAO.getIdUsuario");
             e.printStackTrace();
         }
         return cod;
@@ -142,27 +142,54 @@ public class UsuarioDAO {
         return projetos;
     }
 
-    public boolean podeCriar(int id) {
+    public boolean podeCriar(int id_usuario) {
         Connection con = ConnectionFactory.getConnection();
-        String query = "SELECT count FROM projeto where id in (SELECT id_projeto FROM equipe where lider = ?) and ;";
+        String query = "SELECT count(id) FROM projeto where lider = ? and id_situacao in (1, 2, 3, 4);";
 
         ResultSet rs;
-        ArrayList<Integer> projetos = null;
+        int count = -1;
 
         try {
             CallableStatement stmt = con.prepareCall(query);
             stmt.setInt(1, id_usuario);
             rs = stmt.executeQuery();
-            while (rs.next()) {
-                projetos.add(rs.getInt("id"));
+            if (rs.next()) {
+                count = rs.getInt(1);
             }
 
         } catch (SQLException e) {
-            System.out.println("Erro no SQL do UsuarioDAO.getProjetosParticipa");
+            System.out.println("Erro no SQL do UsuarioDAO.podeCriar");
             e.printStackTrace();
         }
-        return projetos;
+        if (count != 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 
+    public String getEmail(int id) {
+
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT email FROM usuario WHERE id =?;";
+
+        ResultSet rs;
+        String email = "";
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                email = rs.getString("email");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do UsuarioDAO.getEmail");
+            e.printStackTrace();
+        }
+        return email;
+    }
+    
    
 }

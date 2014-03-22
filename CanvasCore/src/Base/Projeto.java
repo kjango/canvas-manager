@@ -30,9 +30,10 @@ public class Projeto {
         this.atualizado_em = atualizado_em;
     }
 
-    public Projeto(String nomeProj, int idLider) {
+    public Projeto(String nomeProj, int idLider, int id_situacao) {
         this.nome = nomeProj;
         this.lider = idLider;
+        this.id_situacao = id_situacao;
     }
 
     public int getId() {

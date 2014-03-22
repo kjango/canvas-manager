@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ProjetoController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -21,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -28,18 +30,21 @@ import javax.swing.UIManager;
  *
  * @author Francisco
  */
-public class VAvaliacao extends JFrame {
+public class VProjetoUsuario extends JFrame {
 
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
     private JButton btnEnviar;
-    private boolean isAvaliacao;
+    private int status;
     private JPanel panelBotoes;
     private JPanel panelMembros;
     private JScrollPane scrollPane;
     private JTextPane txtpnMembros;
     private JLabel lblLder;
     private String lider;
+    private JButton btnAddMembro;
+    private int id_projeto;
+    private JButton btnSalvar;
 
     /**
      * Main usada para testes.
@@ -62,7 +67,7 @@ public class VAvaliacao extends JFrame {
                 }
 
                 try {
-                    VAvaliacao frame = new VAvaliacao(hasha, lama, "projetoso", "lideroso", false);
+                    VProjetoUsuario frame = new VProjetoUsuario(hasha, lama, "projetoso", 14, "lideroso", 1);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -79,11 +84,12 @@ public class VAvaliacao extends JFrame {
      * e a dica da pergunta, grupo da pergunta, avaliador, nota e comentário).
      * @param nomeProjeto String contendo o nome do projeto.
      * @param lider String contendo o nome do líder do projeto
-     * @param isAvaliacao Boolean indicando se é uma avaliação ou um parecer.
+     * @param status Boolean indicando se é uma avaliação ou um parecer.
      */
-    public VAvaliacao(HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> conteudoPerguntas, ArrayList<String> conteudoMembros, String nomeProjeto, String lider, Boolean isAvaliacao) {
-        this.isAvaliacao = isAvaliacao;
+    public VProjetoUsuario(HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> conteudoPerguntas, ArrayList<String> conteudoMembros, String nomeProjeto, int id_proj, String lider, int status) {
+        this.status = status;
         this.lider = lider;
+        this.id_projeto = id_proj;
         setTitle(nomeProjeto);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 655, 455);
@@ -106,7 +112,7 @@ public class VAvaliacao extends JFrame {
         btnEnviar = new JButton("Enviar");
         panelBotoes.add(btnEnviar);
 
-        JButton btnSalvar = new JButton("Salvar");
+        btnSalvar = new JButton("Salvar");
         panelBotoes.add(btnSalvar);
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -121,6 +127,31 @@ public class VAvaliacao extends JFrame {
 
         lblLder = new JLabel(" Líder: " + this.lider);
         panelMembros.add(lblLder, BorderLayout.NORTH);
+
+        btnAddMembro = new JButton("Adicionar membro");
+        btnAddMembro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                String emailMembro = "";
+                emailMembro = JOptionPane.showInputDialog(null, "Digite o email do membro.", "Novo membro", JOptionPane.QUESTION_MESSAGE);
+                if (emailMembro != null) {
+                    if (!emailMembro.equals("")) {
+                        ProjetoController pc = new ProjetoController();
+                        int id_membro = -2;
+                        id_membro = pc.inserirMembro(emailMembro, id_projeto);
+                        if (id_membro > 0) {
+                            JOptionPane.showMessageDialog(null, "Membro " + emailMembro + " adicionado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Erro ao adicionar membro " + emailMembro + ".", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                        atualizaMembros(pc.getMembros(id_projeto));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Email pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                
+            }
+        });
+        panelMembros.add(btnAddMembro, BorderLayout.SOUTH);
 
         txtpnMembros = new JTextPane();
         txtpnMembros.setEditable(false);
@@ -169,9 +200,10 @@ public class VAvaliacao extends JFrame {
             jpInner.setLayout(new GridLayout(0, 1, 0, 0));
 
             for (PPerguntaAvaliacaoCM cont : conteudoPerguntas.get(grupoPergunta)) {
-                jpInner.add(new PPerguntaAvaliacao(cont, isAvaliacao));
+                jpInner.add(new PPerguntaAvaliacao(cont, false));
             }
         }
+        atualizaBotoes();
         repaint();
     }
 
@@ -187,6 +219,25 @@ public class VAvaliacao extends JFrame {
             txtpnMembros.setText(txtpnMembros.getText() + "\n" + conteudoMembros.get(i));
         }
 
+        repaint();
+    }
+    
+    /**
+     * Método para atualizar os botões
+     *
+     * @param conteudoMebros informações sobre os membros do projeto
+     */
+    public void atualizaBotoes(){
+        
+        if (status == 1){
+            btnAddMembro.setEnabled(false);
+            btnEnviar.setEnabled(false);
+            btnSalvar.setEnabled(false);
+        }else{
+            btnAddMembro.setEnabled(true);
+            btnEnviar.setEnabled(true);
+            btnSalvar.setEnabled(true);
+        }
         repaint();
     }
 }
