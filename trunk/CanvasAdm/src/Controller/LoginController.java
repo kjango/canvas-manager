@@ -6,10 +6,16 @@
 
 package Controller;
 
+import Modelo.Login;
+
 /**
  *
  * @author falbernaz
  */
 public class LoginController {
+    
+    public static boolean logar(Login login){
+        return login.logar();
+    }
     
 }

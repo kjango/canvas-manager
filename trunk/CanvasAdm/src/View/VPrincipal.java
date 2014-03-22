@@ -14,33 +14,30 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import Modelo.PProjetoCM;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-/**
- * View principal, que mostra a lista de projetos disponíveis.
- * @author Francisco
- */
 public class VPrincipal extends JFrame {
 
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
 
     /**
-     * Main para testes.
-     * @param args Argumentos.
+     * Launch the application.
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
+            public void run() {
 
-        public void run() {
-
-        HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
-        for (int i = 0; i < 20; i++){
-                ArrayList<PProjetoCM> aba = new ArrayList<PProjetoCM>();
-            for (int j = 0; j < 100; j++){
-                aba.add(new PProjetoCM("status" + i, "lider" + j, "nome" + j));
-            }
-            hasha.put("status" + i, aba);                    
-        }
+                HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
+                for (int i = 0; i < 20; i++) {
+                    ArrayList<PProjetoCM> aba = new ArrayList<PProjetoCM>();
+                    for (int j = 0; j < 100; j++) {
+                        aba.add(new PProjetoCM("status" + i, "lider" + j, "nome" + j));
+                    }
+                    hasha.put("status" + i, aba);
+                }
 
                 try {
                     VPrincipal frame = new VPrincipal(hasha);
@@ -53,8 +50,7 @@ public class VPrincipal extends JFrame {
     }
 
     /**
-     * Construtor da classe.
-     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (o líder do projeto, o nome do projeto e o status do projeto).
+     * Create the frame.
      */
     public VPrincipal(HashMap<String, ArrayList<PProjetoCM>> conteudo) {
         setTitle("Canvas Manager");
@@ -68,14 +64,26 @@ public class VPrincipal extends JFrame {
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         contentPane.add(tabbedPane, BorderLayout.CENTER);
 
+        JPanel panel = new JPanel();
+        contentPane.add(panel, BorderLayout.SOUTH);
+
+        JButton btnNovoProjeto = new JButton("Novo projeto");
+        //////////
+        btnNovoProjeto.setEnabled(false);
+        /////////
+        btnNovoProjeto.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                //cria novo projeto
+            }
+        });
+        panel.add(btnNovoProjeto);
+
         atualiza(conteudo);
+
+
     }
 
-    /**
-     * Método para atualizar toda a view.
-     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que é necessário para os panels dessa view (o líder do projeto, o nome do projeto e o status do projeto).
-     */
-    public void atualiza(HashMap<String, ArrayList<PProjetoCM>> conteudo){
+    public void atualiza(HashMap<String, ArrayList<PProjetoCM>> conteudo) {
 
         JPanel jpOuter = null;
         JPanel jpInner = null;
@@ -85,24 +93,23 @@ public class VPrincipal extends JFrame {
 
         Set<String> keys = conteudo.keySet();
         for (String statusProjeto : keys) {
-        sp = new JScrollPane();
-        jpInner = new JPanel();
-        jpOuter = new JPanel();
+            sp = new JScrollPane();
+            jpInner = new JPanel();
+            jpOuter = new JPanel();
 
-        jpOuter.add(sp);
-        tabbedPane.addTab(statusProjeto, null, jpOuter, null);
-        jpOuter.setLayout(new BorderLayout(0, 0));
+            jpOuter.add(sp);
+            tabbedPane.addTab(statusProjeto, null, jpOuter, null);
+            jpOuter.setLayout(new BorderLayout(0, 0));
 
-        jpOuter.add(sp);
-        sp.setAutoscrolls(true);
+            jpOuter.add(sp);
+            sp.setAutoscrolls(true);
 
-        sp.setViewportView(jpInner);
-        jpInner.setLayout(new GridLayout(0, 1, 0, 0));
+            sp.setViewportView(jpInner);
+            jpInner.setLayout(new GridLayout(0, 1, 0, 0));
 
-        for (PProjetoCM cont : conteudo.get(statusProjeto)) {
+            for (PProjetoCM cont : conteudo.get(statusProjeto)) {
                 jpInner.add(new PProjeto(cont));
-                }
+            }
         }
     }
-
 }

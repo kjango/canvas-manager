@@ -44,8 +44,10 @@ public class Login {
     public boolean logar() {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         int user = usuarioDao.getIdUsuario(usuario);
+        System.out.print(user);
         if (user != -1) {
             CredencialDAO credencialDao = new CredencialDAO();
+            
             return (credencialDao.login(user, senha));
         }
         return false;
