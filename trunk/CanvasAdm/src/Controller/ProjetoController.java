@@ -68,7 +68,7 @@ public class ProjetoController {
         ProjetoDAO pd = new ProjetoDAO();
         return pd.isMembro(mebroId, projetoId);
     }
-       
+    
 
     
 }

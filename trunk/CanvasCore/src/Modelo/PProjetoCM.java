@@ -5,15 +5,24 @@ public class PProjetoCM {
     private String statusProjeto;
     private String liderProjeto;
     private String nomeProjeto;
+    private int idLider;
     
 	public PProjetoCM(String statusProjeto, String liderProjeto,
-			String nomeProjeto) {
+			String nomeProjeto, int idLider) {
 		super();
 		this.statusProjeto = statusProjeto;
 		this.liderProjeto = liderProjeto;
 		this.nomeProjeto = nomeProjeto;
+                this.idLider = idLider;
 	}
-	
+
+        public int getIdLider() {
+		return idLider;
+	}
+	public void setIdLider(int idLider) {
+		this.idLider = idLider;
+	}
+        
 	public String getStatusProjeto() {
 		return statusProjeto;
 	}

@@ -27,7 +27,7 @@ public class VPrincipalUsuario extends JFrame {
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
     private JButton btnNovoProjeto;
-    private Usuario usuario;
+    private int usuarioId;
     private HashMap<String, ArrayList<PProjetoCM>> conteudo;
 
     /**
@@ -38,16 +38,19 @@ public class VPrincipalUsuario extends JFrame {
             public void run() {
 
                 HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
-                for (int i = 0; i < 20; i++) {
-                    ArrayList<PProjetoCM> aba = new ArrayList<PProjetoCM>();
-                    for (int j = 0; j < 100; j++) {
-                        aba.add(new PProjetoCM("status" + i, "lider" + j, "nome" + j));
-                    }
-                    hasha.put("status" + i, aba);
-                }
+                UsuarioController uc = new UsuarioController();
+                hasha = uc.getDadosVPrincipal(1);
+                System.out.println(hasha);
+//                for (int i = 0; i < 20; i++) {
+//                    ArrayList<PProjetoCM> aba = new ArrayList<PProjetoCM>();
+//                    for (int j = 0; j < 100; j++) {
+//                        aba.add(new PProjetoCM("status" + i, "lider" + j, "nome" + j, j));
+//                    }
+//                    hasha.put("status" + i, aba);
+//                }
 
                 try {
-                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, new Usuario(1, "User2", "Email1", "curso1", 1, null, null, null, 1));
+                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 1);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -59,8 +62,8 @@ public class VPrincipalUsuario extends JFrame {
     /**
      * Create the frame.
      */
-    public VPrincipalUsuario(HashMap<String, ArrayList<PProjetoCM>> cont, Usuario usr) {
-        usuario = usr;
+    public VPrincipalUsuario(HashMap<String, ArrayList<PProjetoCM>> cont, int usr) {
+        usuarioId = usr;
         conteudo = cont;
         setTitle("Canvas Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,22 +86,22 @@ public class VPrincipalUsuario extends JFrame {
             public void actionPerformed(ActionEvent arg0) {
                 String nomeProj = "";
                 nomeProj = JOptionPane.showInputDialog(null, "Digite o nome do novo plano.", "Novo plano de negócios", JOptionPane.QUESTION_MESSAGE);
-                if (nomeProj != null){
+                if (nomeProj != null) {
 
-                    if (!nomeProj.equals("")){
+                    if (!nomeProj.equals("")) {
                         ProjetoController pc = new ProjetoController();
-                        if (pc.getIdProjeto(nomeProj) == -1){
+                        if (pc.getIdProjeto(nomeProj) == -1) {
                             int plano = -2;
-                            plano = pc.criar(nomeProj, usuario.getId());
-                            if (plano > 0){
+                            plano = pc.criar(nomeProj, usuarioId);
+                            if (plano > 0) {
                                 JOptionPane.showMessageDialog(null, "Plano " + nomeProj + " criado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                            }else{
+                            } else {
                                 JOptionPane.showMessageDialog(null, "Erro ao criar plano " + nomeProj + ".", "Erro", JOptionPane.ERROR_MESSAGE);
                             }
-                        }else{
+                        } else {
                             JOptionPane.showMessageDialog(null, "Já existe um plano de projeto com o nome " + nomeProj + ".", "Erro", JOptionPane.ERROR_MESSAGE);
                         }
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Nome do plano não pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -119,9 +122,9 @@ public class VPrincipalUsuario extends JFrame {
         JScrollPane sp = null;
 
         tabbedPane.removeAll();
-        
+
         UsuarioController uc = new UsuarioController();
-        btnNovoProjeto.setEnabled(uc.podeCriar(usuario.getId()));
+        btnNovoProjeto.setEnabled(uc.podeCriar(usuarioId));
 
         Set<String> keys = cont.keySet();
         for (String statusProjeto : keys) {

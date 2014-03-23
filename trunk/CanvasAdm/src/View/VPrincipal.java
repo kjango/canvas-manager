@@ -34,7 +34,7 @@ public class VPrincipal extends JFrame {
                 for (int i = 0; i < 20; i++) {
                     ArrayList<PProjetoCM> aba = new ArrayList<PProjetoCM>();
                     for (int j = 0; j < 100; j++) {
-                        aba.add(new PProjetoCM("status" + i, "lider" + j, "nome" + j));
+                        aba.add(new PProjetoCM("status" + i, "lider" + j, "nome" + j, j));
                     }
                     hasha.put("status" + i, aba);
                 }
