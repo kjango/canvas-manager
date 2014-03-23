@@ -1,13 +1,14 @@
 package DAO;
 
 import Base.Usuario;
+import Modelo.PProjetoCM;
+import Modelo.ProjetoCM;
 import Util.ConnectionFactory;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 
 /**
  * Classe responsável pelas operações de Banco de Dados para os objetos do tipo
@@ -41,7 +42,7 @@ public class UsuarioDAO {
     }
 
     public int inserir(Usuario usuario) {
-        
+
         Connection con = ConnectionFactory.getConnection();
         String query = "INSERT INTO usuario (nome, email, curso, status_curso, data_conclusao_curso, id_tipo) values(?,?,?,?,?,?) returning id;";
 
@@ -63,38 +64,35 @@ public class UsuarioDAO {
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.inserir");
-            e.printStackTrace();     
+            e.printStackTrace();
             throw new RuntimeException(e);
-       
+
         }
         return cod;
     }
 
-
     public int validarUsuario(String email) {
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT count(email) as total FROM usuario where email =?;";
-        
+
         ResultSet rs;
-        int tot =-1;
-        
+        int tot = -1;
+
         try {
             CallableStatement stmt = con.prepareCall(query);
             stmt.setString(1, email);
             rs = stmt.executeQuery();
-            if(rs.next())
-            {
+            if (rs.next()) {
                 tot = rs.getInt("total");
             }
-            
+
         } catch (SQLException e) {
-             throw new RuntimeException(e);           
+            throw new RuntimeException(e);
         }
         return tot;
     }
 
     //testar
-
     public ArrayList<Integer> getProjetosLider(int id_usuario) {
 
         Connection con = ConnectionFactory.getConnection();
@@ -119,7 +117,7 @@ public class UsuarioDAO {
     }
     //testar
 
-    public ArrayList<Integer> getProjetosParticipa(int id_usuario) {
+    public ArrayList<Integer> getProjetosMembro(int id_usuario) {
 
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT id FROM projeto where id in (SELECT id_projeto FROM equipe where id_usuario = ?);";
@@ -136,7 +134,7 @@ public class UsuarioDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Erro no SQL do UsuarioDAO.getProjetosParticipa");
+            System.out.println("Erro no SQL do UsuarioDAO.getProjetosMembro");
             e.printStackTrace();
         }
         return projetos;
@@ -161,9 +159,9 @@ public class UsuarioDAO {
             System.out.println("Erro no SQL do UsuarioDAO.podeCriar");
             e.printStackTrace();
         }
-        if (count != 0){
+        if (count != 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -190,6 +188,28 @@ public class UsuarioDAO {
         }
         return email;
     }
-    
-   
+
+    public ArrayList<PProjetoCM> getTodosProjetos(int idUsuario) {
+
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM usuario u JOIN projeto p ON u.id = p.lider JOIN situacao s ON s.id = p.id_situacao WHERE u.id = ? UNION SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM equipe e JOIN projeto p ON e.id_projeto = p.id JOIN usuario u ON p.lider = u.id JOIN situacao s ON s.id = p.id_situacao WHERE e.id_usuario = ?;";
+
+        ResultSet rs;
+        ArrayList<PProjetoCM> res = new ArrayList<>();
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, idUsuario);
+            stmt.setInt(2, idUsuario);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                res.add(new PProjetoCM(rs.getString("descricao"), rs.getString("nome_lider"), rs.getString("nome"), rs.getInt("id_lider")));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do UsuarioDAO.getTodosProjetos");
+            e.printStackTrace();
+        }
+        return res;
+    }
 }
