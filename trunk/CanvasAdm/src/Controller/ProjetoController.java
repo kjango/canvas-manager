@@ -7,10 +7,17 @@
 package Controller;
 
 import Base.Projeto;
+import DAO.IODica;
 import DAO.ProjetoDAO;
+import Modelo.PPerguntaCM;
 import Modelo.VProjetoUsuarioCM;
 import Util.StatusProjeto;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -81,8 +88,19 @@ public class ProjetoController {
         ret.setMyUserId(usuarioId);
         ret.setConteudoMembros(pd.getNomesMembros(projetoId));
         ret.setConteudoPerguntas(pd.getPerguntasVProjetoUsuario(projetoId));
-        //TODO ADICIONAR AS DICAS EM CAPS
-        
+        //adicionando as respostas
+        HashMap<String, ArrayList<PPerguntaCM>> cont = ret.getConteudoPerguntas();
+        for (String chave : ret.getConteudoPerguntas().keySet()) {
+            ArrayList<PPerguntaCM> grupo = cont.get(chave);
+            for (int i = 0; i < grupo.size(); i++){
+                grupo.get(i).setResposta(pd.getResposta(grupo.get(i).getPerguntaId(), projetoId));
+//                try {
+//                    grupo.get(i).setDica(IODica.getText(grupo.get(i).getPerguntaId()));
+//                } catch (IOException ex) {
+//                    Logger.getLogger(ProjetoController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+            }
+        }
         
         return ret;
     }

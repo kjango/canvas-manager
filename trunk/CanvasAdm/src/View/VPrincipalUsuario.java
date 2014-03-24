@@ -39,11 +39,11 @@ public class VPrincipalUsuario extends JFrame {
 
                 HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
                 UsuarioController uc = new UsuarioController();
-                hasha = uc.getDadosVPrincipal(1);
+                hasha = uc.getDadosVPrincipal(2);
                 System.out.println(hasha);
 
                 try {
-                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 1);
+                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 2);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
