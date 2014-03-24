@@ -296,4 +296,28 @@ public class ProjetoDAO {
 
         return ret;
     }
+
+    public String getResposta(int perguntaId, int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT texto FROM resposta WHERE id_pergunta = ? AND id_projeto = ?";
+        
+        String resp = "";
+        ResultSet rs;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, perguntaId);
+            stmt.setInt(2, projetoId);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getString("texto");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.getResposta");
+            e.printStackTrace();
+        }
+
+        return resp;
+    }        
 }

@@ -58,7 +58,7 @@ public class VProjetoUsuario extends JFrame {
             public void run() {
 
                 try {
-                    VProjetoUsuario frame = new VProjetoUsuario(new ProjetoController().getDadosVprojetoUsuario(14, 1));
+                    VProjetoUsuario frame = new VProjetoUsuario(new ProjetoController().getDadosVprojetoUsuario(2, 2));
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
