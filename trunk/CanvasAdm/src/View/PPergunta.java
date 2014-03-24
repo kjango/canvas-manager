@@ -31,13 +31,30 @@ public class PPergunta extends JPanel {
     private String resposta;
     private String dica;
     private JTextArea txtrResposta;
-    private JTextArea txtrPergunta;
+    
+    public String getPergunta() {
+		return pergunta;
+	}
+
+	public void setPergunta(String pergunta) {
+		this.pergunta = pergunta;
+	}
+
+	public JTextArea getTxtrResposta() {
+		return txtrResposta;
+	}
+
+	public void setTxtrResposta(JTextArea txtrResposta) {
+		this.txtrResposta = txtrResposta;
+	}
+
+	private JTextArea txtrPergunta;
 
     /**
      * Cria o panel.
      * @param conteudo Objeto da camada de modelo contendo tudo o que é necessário para esse panel (a pergunta, a resposta e a dica da pergunta)
      */
-    public PPergunta(PPerguntaCM conteudo) {
+    public PPergunta(PPerguntaCM conteudo, boolean isEditavel) {
         pergunta = conteudo.getPergunta();
         resposta = conteudo.getResposta();
         dica = conteudo.getDica();
@@ -72,6 +89,10 @@ public class PPergunta extends JPanel {
         txtrResposta.setWrapStyleWord(true);
         txtrResposta.setBackground(new Color(255, 255, 255));
         txtrResposta.setColumns(2);
+        txtrResposta.setEditable(isEditavel);
+        if (!isEditavel){
+            txtrResposta.setBackground(new Color(240, 240, 240));
+        }
         panelResposta.add(txtrResposta, BorderLayout.CENTER);
 
     }

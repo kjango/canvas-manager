@@ -36,7 +36,7 @@ public class PProjeto extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    //TODO abrir a janela do canvas
+                    
                 }
             }
         });

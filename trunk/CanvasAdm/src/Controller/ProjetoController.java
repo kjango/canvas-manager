@@ -8,6 +8,7 @@ package Controller;
 
 import Base.Projeto;
 import DAO.ProjetoDAO;
+import Modelo.VProjetoUsuarioCM;
 import Util.StatusProjeto;
 import java.util.ArrayList;
 
@@ -64,11 +65,26 @@ public class ProjetoController {
         return emails;
     }
 
-    private boolean isMembro(int mebroId, int projetoId) {
+    public boolean isMembro(int membroId, int projetoId) {
         ProjetoDAO pd = new ProjetoDAO();
-        return pd.isMembro(mebroId, projetoId);
+        return pd.isMembro(membroId, projetoId);
     }
     
-
+    public boolean podeEditar(int usuarioId, int projetoId){
+        ProjetoDAO pd = new ProjetoDAO();
+        return pd.podeEditar(usuarioId, projetoId);
+    }
+    
+    public VProjetoUsuarioCM getDadosVprojetoUsuario(int projetoId, int usuarioId){
+        ProjetoDAO pd = new ProjetoDAO();
+        VProjetoUsuarioCM ret = pd.getBasicoProjeto(projetoId);
+        ret.setMyUserId(usuarioId);
+        ret.setConteudoMembros(pd.getNomesMembros(projetoId));
+        ret.setConteudoPerguntas(pd.getPerguntasVProjetoUsuario(projetoId));
+        //TODO ADICIONAR AS DICAS EM CAPS
+        
+        
+        return ret;
+    }
     
 }

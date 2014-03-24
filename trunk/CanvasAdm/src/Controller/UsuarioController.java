@@ -39,7 +39,7 @@ public class UsuarioController {
         UsuarioDAO ud = new UsuarioDAO();
         ArrayList<PProjetoCM> conteudo = ud.getTodosProjetos(idUsuario);
         HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
-        System.out.println("conteudo size: " + conteudo.size());
+        
         for (int i = 0; i < conteudo.size(); i++) {
             String sit = conteudo.get(i).getStatusProjeto();
             if (sit.equals("Excluído")){
@@ -47,22 +47,18 @@ public class UsuarioController {
             }
             if (!hasha.containsKey(sit)){
                 hasha.put(sit, new ArrayList<PProjetoCM>());
-                System.out.println("Inserindo" + sit);
             }
             hasha.get(sit).add(conteudo.get(i));
             if (conteudo.get(i).getIdLider() == idUsuario){
                 if (!hasha.containsKey("Líder")){
                     hasha.put("Líder", new ArrayList<PProjetoCM>());
-                    
                 }
                 hasha.get("Líder").add(conteudo.get(i));
-                System.out.println("Inserindo líder");
             }else{
                 if (!hasha.containsKey("Membro")){
                     hasha.put("Membro", new ArrayList<PProjetoCM>());
                 }
                 hasha.get("Membro").add(conteudo.get(i));
-                System.out.println("Inserindo membro");
             }
         }
         return hasha;
