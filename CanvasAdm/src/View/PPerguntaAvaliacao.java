@@ -14,7 +14,9 @@ import javax.swing.border.TitledBorder;
 import Modelo.PPerguntaAvaliacaoCM;
 
 /**
- * Classe contendo o panel que é necessário na view para a avaliação dos projetos. Esse panel exibe a pergunta, a resposta e a avaliação efetuada.
+ * Classe contendo o panel que é necessário na view para a avaliação dos
+ * projetos. Esse panel exibe a pergunta, a resposta e a avaliação efetuada.
+ *
  * @author Francisco
  */
 public class PPerguntaAvaliacao extends JPanel {
@@ -30,10 +32,31 @@ public class PPerguntaAvaliacao extends JPanel {
     private JTextArea txtrPergunta;
     private JTextArea txtrAvaliacao;
 
+    public JTextField getTextFieldNota() {
+        return textFieldNota;
+    }
+
+    public void setTextFieldNota(JTextField textFieldNota) {
+        this.textFieldNota = textFieldNota;
+    }
+
+    public JTextArea getTxtrAvaliacao() {
+        return txtrAvaliacao;
+    }
+
+    public void setTxtrAvaliacao(JTextArea txtrAvaliacao) {
+        this.txtrAvaliacao = txtrAvaliacao;
+    }
+
     /**
      * Cria o panel.
-     * @param conteudo Objeto da camada de modelo contendo tudo o que é necessário para esse panel (a pergunta, a resposta, a dica da pergunta, o nome do avaliador, sua nota e seu comentário)
-     * @param isAvaliacao Boolean que indica se o panel vai ser usado para uma avaliação ou para um parecer. Caso seja um parecer, a área do comentário e nota não poderá ser modificada.
+     *
+     * @param conteudo Objeto da camada de modelo contendo tudo o que é
+     * necessário para esse panel (a pergunta, a resposta, a dica da pergunta, o
+     * nome do avaliador, sua nota e seu comentário)
+     * @param isAvaliacao Boolean que indica se o panel vai ser usado para uma
+     * avaliação ou para um parecer. Caso seja um parecer, a área do comentário
+     * e nota não poderá ser modificada.
      */
     public PPerguntaAvaliacao(PPerguntaAvaliacaoCM conteudo, boolean isAvaliacao) {
         pergunta = conteudo.getPergunta();
@@ -105,5 +128,4 @@ public class PPerguntaAvaliacao extends JPanel {
         txtrAvaliacao.setEditable(isAvaliacao);
 
     }
-
 }

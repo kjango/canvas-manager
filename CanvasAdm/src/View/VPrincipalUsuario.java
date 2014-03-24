@@ -41,13 +41,6 @@ public class VPrincipalUsuario extends JFrame {
                 UsuarioController uc = new UsuarioController();
                 hasha = uc.getDadosVPrincipal(1);
                 System.out.println(hasha);
-//                for (int i = 0; i < 20; i++) {
-//                    ArrayList<PProjetoCM> aba = new ArrayList<PProjetoCM>();
-//                    for (int j = 0; j < 100; j++) {
-//                        aba.add(new PProjetoCM("status" + i, "lider" + j, "nome" + j, j));
-//                    }
-//                    hasha.put("status" + i, aba);
-//                }
 
                 try {
                     VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 1);
@@ -105,28 +98,29 @@ public class VPrincipalUsuario extends JFrame {
                         JOptionPane.showMessageDialog(null, "Nome do plano não pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                atualiza(conteudo);
+                atualiza();
             }
         });
         panel.add(btnNovoProjeto);
 
-        atualiza(conteudo);
+        atualiza();
 
 
     }
 
-    public void atualiza(HashMap<String, ArrayList<PProjetoCM>> cont) {
-
+    public void atualiza() {
+        UsuarioController uc = new UsuarioController();
+        conteudo = uc.getDadosVPrincipal(usuarioId);
+        
         JPanel jpOuter = null;
         JPanel jpInner = null;
         JScrollPane sp = null;
 
         tabbedPane.removeAll();
 
-        UsuarioController uc = new UsuarioController();
         btnNovoProjeto.setEnabled(uc.podeCriar(usuarioId));
 
-        Set<String> keys = cont.keySet();
+        Set<String> keys = conteudo.keySet();
         for (String statusProjeto : keys) {
             sp = new JScrollPane();
             jpInner = new JPanel();
@@ -142,7 +136,7 @@ public class VPrincipalUsuario extends JFrame {
             sp.setViewportView(jpInner);
             jpInner.setLayout(new GridLayout(0, 1, 0, 0));
 
-            for (PProjetoCM con : cont.get(statusProjeto)) {
+            for (PProjetoCM con : conteudo.get(statusProjeto)) {
                 jpInner.add(new PProjeto(con));
             }
         }

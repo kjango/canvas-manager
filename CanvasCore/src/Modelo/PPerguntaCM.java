@@ -10,17 +10,19 @@ public class PPerguntaCM {
     private String resposta;
     private String dica;
     private String grupo;
+    private int perguntaId;
+    //private int respostaId;
 //	private String nomeProjeto;
 //	private String autor;
 
     public PPerguntaCM(String pergunta, String resposta, String dica,
-        String grupo) {
+        String grupo, int perguntaId) {
         super();
         this.pergunta = pergunta;
         this.resposta = resposta;
         this.dica = dica;
         this.grupo = grupo;
-
+        this.perguntaId = perguntaId;
     }
 
     public String getPergunta() {
@@ -53,6 +55,14 @@ public class PPerguntaCM {
 
     public void setGrupo(String grupo) {
         this.grupo = grupo;
+    }
+
+    public int getPerguntaId() {
+        return perguntaId;
+    }
+
+    public void setPerguntaId(int perguntaId) {
+        this.perguntaId = perguntaId;
     }
 
 }

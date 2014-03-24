@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ProjetoController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -40,7 +41,7 @@ public class VPergunta extends JFrame {
                 for (int i = 0; i < 20; i++) {
                     ArrayList<PPerguntaCM> aba = new ArrayList<PPerguntaCM>();
                     for (int j = 0; j < 100; j++) {
-                        aba.add(new PPerguntaCM("pergunta" + j, "resposta" + j, "dica" + j, "grupo" + i));
+                        aba.add(new PPerguntaCM("pergunta" + j, "resposta" + j, "dica" + j, "grupo" + i, j));
                     }
                     hasha.put("grupo" + i, aba);
                 }
@@ -99,6 +100,9 @@ public class VPergunta extends JFrame {
         JPanel jpOuter = null;
         JPanel jpInner = null;
         JScrollPane sp = null;
+        
+        ProjetoController pc = new ProjetoController();
+        boolean podeEditar = pc.podeEditar(myUserId, projetoId);
 
         tabbedPane.removeAll();
 
@@ -119,7 +123,7 @@ public class VPergunta extends JFrame {
             jpInner.setLayout(new GridLayout(0, 1, 0, 0));
 
             for (PPerguntaCM cont : conteudo.get(grupoPergunta)) {
-                jpInner.add(new PPergunta(cont));
+                jpInner.add(new PPergunta(cont, podeEditar));
             }
         }
     }
