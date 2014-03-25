@@ -40,7 +40,7 @@ public class VPrincipalUsuario extends JFrame {
 
                 HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
                 UsuarioController uc = new UsuarioController();
-                hasha = uc.getDadosVPrincipal(3);
+                hasha = uc.getDadosVPrincipalUsuario(3);
 
                 try {
                     VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 3);
@@ -120,7 +120,7 @@ public class VPrincipalUsuario extends JFrame {
 
     public void atualiza() {
         UsuarioController uc = new UsuarioController();
-        conteudo = uc.getDadosVPrincipal(usuarioId);
+        conteudo = uc.getDadosVPrincipalUsuario(usuarioId);
         
         JPanel jpOuter = null;
         JPanel jpInner = null;

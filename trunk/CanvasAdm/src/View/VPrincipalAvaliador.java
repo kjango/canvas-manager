@@ -39,10 +39,10 @@ public class VPrincipalAvaliador extends JFrame {
 
                 HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
                 UsuarioController uc = new UsuarioController();
-                hasha = uc.getDadosVPrincipal(3);
+                hasha = uc.getDadosVPrincipalAvaliador(5);
 
                 try {
-                    VPrincipalAvaliador frame = new VPrincipalAvaliador(hasha, 3);
+                    VPrincipalAvaliador frame = new VPrincipalAvaliador(hasha, 5);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -88,7 +88,7 @@ public class VPrincipalAvaliador extends JFrame {
 
     public void atualiza() {
         UsuarioController uc = new UsuarioController();
-        conteudo = uc.getDadosVPrincipal(usuarioId);
+        conteudo = uc.getDadosVPrincipalAvaliador(usuarioId);
 
         JPanel jpOuter = null;
         JPanel jpInner = null;
