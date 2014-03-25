@@ -40,7 +40,7 @@ public class CredencialDAO {
         return cod;
     }
 
-    public int salvar(Credencial credencial) {
+    public int salvar(int id, String senha) {
         Connection con = ConnectionFactory.getConnection();
         String query = "INSERT INTO credencial (id_usuario, senha) values(?,?);";
 
@@ -49,8 +49,8 @@ public class CredencialDAO {
 
         try {
             CallableStatement stmt = con.prepareCall(query);
-            stmt.setInt(1, credencial.getId_usuario());
-            stmt.setString(2, credencial.getSenha());;
+            stmt.setInt(1, id);
+            stmt.setString(2, senha);
             cod = stmt.executeUpdate();
 
         } catch (SQLException e) {
