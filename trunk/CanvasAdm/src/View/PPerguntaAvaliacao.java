@@ -22,30 +22,63 @@ import Modelo.PPerguntaAvaliacaoCM;
 public class PPerguntaAvaliacao extends JPanel {
 
     private String pergunta;
+    private int perguntaId;
     private String resposta;
+    private int respostaId;
     private String dica;
     private String avaliador;
-    private String comentario;
-    private double nota;
+    private int avaliadorId;
     private JTextField textFieldNota;
     private JTextArea txtrResposta;
     private JTextArea txtrPergunta;
     private JTextArea txtrAvaliacao;
 
-    public JTextField getTextFieldNota() {
-        return textFieldNota;
+    public int getRespostaId() {
+        return respostaId;
     }
 
-    public void setTextFieldNota(JTextField textFieldNota) {
-        this.textFieldNota = textFieldNota;
+    public void setRespostaId(int respostaId) {
+        this.respostaId = respostaId;
     }
 
-    public JTextArea getTxtrAvaliacao() {
-        return txtrAvaliacao;
+    public int getPerguntaId() {
+        return perguntaId;
     }
 
-    public void setTxtrAvaliacao(JTextArea txtrAvaliacao) {
-        this.txtrAvaliacao = txtrAvaliacao;
+    public void setPerguntaId(int perguntaId) {
+        this.perguntaId = perguntaId;
+    }
+
+    public String getAvaliador() {
+        return avaliador;
+    }
+
+    public void setAvaliador(String avaliador) {
+        this.avaliador = avaliador;
+    }
+
+    public int getAvaliadorId() {
+        return avaliadorId;
+    }
+
+    public void setAvaliadorId(int avaliadorId) {
+        this.avaliadorId = avaliadorId;
+    }
+
+    public double getNota() {
+        return Double.parseDouble(textFieldNota.getText());
+    }
+
+    public void setNota(double nota) {
+        this.textFieldNota.setText(String.valueOf(nota));
+    }
+
+    public String getComentario() {
+        return txtrAvaliacao.getText();
+    }
+
+    public void setComentario(String comentario) {
+        this.txtrAvaliacao.setText(comentario);
     }
 
     /**
@@ -54,17 +87,15 @@ public class PPerguntaAvaliacao extends JPanel {
      * @param conteudo Objeto da camada de modelo contendo tudo o que é
      * necessário para esse panel (a pergunta, a resposta, a dica da pergunta, o
      * nome do avaliador, sua nota e seu comentário)
-     * @param isAvaliacao Boolean que indica se o panel vai ser usado para uma
-     * avaliação ou para um parecer. Caso seja um parecer, a área do comentário
-     * e nota não poderá ser modificada.
      */
     public PPerguntaAvaliacao(PPerguntaAvaliacaoCM conteudo, boolean isAvaliacao) {
         pergunta = conteudo.getPergunta();
+        perguntaId = conteudo.getPerguntaId();
         resposta = conteudo.getResposta();
+        respostaId = conteudo.getRespostaId();
         dica = conteudo.getDica();
         avaliador = conteudo.getAvaliador();
-        comentario = conteudo.getComentario();
-        nota = conteudo.getNota();
+        avaliadorId = conteudo.getAvaliadorId();
 
         setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
         setLayout(new BorderLayout(0, 0));
@@ -100,7 +131,7 @@ public class PPerguntaAvaliacao extends JPanel {
         panelResposta.add(txtrResposta, BorderLayout.CENTER);
 
         JPanel panelAvaliacao = new JPanel();
-        panelAvaliacao.setBorder(new TitledBorder(null, "Avaliação de " + avaliador, TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelAvaliacao.setBorder(new TitledBorder(null, "Avaliação", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         add(panelAvaliacao, BorderLayout.SOUTH);
         panelAvaliacao.setLayout(new BorderLayout(0, 0));
 
@@ -113,13 +144,13 @@ public class PPerguntaAvaliacao extends JPanel {
         textFieldNota = new JTextField();
 
         textFieldNota.setToolTipText("De 0 a 10");
-        textFieldNota.setText(String.valueOf(nota));
+        textFieldNota.setText(String.valueOf(conteudo.getNota()));
         textFieldNota.setColumns(10);
         panelNota.add(textFieldNota, BorderLayout.SOUTH);
 
         txtrAvaliacao = new JTextArea();
         txtrAvaliacao.setWrapStyleWord(true);
-        txtrAvaliacao.setText(comentario);
+        txtrAvaliacao.setText(conteudo.getComentario());
         txtrAvaliacao.setLineWrap(true);
         txtrAvaliacao.setColumns(2);
         panelAvaliacao.add(txtrAvaliacao, BorderLayout.CENTER);

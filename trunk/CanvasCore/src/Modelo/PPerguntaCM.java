@@ -12,9 +12,6 @@ public class PPerguntaCM {
     private String grupo;
     private int perguntaId;
     private int projetoId;
-    //private int respostaId;
-//	private String nomeProjeto;
-//	private String autor;
 
     public PPerguntaCM(String pergunta, String resposta, String dica,
         String grupo, int perguntaId, int projetoId) {
