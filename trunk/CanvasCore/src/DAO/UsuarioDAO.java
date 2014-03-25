@@ -220,7 +220,7 @@ public class UsuarioDAO {
         }
         return res;
     }
-    
+
     public ArrayList<PProjetoCM> getTodosProjetosAvaliador(int idUsuario) {
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM usuario u JOIN projeto p ON u.id = p.lider JOIN situacao s ON s.id = p.id_situacao WHERE p.id_situacao <> 7;";
@@ -243,24 +243,46 @@ public class UsuarioDAO {
         return res;
     }
 
+    public ArrayList<PProjetoCM> getTodosProjetosAdmin(int idUsuario) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM usuario u JOIN projeto p ON u.id = p.lider JOIN situacao s ON s.id = p.id_situacao;";
+
+        ResultSet rs;
+        ArrayList<PProjetoCM> res = new ArrayList<>();
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                res.add(new PProjetoCM(rs.getString("descricao"), rs.getString("nome_lider"), rs.getString("nome"), rs.getInt("id_lider"), idUsuario, rs.getInt("id_proj")));
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do UsuarioDAO.getTodosProjetosAdmin");
+            e.printStackTrace();
+        }
+        return res;
+    }
+
     public Usuario getUsuario(int id) {
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT * FROM USUARIO WHERE id=?;";
 
         ResultSet rs;
         Usuario usuario = null;
-        
+
         try {
             CallableStatement stmt = con.prepareCall(query);
             stmt.setInt(1, id);
-            
+
             rs = stmt.executeQuery();
             if (rs.next()) {
                 usuario = new Usuario(id, rs.getString("nome"), rs.getString("email"), rs.getString("curso"), rs.getInt("status_curso"),
-                        rs.getDate("data_conclusao_curso"), rs.getDate("data_registro"), rs.getDate("atualizado_em"), rs.getInt("id_tipo"));
+                    rs.getDate("data_conclusao_curso"), rs.getDate("data_registro"), rs.getDate("atualizado_em"), rs.getInt("id_tipo"));
             }
 
-        } catch (SQLException e) {            
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return usuario;
@@ -284,13 +306,36 @@ public class UsuarioDAO {
             stmt.setInt(7, usuario.getId());
             cod = stmt.executeUpdate();
             con.close();
-            
-        } catch (SQLException e) {            
+
+        } catch (SQLException e) {
             throw new RuntimeException(e);
 
         }
         return cod;
     }
 
+    public int getTipoUsuario(int usuarioId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT id_tipo FROM usuario WHERE id = ?;";
+
+        ResultSet rs;
+        int tipo = -1;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, usuarioId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                tipo = rs.getInt("id_tipo");
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+        return tipo;        
+    }
 
 }

@@ -43,7 +43,8 @@ public class VPrincipalAvaliador extends JFrame {
 //                hasha = uc.getDadosVPrincipalAvaliador(5);
 
                 try {
-                    WindowController.getInstance().criaVPrincipalAvaliador(5);
+//                    WindowController.getInstance().criaVPrincipalAvaliador(5);
+                    WindowController.getInstance().criaVPrincipalAdmin(6);
 //                    VPrincipalAvaliador frame = new VPrincipalAvaliador(hasha, 5);
 //                    frame.setVisible(true);
                 } catch (Exception e) {
@@ -52,6 +53,7 @@ public class VPrincipalAvaliador extends JFrame {
             }
         });
     }
+    private boolean isAdmin;
 
     /**
      * Create the frame.
@@ -59,6 +61,11 @@ public class VPrincipalAvaliador extends JFrame {
     public VPrincipalAvaliador(HashMap<String, ArrayList<PProjetoCM>> cont, int usr) {
         usuarioId = usr;
         conteudo = cont;
+        if (UsuarioController.getInstance().getTipoUsuario(usuarioId) == 3){
+            isAdmin = true;
+        }else{
+            isAdmin = false;
+        }
         setTitle("Canvas Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 655, 455);
@@ -89,7 +96,12 @@ public class VPrincipalAvaliador extends JFrame {
     }
 
     public void atualiza() {
-        conteudo = WindowController.getInstance().getDadosVPrincipalAvaliador(usuarioId);
+        ProjetoController pc = ProjetoController.getInstance();
+        if (isAdmin){
+            conteudo = WindowController.getInstance().getDadosVPrincipalAdmin(usuarioId);
+        }else{
+            conteudo = WindowController.getInstance().getDadosVPrincipalAvaliador(usuarioId);
+        }
 
         JPanel jpOuter = null;
         JPanel jpInner = null;

@@ -47,7 +47,7 @@ public class ProjetoController {
     public int inserirMembro(String emailMembro, int id_projeto) {
         UsuarioController uc = new UsuarioController();
         int id_membro = -1;
-        id_membro = uc.getUsuario(emailMembro);
+        id_membro = uc.getIdUsuario(emailMembro);
 
         if (id_membro == -1) {
             return -1;
