@@ -14,7 +14,20 @@ import Modelo.Login;
  */
 public class LoginController {
     
-    public static boolean logar(Login login){
+    private static LoginController instance = null;
+    
+    protected LoginController(){
+        
+    }
+
+    public static LoginController getInstance(){
+        if (instance == null){
+            instance = new LoginController();
+        }
+        return instance;
+    }    
+    
+    public int logar(Login login){
         return login.logar();
     }
     

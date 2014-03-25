@@ -1,6 +1,7 @@
 package View;
 
 import Controller.ProjetoController;
+import Controller.WindowController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -42,8 +43,8 @@ public class PProjeto extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    VProjetoUsuario frame = new VProjetoUsuario(new ProjetoController().getDadosVprojetoUsuario(projetoId, myUserId));
-                    frame.setVisible(true);
+                    WindowController wc = WindowController.getInstance();
+                    wc.criaVProjetoUsuario(projetoId, myUserId);
                 }
             }
         });

@@ -3,6 +3,7 @@ package View;
 import Base.Usuario;
 import Controller.ProjetoController;
 import Controller.UsuarioController;
+import Controller.WindowController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -37,13 +38,14 @@ public class VPrincipalAvaliador extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
-                UsuarioController uc = new UsuarioController();
-                hasha = uc.getDadosVPrincipalAvaliador(5);
+//                HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
+//                UsuarioController uc = UsuarioController.getInstance();
+//                hasha = uc.getDadosVPrincipalAvaliador(5);
 
                 try {
-                    VPrincipalAvaliador frame = new VPrincipalAvaliador(hasha, 5);
-                    frame.setVisible(true);
+                    WindowController.getInstance().criaVPrincipalAvaliador(5);
+//                    VPrincipalAvaliador frame = new VPrincipalAvaliador(hasha, 5);
+//                    frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -87,8 +89,7 @@ public class VPrincipalAvaliador extends JFrame {
     }
 
     public void atualiza() {
-        UsuarioController uc = new UsuarioController();
-        conteudo = uc.getDadosVPrincipalAvaliador(usuarioId);
+        conteudo = WindowController.getInstance().getDadosVPrincipalAvaliador(usuarioId);
 
         JPanel jpOuter = null;
         JPanel jpInner = null;

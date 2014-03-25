@@ -7,25 +7,27 @@
 package Controller;
 
 import Base.Projeto;
-import DAO.IODica;
 import DAO.ProjetoDAO;
-import Modelo.PPerguntaCM;
-import Modelo.SalvaRespostasCM;
-import Modelo.VProjetoUsuarioCM;
-import Util.StatusProjeto;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author falbernaz
  */
 public class ProjetoController {
+    private static ProjetoController instance = null;
+    
+    protected ProjetoController(){
+        
+    }
 
+    public static ProjetoController getInstance(){
+        if (instance == null){
+            instance = new ProjetoController();
+        }
+        return instance;
+    }
+    
     public int criar(String nomeProj, int idLider) {
         Projeto projeto = new Projeto(nomeProj, idLider, 1);
         ProjetoDAO pd = new ProjetoDAO();
@@ -83,24 +85,6 @@ public class ProjetoController {
         return pd.podeEditar(usuarioId, projetoId);
     }
     
-    public VProjetoUsuarioCM getDadosVprojetoUsuario(int projetoId, int usuarioId){
-        ProjetoDAO pd = new ProjetoDAO();
-        VProjetoUsuarioCM ret = pd.getBasicoProjeto(projetoId);
-        ret.setMyUserId(usuarioId);
-        ret.setConteudoMembros(pd.getNomesMembros(projetoId));
-        ret.setConteudoPerguntas(pd.getPerguntasVProjetoUsuario(projetoId));
-        //adicionando as respostas
-        HashMap<String, ArrayList<PPerguntaCM>> cont = ret.getConteudoPerguntas();
-        for (String chave : ret.getConteudoPerguntas().keySet()) {
-            ArrayList<PPerguntaCM> grupo = cont.get(chave);
-            for (int i = 0; i < grupo.size(); i++){
-                grupo.get(i).setResposta(pd.getResposta(grupo.get(i).getPerguntaId(), projetoId));
-            }
-        }
-        
-        return ret;
-    }
-
     public int salvaResposta(int perguntaId, int projetoId, String resposta) {
         ProjetoDAO pd = new ProjetoDAO();
         int idResposta = pd.salvaResposta(perguntaId, projetoId, resposta);
