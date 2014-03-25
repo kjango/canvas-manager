@@ -110,12 +110,12 @@ public class VProjetoUsuario extends JFrame {
         btnEnviar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 //TODO Envia
+                salvaRespostas();
                 ProjetoController pc = new ProjetoController();
-                for (int i = 0; i < myPPerguntas.size(); i++) {
-                    if (!myPPerguntas.get(i).getResposta().equals("")) {
-                        myPPerguntas.get(i).getPerguntaId();
-                        pc.salvaResposta(myPPerguntas.get(i).getPerguntaId(), myPPerguntas.get(i).getProjetoId(), myPPerguntas.get(i).getResposta());
-                    }
+                if (pc.podeEnviar(projetoId)){
+                    
+                }else{
+                    
                 }
             }
         });

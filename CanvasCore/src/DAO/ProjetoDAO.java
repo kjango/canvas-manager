@@ -58,6 +58,7 @@ public class ProjetoDAO {
             if (rs.next()) {
                 cod = rs.getInt("id");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.criar");
@@ -82,6 +83,7 @@ public class ProjetoDAO {
             if (rs.next()) {
                 cod = rs.getInt("id");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.getIdProjeto");
@@ -107,6 +109,7 @@ public class ProjetoDAO {
             if (rs.next()) {
                 cod = rs.getInt("id_usuario");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.inserirMembro");
@@ -131,6 +134,7 @@ public class ProjetoDAO {
             if (rs.next()) {
                 cod = rs.getInt("lider");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.getIdLiderProjeto");
@@ -155,6 +159,7 @@ public class ProjetoDAO {
             while (rs.next()) {
                 membros.add(rs.getInt("id_usuario"));
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.getMembros");
@@ -179,6 +184,7 @@ public class ProjetoDAO {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.isMembro");
@@ -209,6 +215,7 @@ public class ProjetoDAO {
                 sit = rs.getInt("id_situacao");
                 lider = rs.getInt("lider");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.podeEditar");
@@ -237,6 +244,7 @@ public class ProjetoDAO {
             if (rs.next()) {
                 ret = new VProjetoUsuarioCM(rs.getString("nomeProjeto"), rs.getInt("idProjeto"), rs.getString("nomelider"), rs.getInt("liderId"), rs.getInt("statusProjeto"), -1);
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.getBasicoProjeto");
@@ -261,6 +269,7 @@ public class ProjetoDAO {
             while (rs.next()) {
                 membros.add(rs.getString("nome"));
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.getNomesMembros");
@@ -274,7 +283,7 @@ public class ProjetoDAO {
 
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT * FROM pergunta";
-        
+
         String bloco = "";
         ResultSet rs;
 
@@ -283,11 +292,12 @@ public class ProjetoDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 bloco = rs.getString("bloco");
-                if (!ret.containsKey(bloco)){
+                if (!ret.containsKey(bloco)) {
                     ret.put(bloco, new ArrayList<PPerguntaCM>());
                 }
                 ret.get(bloco).add(new PPerguntaCM(rs.getString("descricao"), "", "Sem dicas", bloco, rs.getInt("id"), projetoId));
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.getRespostasVProjetoUsuario");
@@ -300,7 +310,7 @@ public class ProjetoDAO {
     public String getResposta(int perguntaId, int projetoId) {
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT texto FROM resposta WHERE id_pergunta = ? AND id_projeto = ?";
-        
+
         String resp = "";
         ResultSet rs;
 
@@ -312,6 +322,7 @@ public class ProjetoDAO {
             while (rs.next()) {
                 resp = rs.getString("texto");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.getResposta");
@@ -319,12 +330,12 @@ public class ProjetoDAO {
         }
 
         return resp;
-    }        
+    }
 
     public int salvaResposta(int perguntaId, int projetoId, String resposta) {
         Connection con = ConnectionFactory.getConnection();
         String query = "UPDATE resposta SET texto = ? WHERE id_pergunta = ? AND id_projeto = ? RETURNING id";
-        
+
         int id = -1;
         ResultSet rs;
 
@@ -338,6 +349,7 @@ public class ProjetoDAO {
             while (rs.next()) {
                 id = rs.getInt("id");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.salvaResposta");
@@ -350,7 +362,7 @@ public class ProjetoDAO {
     public int insereResposta(int perguntaId, int projetoId, String resposta) {
         Connection con = ConnectionFactory.getConnection();
         String query = "INSERT INTO resposta (texto, id_pergunta, id_projeto) VALUES (?, ?, ?) RETURNING id";
-        
+
         int id = -1;
         ResultSet rs;
 
@@ -364,12 +376,37 @@ public class ProjetoDAO {
             while (rs.next()) {
                 id = rs.getInt("id");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do ProjetoDAO.insereResposta");
             e.printStackTrace();
         }
 
-        return id;        
+        return id;
+    }
+
+    public boolean podeEnviar(int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT (SELECT COUNT (id) FROM pergunta) = (SELECT COUNT (id) FROM resposta where id_projeto = ?);";
+
+        ResultSet rs;
+        boolean resp = false;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, projetoId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getBoolean(1);
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.insereResposta");
+            e.printStackTrace();
+        }
+
+        return resp;
     }
 }
