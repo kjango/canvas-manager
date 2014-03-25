@@ -150,7 +150,7 @@ public class ProjetoDAO {
         String query = "SELECT id_usuario FROM equipe WHERE id_projeto = ?;";
 
         ResultSet rs;
-        ArrayList<Integer> membros = null;
+        ArrayList<Integer> membros = new ArrayList<>();
 
         try {
             CallableStatement stmt = con.prepareCall(query);

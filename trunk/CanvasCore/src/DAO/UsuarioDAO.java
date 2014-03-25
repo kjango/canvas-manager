@@ -210,7 +210,7 @@ public class UsuarioDAO {
             stmt.setInt(2, idUsuario);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                res.add(new PProjetoCM(rs.getString("descricao"), rs.getString("nome_lider"), rs.getString("nome"), rs.getInt("id_lider")));
+                res.add(new PProjetoCM(rs.getString("descricao"), rs.getString("nome_lider"), rs.getString("nome"), rs.getInt("id_lider"), idUsuario, rs.getInt("id_proj")));
             }
             con.close();
 
