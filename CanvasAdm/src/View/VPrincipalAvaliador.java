@@ -22,11 +22,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
-public class VPrincipalUsuario extends JFrame {
+public class VPrincipalAvaliador extends JFrame {
 
     private JPanel contentPane;
     private JTabbedPane tabbedPane;
-    private JButton btnNovoProjeto;
     private JButton btnAtualiza;
     private int usuarioId;
     private HashMap<String, ArrayList<PProjetoCM>> conteudo;
@@ -43,7 +42,7 @@ public class VPrincipalUsuario extends JFrame {
                 hasha = uc.getDadosVPrincipal(3);
 
                 try {
-                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 3);
+                    VPrincipalAvaliador frame = new VPrincipalAvaliador(hasha, 3);
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -55,7 +54,7 @@ public class VPrincipalUsuario extends JFrame {
     /**
      * Create the frame.
      */
-    public VPrincipalUsuario(HashMap<String, ArrayList<PProjetoCM>> cont, int usr) {
+    public VPrincipalAvaliador(HashMap<String, ArrayList<PProjetoCM>> cont, int usr) {
         usuarioId = usr;
         conteudo = cont;
         setTitle("Canvas Manager");
@@ -72,37 +71,6 @@ public class VPrincipalUsuario extends JFrame {
         JPanel panel = new JPanel();
         contentPane.add(panel, BorderLayout.SOUTH);
 
-        btnNovoProjeto = new JButton("Novo projeto");
-        btnNovoProjeto.setEnabled(false);
-        btnNovoProjeto.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                String nomeProj = "";
-                nomeProj = JOptionPane.showInputDialog(null, "Digite o nome do novo plano.", "Novo plano de negócios", JOptionPane.QUESTION_MESSAGE);
-                if (nomeProj != null) {
-
-                    if (!nomeProj.equals("")) {
-                        ProjetoController pc = new ProjetoController();
-                        if (pc.getIdProjeto(nomeProj) == -1) {
-                            int plano = -2;
-                            plano = pc.criar(nomeProj, usuarioId);
-                            if (plano > 0) {
-                                JOptionPane.showMessageDialog(null, "Plano " + nomeProj + " criado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Erro ao criar plano " + nomeProj + ".", "Erro", JOptionPane.ERROR_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Já existe um plano de projeto com o nome " + nomeProj + ".", "Erro", JOptionPane.ERROR_MESSAGE);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Nome do plano não pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                atualiza();
-            }
-        });
-        panel.add(btnNovoProjeto);
-        
         btnAtualiza = new JButton("Atualiza");
         btnAtualiza.setEnabled(true);
         btnAtualiza.addActionListener(new ActionListener() {
@@ -121,14 +89,12 @@ public class VPrincipalUsuario extends JFrame {
     public void atualiza() {
         UsuarioController uc = new UsuarioController();
         conteudo = uc.getDadosVPrincipal(usuarioId);
-        
+
         JPanel jpOuter = null;
         JPanel jpInner = null;
         JScrollPane sp = null;
 
         tabbedPane.removeAll();
-
-        btnNovoProjeto.setEnabled(uc.podeCriar(usuarioId));
 
         Set<String> keys = conteudo.keySet();
         for (String statusProjeto : keys) {

@@ -1,5 +1,6 @@
 package View;
 
+import Controller.ProjetoController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -21,6 +22,8 @@ public class PProjeto extends JPanel {
     private String liderProjeto;
     private String nomeProjeto;
     private String statusProjeto;
+    private int myUserId;
+    private int projetoId;
 
     /**
      * Cria o panel.
@@ -30,13 +33,17 @@ public class PProjeto extends JPanel {
         this.liderProjeto = conteudo.getLiderProjeto();
         this.nomeProjeto = conteudo.getNomeProjeto();
         this.statusProjeto = conteudo.getStatusProjeto();
+        this.myUserId = conteudo.getMyUserId();
+        this.projetoId = conteudo.getProjetoId();
+        
 
         setBorder(new TitledBorder(null, "Líder: " + liderProjeto, TitledBorder.LEADING, TitledBorder.TOP, null, null));
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    
+                    VProjetoUsuario frame = new VProjetoUsuario(new ProjetoController().getDadosVprojetoUsuario(projetoId, myUserId));
+                    frame.setVisible(true);
                 }
             }
         });
