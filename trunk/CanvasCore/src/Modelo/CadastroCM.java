@@ -71,8 +71,6 @@ public class CadastroCM {
         else
         {
             credencial.setId_usuario(id);
-            CredencialDAO credencialDao = new CredencialDAO();
-            int result = credencialDao.salvar(credencial);
         }
     }
 
@@ -87,9 +85,31 @@ public class CadastroCM {
            status_curso.equalsIgnoreCase("Concluido") && usuario.getData_conclusao_curso_Date().before(new java.sql.Date(new java.util.Date().getTime()))){
                 return true;            
         }
-        return false;
-            
+        return false;            
     }
     
+    public void buscar(int id){
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        usuario = usuarioDao.getUsuario(id); 
+        credencial.setId_usuario(id);
+    }
+
+    public boolean validaDadosUsuario() {
+        return usuario.validar();
+    }
+
+    public boolean update() {
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        int id = usuarioDao.update(usuario);  
+        if(id != 1)
+        {
+            throw new RuntimeException();
+        }
+        return true;
+    }
+
+    public boolean updateCredencial() {
+        return credencial.update();
+    }
     
 }

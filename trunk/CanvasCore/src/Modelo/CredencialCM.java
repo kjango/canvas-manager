@@ -7,6 +7,7 @@
 package Modelo;
 
 import Base.Credencial;
+import DAO.CredencialDAO;
 import java.sql.Date;
 
 /**
@@ -32,6 +33,10 @@ public class CredencialCM extends Credencial {
     public void setSenha2(String senha2) {
         this.senha2 = senha2;
     }
-    
-    
+
+    public boolean update() {
+        CredencialDAO credencialDao = new CredencialDAO();
+        return credencialDao.update(id_usuario, senha);
+    }
+
 }

@@ -220,4 +220,53 @@ public class UsuarioDAO {
         }
         return res;
     }
+
+    public Usuario getUsuario(int id) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT * FROM USUARIO WHERE id=?;";
+
+        ResultSet rs;
+        Usuario usuario = null;
+        
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, id);
+            
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                usuario = new Usuario(id, rs.getString("nome"), rs.getString("email"), rs.getString("curso"), rs.getInt("status_curso"),
+                        rs.getDate("data_conclusao_curso"), rs.getDate("data_registro"), rs.getDate("atualizado_em"), rs.getInt("id_tipo"));
+            }
+
+        } catch (SQLException e) {            
+            throw new RuntimeException(e);
+        }
+        return usuario;
+    }
+
+    public int update(Usuario usuario) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "UPDATE usuario SET nome=?, email=?, curso=?, status_curso=?, data_conclusao_curso=?, id_tipo=?, atualizado_em='now' WHERE id=?;";
+
+        ResultSet rs;
+        int cod = -1;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setString(1, usuario.getNome());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getCurso());
+            stmt.setInt(4, usuario.getStatus_curso());
+            stmt.setDate(5, usuario.getData_conclusao_curso_Date());
+            stmt.setInt(6, usuario.getId_tipo());
+            stmt.setInt(7, usuario.getId());
+            cod = stmt.executeUpdate();
+            con.close();
+            
+        } catch (SQLException e) {            
+            throw new RuntimeException(e);
+
+        }
+        return cod;
+    }
 }

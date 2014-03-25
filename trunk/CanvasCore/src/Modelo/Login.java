@@ -41,16 +41,17 @@ public class Login {
         this.senha = senha;
     }
 
-    public boolean logar() {
+    public int logar() {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         int user = usuarioDao.getIdUsuario(usuario);
         System.out.print(user);
         if (user != -1) {
-            CredencialDAO credencialDao = new CredencialDAO();
-            
-            return (credencialDao.login(user, senha));
+            CredencialDAO credencialDao = new CredencialDAO();            
+            if(credencialDao.login(user, senha)==1){
+                return user;
+            }
         }
-        return false;
+        return -1;
     }
 
 }

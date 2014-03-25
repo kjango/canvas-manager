@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -85,14 +87,15 @@ public class Usuario {
     }
 
     public Date getData_conclusao_curso_Date() {
-        return data_conclusao_curso;
+        return this.data_conclusao_curso;
     }
 
     public String getData_conclusao_curso() {
         if(data_conclusao_curso == null){
             return "";
         }
-        return data_conclusao_curso.toString();
+        String parse [] = data_conclusao_curso.toString().split("-");
+        return parse[2]+parse[1]+parse[0];
     }
     
     public void setData_conclusao_curso(String data_conclusao_curso) throws ParseException {       
@@ -122,6 +125,14 @@ public class Usuario {
 
     public void setId_tipo(int id_tipo) {
         this.id_tipo = id_tipo;
+    }
+
+    public boolean validar() {
+        if(id <=0){return false;}
+        if(nome.isEmpty() || nome.length() <= 1){return false;}
+        if(email.isEmpty() || email.length() <= 1){return false;}
+        if(curso.isEmpty() || curso.length() <= 1){return false;}
+        return true;
     }
     
     

@@ -1,6 +1,7 @@
 package DAO;
 
 import Base.Credencial;
+import Modelo.CredencialCM;
 import Util.ConnectionFactory;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -16,7 +17,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
  */
 public class CredencialDAO {
 
-    public boolean login(int user, String senha) {
+    public int login(int user, String senha) {
         Connection con = ConnectionFactory.getConnection();
         String query = "SELECT count(*) as soma FROM credencial where id_usuario=? and senha=?;";
 
@@ -36,10 +37,7 @@ public class CredencialDAO {
             System.out.println("Erro no SQL do logar - CredencialDao");
             e.printStackTrace();
         }
-        if (cod == 1) {
-            return true;
-        }
-        return false;
+        return cod;
     }
 
     public int salvar(Credencial credencial) {
@@ -62,4 +60,30 @@ public class CredencialDAO {
         }
         return cod;
     }
+
+    public boolean update(int id_usuario, String senha) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "UPDATE credencial SET senha=?, atualizado_em='now' WHERE ID_USUARIO=?;";
+
+        ResultSet rs;
+        int cod = -1;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setString(1, senha);
+            stmt.setInt(2, id_usuario);;
+            cod = stmt.executeUpdate();
+            
+            con.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+            //System.out.println("Erro no SQL do salvar credencial");
+            //e.printStackTrace();
+        }
+        if(cod==1)
+            return true;
+        return false;
+    }
+
 }
