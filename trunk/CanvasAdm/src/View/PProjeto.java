@@ -44,7 +44,7 @@ public class PProjeto extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     WindowController wc = WindowController.getInstance();
-                    wc.criaVProjetoUsuario(projetoId, myUserId);
+                    wc.criaVProjeto(projetoId, myUserId);
                 }
             }
         });
