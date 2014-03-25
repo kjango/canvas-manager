@@ -3,23 +3,25 @@ package Modelo;
 public class PPerguntaAvaliacaoCM {
 
     private String pergunta;
+    private int perguntaId;
     private String resposta;
+    private int respostaId;
     private String dica;
     private String grupo;
-//	private String nomeProjeto;
-//	private String autor;
     private String avaliador;
+    private int avaliadorId;
     private String comentario;
     private double nota;
 
-    public PPerguntaAvaliacaoCM(String pergunta, String resposta, String dica,
-        String grupo, String avaliador, String comentario, double nota) {
-        super();
+    public PPerguntaAvaliacaoCM(String pergunta, int perguntaId, String resposta, int respostaId, String dica, String grupo, String avaliador, int avaliadorId, String comentario, double nota) {
         this.pergunta = pergunta;
+        this.perguntaId = perguntaId;
         this.resposta = resposta;
+        this.respostaId = respostaId;
         this.dica = dica;
         this.grupo = grupo;
         this.avaliador = avaliador;
+        this.avaliadorId = avaliadorId;
         this.comentario = comentario;
         this.nota = nota;
     }
@@ -78,6 +80,30 @@ public class PPerguntaAvaliacaoCM {
 
     public void setGrupo(String grupo) {
         this.grupo = grupo;
+    }
+
+    public int getPerguntaId() {
+        return perguntaId;
+    }
+
+    public void setPerguntaId(int perguntaId) {
+        this.perguntaId = perguntaId;
+    }
+
+    public int getRespostaId() {
+        return respostaId;
+    }
+
+    public void setRespostaId(int respostaId) {
+        this.respostaId = respostaId;
+    }
+
+    public int getAvaliadorId() {
+        return avaliadorId;
+    }
+
+    public void setAvaliadorId(int avaliadorId) {
+        this.avaliadorId = avaliadorId;
     }
 
 }

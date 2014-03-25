@@ -7,11 +7,15 @@ package Controller;
 
 import DAO.ProjetoDAO;
 import DAO.UsuarioDAO;
+import Modelo.ComentarioNotaCM;
+import Modelo.PPerguntaAvaliacaoCM;
 import Modelo.PPerguntaCM;
 import Modelo.PProjetoCM;
+import Modelo.VProjetoAvaliadorCM;
 import Modelo.VProjetoUsuarioCM;
 import View.VPrincipalAvaliador;
 import View.VPrincipalUsuario;
+import View.VProjetoAvaliador;
 import View.VProjetoUsuario;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,12 +117,33 @@ public class WindowController {
 
         return ret;
     }
+    
+    public VProjetoAvaliadorCM getDadosVProjetoAvaliador(int projetoId, int usuarioId) {
+        ProjetoDAO pd = new ProjetoDAO();
+        VProjetoUsuarioCM aux = pd.getBasicoProjeto(projetoId);
+        VProjetoAvaliadorCM ret = new VProjetoAvaliadorCM(aux.getNomeProjeto(), aux.getIdProjeto(), aux.getNomelider(), aux.getLiderId(), aux.getStatusProjeto(), usuarioId);
+        ret.setMyUserId(usuarioId);
+        ret.setConteudoMembros(pd.getNomesMembros(projetoId));
+        ret.setConteudoPerguntas(pd.getPerguntasVProjetoAvaliador(usuarioId, projetoId));
+        
+        //adicionando os comentários e notas
+        HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> cont = ret.getConteudoPerguntas();
+        for (String chave : ret.getConteudoPerguntas().keySet()) {
+            ArrayList<PPerguntaAvaliacaoCM> grupo = cont.get(chave);
+            for (int i = 0; i < grupo.size(); i++) {
+                ComentarioNotaCM cn = pd.getComentarioNota(usuarioId, grupo.get(i).getRespostaId());
+                grupo.get(i).setComentario(cn.getComentario());
+                grupo.get(i).setNota(cn.getNota());
+            }
+        }
+        return ret;
+    }    
 
     public void criaVProjeto(int projetoId, int usuarioId) {
         ProjetoController pc = ProjetoController.getInstance();
         if (pc.podeAvaliar(usuarioId, projetoId)) {
-//            VProjetoAvaliador frame = new VProjetoAvaliador(getDadosVProjetoAvaliador(projetoId, usuarioId));
-//            frame.setVisible(true);
+            VProjetoAvaliador frame = new VProjetoAvaliador(getDadosVProjetoAvaliador(projetoId, usuarioId));
+            frame.setVisible(true);
         } else if (pc.podeEmitirParecer(usuarioId, projetoId)) {
 //            VProjetoParecer frame = new VProjetoParecer(getDadosVProjetoParecer(projetoId, usuarioId));
 //            frame.setVisible(true);
