@@ -117,7 +117,7 @@ public class WindowController {
 
         return ret;
     }
-    
+
     public VProjetoAvaliadorCM getDadosVProjetoAvaliador(int projetoId, int usuarioId) {
         ProjetoDAO pd = new ProjetoDAO();
         VProjetoUsuarioCM aux = pd.getBasicoProjeto(projetoId);
@@ -125,7 +125,7 @@ public class WindowController {
         ret.setMyUserId(usuarioId);
         ret.setConteudoMembros(pd.getNomesMembros(projetoId));
         ret.setConteudoPerguntas(pd.getPerguntasVProjetoAvaliador(usuarioId, projetoId));
-        
+
         //adicionando os comentários e notas
         HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> cont = ret.getConteudoPerguntas();
         for (String chave : ret.getConteudoPerguntas().keySet()) {
@@ -137,7 +137,7 @@ public class WindowController {
             }
         }
         return ret;
-    }    
+    }
 
     public void criaVProjeto(int projetoId, int usuarioId) {
         ProjetoController pc = ProjetoController.getInstance();
@@ -157,5 +157,40 @@ public class WindowController {
     public void criaVPrincipalAvaliador(int usuarioId) {
         VPrincipalAvaliador frame = new VPrincipalAvaliador(getDadosVPrincipalAvaliador(usuarioId), usuarioId);
         frame.setVisible(true);
+    }
+
+    public void criaVPrincipalAdmin(int usuarioId) {
+        VPrincipalAvaliador frame = new VPrincipalAvaliador(getDadosVPrincipalAdmin(usuarioId), usuarioId);
+        frame.setVisible(true);
+    }
+
+    public HashMap<String, ArrayList<PProjetoCM>> getDadosVPrincipalAdmin(int usuarioId) {
+        UsuarioDAO ud = new UsuarioDAO();
+        ProjetoController pc = new ProjetoController();
+        ArrayList<PProjetoCM> conteudo = ud.getTodosProjetosAdmin(usuarioId);
+        HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
+
+        for (int i = 0; i < conteudo.size(); i++) {
+            String sit = conteudo.get(i).getStatusProjeto();
+
+            if (!hasha.containsKey(sit)) {
+                hasha.put(sit, new ArrayList<PProjetoCM>());
+            }
+            hasha.get(sit).add(conteudo.get(i));
+
+            if (conteudo.get(i).getIdLider() == usuarioId) {
+                if (!hasha.containsKey("Líder")) {
+                    hasha.put("Líder", new ArrayList<PProjetoCM>());
+                }
+                hasha.get("Líder").add(conteudo.get(i));
+            }
+            if (pc.isMembro(usuarioId, conteudo.get(i).getProjetoId())) {
+                if (!hasha.containsKey("Membro")) {
+                    hasha.put("Membro", new ArrayList<PProjetoCM>());
+                }
+                hasha.get("Membro").add(conteudo.get(i));
+            }
+        }
+        return hasha;
     }
 }

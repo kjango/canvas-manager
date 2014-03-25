@@ -34,7 +34,7 @@ public class UsuarioController {
         return ud.podeCriar(id);
     }
     
-    public int getUsuario(String email){
+    public int getIdUsuario(String email){
         UsuarioDAO ud = new UsuarioDAO();
         return ud.getIdUsuario(email);
     }
@@ -47,6 +47,11 @@ public class UsuarioController {
     public ArrayList<Integer> getTodosProjetos(int idUsuario){
         ArrayList<Integer> ret = new ArrayList<>();
         return ret;
+    }
+
+    public int getTipoUsuario(int usuarioId) {
+        UsuarioDAO ud = new UsuarioDAO();
+        return ud.getTipoUsuario(usuarioId);
     }
     
 
