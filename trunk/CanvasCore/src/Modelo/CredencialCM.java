@@ -38,5 +38,10 @@ public class CredencialCM extends Credencial {
         CredencialDAO credencialDao = new CredencialDAO();
         return credencialDao.update(id_usuario, senha);
     }
+    
+    public int salvar() {
+        CredencialDAO credencialDao = new CredencialDAO();
+        return credencialDao.salvar(id_usuario, senha);
+    }
 
 }

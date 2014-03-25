@@ -63,7 +63,8 @@ public class CadastroCM {
     
     public void salvar(){
         UsuarioDAO usuarioDao = new UsuarioDAO();
-        int id = usuarioDao.inserir(usuario);  
+        int id = usuarioDao.inserir(usuario); 
+        int id_cred = -1;
         if(id == -1)
         {
             throw new RuntimeException();
@@ -71,6 +72,7 @@ public class CadastroCM {
         else
         {
             credencial.setId_usuario(id);
+            id_cred = credencial.salvar();
         }
     }
 
