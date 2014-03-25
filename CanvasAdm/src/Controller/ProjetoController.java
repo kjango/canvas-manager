@@ -131,4 +131,9 @@ public class ProjetoController {
         return idComentario;
     }
 
+    public int emiteParecer(int projetoId, int adminId, String text, int situacao) {
+        ProjetoDAO pd = new ProjetoDAO();
+        return pd.emiteParecer(projetoId, adminId, text, situacao);
+    }
+
 }
