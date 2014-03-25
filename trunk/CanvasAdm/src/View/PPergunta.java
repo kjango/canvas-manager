@@ -21,43 +21,65 @@ import javax.swing.border.TitledBorder;
 import Modelo.PPerguntaCM;
 
 /**
- * Classe utilizada para exibir as perguntas e respostas do Canvas. Ela ajuda a compor a view principal.
+ * Classe utilizada para exibir as perguntas e respostas do Canvas. Ela ajuda a
+ * compor a view principal.
+ *
  * @author Francisco
  */
 public class PPergunta extends JPanel {
 
-    
     private String pergunta;
     private String resposta;
     private String dica;
     private JTextArea txtrResposta;
+    private int perguntaId;
+    private int projetoId;
+
+    public int getProjetoId() {
+        return projetoId;
+    }
+
+    public void setProjetoId(int projetoId) {
+        this.projetoId = projetoId;
+    }
     
+    public int getPerguntaId() {
+        return perguntaId;
+    }
+
+    public void setPerguntaId(int perguntaId) {
+        this.perguntaId = perguntaId;
+    }
+
     public String getPergunta() {
-		return pergunta;
-	}
+        return pergunta;
+    }
 
-	public void setPergunta(String pergunta) {
-		this.pergunta = pergunta;
-	}
+    public void setPergunta(String pergunta) {
+        this.pergunta = pergunta;
+    }
 
-	public JTextArea getTxtrResposta() {
-		return txtrResposta;
-	}
+    public String getResposta() {
+        return txtrResposta.getText();
+    }
 
-	public void setTxtrResposta(JTextArea txtrResposta) {
-		this.txtrResposta = txtrResposta;
-	}
-
-	private JTextArea txtrPergunta;
+    public void setResposta(String txtResposta) {
+        this.txtrResposta.setText(txtResposta);
+    }
+    private JTextArea txtrPergunta;
 
     /**
      * Cria o panel.
-     * @param conteudo Objeto da camada de modelo contendo tudo o que é necessário para esse panel (a pergunta, a resposta e a dica da pergunta)
+     *
+     * @param conteudo Objeto da camada de modelo contendo tudo o que é
+     * necessário para esse panel (a pergunta, a resposta e a dica da pergunta)
      */
     public PPergunta(PPerguntaCM conteudo, boolean isEditavel) {
         pergunta = conteudo.getPergunta();
         resposta = conteudo.getResposta();
         dica = conteudo.getDica();
+        perguntaId = conteudo.getPerguntaId();
+        projetoId = conteudo.getProjetoId();
 
         setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
         setLayout(new BorderLayout(0, 0));
@@ -90,11 +112,10 @@ public class PPergunta extends JPanel {
         txtrResposta.setBackground(new Color(255, 255, 255));
         txtrResposta.setColumns(2);
         txtrResposta.setEditable(isEditavel);
-        if (!isEditavel){
+        if (!isEditavel) {
             txtrResposta.setBackground(new Color(240, 240, 240));
         }
         panelResposta.add(txtrResposta, BorderLayout.CENTER);
 
     }
-
 }
