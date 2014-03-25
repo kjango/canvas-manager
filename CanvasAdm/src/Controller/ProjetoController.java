@@ -104,5 +104,14 @@ public class ProjetoController {
         
         return ret;
     }
+
+    public int salvaResposta(int perguntaId, int projetoId, String resposta) {
+        ProjetoDAO pd = new ProjetoDAO();
+        int idResposta = pd.salvaResposta(perguntaId, projetoId, resposta);
+        if (idResposta == -1){
+            idResposta = pd.insereResposta(perguntaId, projetoId, resposta);
+        }
+        return idResposta;
+    }
     
 }

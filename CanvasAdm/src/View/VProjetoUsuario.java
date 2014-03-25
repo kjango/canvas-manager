@@ -23,7 +23,9 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
 import javax.swing.UIManager;
 
 /**
@@ -47,6 +49,7 @@ public class VProjetoUsuario extends JFrame {
     private int projetoId;
     private int myUserId;
     private JButton btnSalvar;
+    private ArrayList<PPergunta> myPPerguntas;
 
     /**
      * Main usada para testes.
@@ -58,7 +61,7 @@ public class VProjetoUsuario extends JFrame {
             public void run() {
 
                 try {
-                    VProjetoUsuario frame = new VProjetoUsuario(new ProjetoController().getDadosVprojetoUsuario(2, 2));
+                    VProjetoUsuario frame = new VProjetoUsuario(new ProjetoController().getDadosVprojetoUsuario(18, 3));
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -78,6 +81,7 @@ public class VProjetoUsuario extends JFrame {
      * @param status Boolean indicando se é uma avaliação ou um parecer.
      */
     public VProjetoUsuario(VProjetoUsuarioCM conteudo) {
+        this.myPPerguntas = new ArrayList<>();
         this.myUserId = conteudo.getMyUserId();
         this.status = conteudo.getStatusProjeto();
         this.lider = conteudo.getNomelider();
@@ -103,12 +107,25 @@ public class VProjetoUsuario extends JFrame {
 
         btnEnviar = new JButton("Enviar");
         panelBotoes.add(btnEnviar);
+        btnEnviar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                //TODO Envia
+                ProjetoController pc = new ProjetoController();
+                for (int i = 0; i < myPPerguntas.size(); i++) {
+                    if (!myPPerguntas.get(i).getResposta().equals("")) {
+                        myPPerguntas.get(i).getPerguntaId();
+                        pc.salvaResposta(myPPerguntas.get(i).getPerguntaId(), myPPerguntas.get(i).getProjetoId(), myPPerguntas.get(i).getResposta());
+                    }
+                }
+            }
+        });
 
         btnSalvar = new JButton("Salvar");
         panelBotoes.add(btnSalvar);
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 //TODO salva
+                salvaRespostas();
             }
         });
 
@@ -140,7 +157,7 @@ public class VProjetoUsuario extends JFrame {
                         JOptionPane.showMessageDialog(null, "Email pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                
+
             }
         });
         panelMembros.add(btnAddMembro, BorderLayout.SOUTH);
@@ -172,11 +189,12 @@ public class VProjetoUsuario extends JFrame {
         JPanel jpOuter = null;
         JPanel jpInner = null;
         JScrollPane sp = null;
-        
+
         ProjetoController pc = new ProjetoController();
         boolean podeEditar = pc.podeEditar(myUserId, projetoId);
 
         tabbedPane.removeAll();
+        myPPerguntas.removeAll(myPPerguntas);
 
         Set<String> keys = conteudoPerguntas.keySet();
         for (String grupoPergunta : keys) {
@@ -195,7 +213,9 @@ public class VProjetoUsuario extends JFrame {
             jpInner.setLayout(new GridLayout(0, 1, 0, 0));
 
             for (PPerguntaCM cont : conteudoPerguntas.get(grupoPergunta)) {
-                jpInner.add(new PPergunta(cont, podeEditar));
+                PPergunta pp = new PPergunta(cont, podeEditar);
+                myPPerguntas.add(pp);
+                jpInner.add(pp);
             }
         }
         atualizaBotoes();
@@ -216,20 +236,30 @@ public class VProjetoUsuario extends JFrame {
 
         repaint();
     }
-    
+
     /**
      * Método para atualizar os botões
      *
-     * 
+     *
      */
-    public void atualizaBotoes(){
-        
+    public void atualizaBotoes() {
+
         ProjetoController pd = new ProjetoController();
         boolean bol = pd.podeEditar(myUserId, projetoId);
-     
+
         btnAddMembro.setEnabled(bol);
         btnEnviar.setEnabled(bol);
         btnSalvar.setEnabled(bol);
         repaint();
+    }
+
+    public void salvaRespostas() {
+        ProjetoController pc = new ProjetoController();
+        for (int i = 0; i < myPPerguntas.size(); i++) {
+            if (!myPPerguntas.get(i).getResposta().equals("")) {
+                myPPerguntas.get(i).getPerguntaId();
+                pc.salvaResposta(myPPerguntas.get(i).getPerguntaId(), myPPerguntas.get(i).getProjetoId(), myPPerguntas.get(i).getResposta());
+            }
+        }
     }
 }
