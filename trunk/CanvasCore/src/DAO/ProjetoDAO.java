@@ -465,7 +465,7 @@ public class ProjetoDAO {
 
     public boolean podeEmitirParecer(int usuarioId, int projetoId) {
         Connection con = ConnectionFactory.getConnection();
-        String query = "SELECT EXISTS (SELECT p.id FROM projeto p WHERE p.id_situacao = 3 AND p.id = ?) AND EXISTS (SELECT u.id FROM usuario u WHERE u.id_tipo = 3 AND u.id = ?);";
+        String query = "SELECT EXISTS (SELECT p.id FROM projeto p WHERE p.id_situacao IN (3, 4) AND p.id = ?) AND EXISTS (SELECT u.id FROM usuario u WHERE u.id_tipo = 3 AND u.id = ?);";
 
         ResultSet rs;
         boolean resp = false;
@@ -641,5 +641,9 @@ public class ProjetoDAO {
             e.printStackTrace();
         }
         return resp;
+    }
+
+    public int emiteParecer(int projetoId, int adminId, String text, int situacao) {
+        
     }
 }
