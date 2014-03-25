@@ -10,21 +10,68 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Bem Vindo!</title>
+        <title>Bem Vindo #{logado.usuario}!</title>
         <link type="text/css" rel="stylesheet" href="theme3.css" />
     </h:head>
+
     <h:body>
         <center>
             <h:form id="formulario">
                 <p:messages autoUpdate="true"/>
                 <h:panelGrid>
-                    <p:panel header="LOGIN">
-                        <h:panelGrid columns="2" cellpadding="7">  
-                            <h:outputText value="Usuário logado com sucesso! " />
-                        </h:panelGrid>
+                    <p:panel header="USUARIO">
+                        <h:form id="form">
+
+                            <p:growl id="growl" showDetail="false" />
+
+                            <p:tabView id="tabView" dynamic="false">
+
+                                <p:ajax event="tabChange" listener="#{logado.onTabChange}" />
+
+                                <p:tab title="ALTERAR DADOS" id="alteraDados">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <h:outputText value="Email: "/>
+                                        <p:inputText id="email" value="#{logado.user.usuario.email}" />
+                                        <h:outputText value="Nome: "/>
+                                        <p:inputText id="nome" value="#{logado.user.usuario.nome}" />
+                                        <h:outputText value="Curso: "/>
+                                        <p:inputText id="curso" value="#{logado.user.usuario.curso}" />
+                                        <h:outputLabel for="status" value="Status do Curso:" />
+                                        <h:selectOneMenu id="status" value="#{logado.status_curso}" >
+                                            <f:selectItem itemLabel="Selecione" itemValue="" />
+                                            <f:selectItems value="#{logado.status}" />
+                                        </h:selectOneMenu>
+                                        <h:outputText value="Data de Conclusao: "/>
+                                        <p:inputMask id="conclusao" value="#{logado.user.usuario.data_conclusao_curso}" mask="99/99/9999"/>
+
+                                        <p:commandButton value="ALTERAR" action="#{logado.alterarUsuario}" onclick="execute"/>
+                                        <p:commandButton value="CANCELAR" action="#{logado.cancelar}" type="reset"/>
+                                    </h:panelGrid>
+                                </p:tab>
+
+                                <p:tab title="ALTERAR SENHA" id="alteraSenha">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <h:outputText value="Email: "/>
+                                        <h:outputText id="email2" value="#{logado.user.usuario.email}"/>
+                                        <h:outputText value="Nome: "/>
+                                        <h:outputText id="nome2" value="#{logado.user.usuario.nome}"/>
+
+                                        <h:outputText value="Senha: "/>
+                                        <p:password id="senha" value="#{logado.user.credencial.senha}" />
+                                        <h:outputText value="Repita a senha: "/>
+                                        <p:password id="senha2" value="#{logado.user.credencial.senha2}" />
+
+                                        <p:commandButton value="ALTERAR" action="#{logado.alterarCredencial}" onclick="execute"/>
+                                        <p:commandButton value="CANCELAR" action="#{logado.cancelar}" type="reset"/>
+                                    </h:panelGrid>
+                                </p:tab>
+
+                            </p:tabView>
+
+                        </h:form>
                     </p:panel>
                 </h:panelGrid>
-                
+
             </h:form>
         </center>
     </h:body>

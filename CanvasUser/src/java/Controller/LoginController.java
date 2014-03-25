@@ -6,8 +6,11 @@
 package Controller;
 
 import Modelo.Login;
+import java.io.IOException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -27,10 +30,13 @@ public class LoginController {
         this.login = login;
     }
     
-    public String logar(){
-        boolean resposta = login.logar();       
-        login = new Login();
-        return "logado.xhmtl?userSession=value1&facesRedirect=true";
+    public String logar() throws IOException{
+        int resposta = login.logar();       
+        if(resposta !=-1){
+            return "logado.xhmtl?faces-redirect=true&user="+login.getUsuario()+"&id="+resposta;
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário não cadastrado! Para fazer um novo cadastro clique em 'Novo Cadastro'.", ""));
+        return "";
     }
 
     public LoginController() {
