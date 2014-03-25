@@ -403,10 +403,35 @@ public class ProjetoDAO {
             }
             con.close();
         } catch (SQLException e) {
-            System.out.println("Erro no SQL do ProjetoDAO.insereResposta");
+            System.out.println("Erro no SQL do ProjetoDAO.podeEnviar");
             e.printStackTrace();
         }
 
         return resp;
+    }
+
+    public int enviaProjetoAvaliacao(int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "UPDATE projeto set id_situacao = 2 WHERE id = ? RETURNING id_situacao;";
+
+        ResultSet rs;
+        int resp = -1;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, projetoId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getInt(1);
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.enviaProjetoAvaliacao");
+            e.printStackTrace();
+        }
+        return resp;
+
     }
 }

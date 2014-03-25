@@ -113,9 +113,11 @@ public class VProjetoUsuario extends JFrame {
                 salvaRespostas();
                 ProjetoController pc = new ProjetoController();
                 if (pc.podeEnviar(projetoId)){
-                    
+                    pc.enviaProjetoAvaliacao(projetoId);
+                    JOptionPane.showMessageDialog(null, "Plano " + projetoId + " enviado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    atualizaTudo();
                 }else{
-                    
+                    JOptionPane.showMessageDialog(null, "Todas as perguntas devem ser respondidas antes de enviar para avaliação.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -261,5 +263,12 @@ public class VProjetoUsuario extends JFrame {
                 pc.salvaResposta(myPPerguntas.get(i).getPerguntaId(), myPPerguntas.get(i).getProjetoId(), myPPerguntas.get(i).getResposta());
             }
         }
+    }
+    
+    public void atualizaTudo(){
+        VProjetoUsuarioCM dados = new ProjetoController().getDadosVprojetoUsuario(projetoId, myUserId);
+        atualizaBotoes();
+        atualizaMembros(dados.getConteudoMembros());
+        atualizaPerguntas(dados.getConteudoPerguntas());
     }
 }
