@@ -7,7 +7,7 @@
 package Modelo;
 
 import Base.Status;
-import DAO.StatusDAO;
+import DAO.SituacaoDAO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.Map;
  *
  * @author Rosana Local
  */
-public class BuscarStatus {
+public class BuscarSituacao {
     
     private Map<String, Integer>  status;
     
     public Map<String, Integer>  getAllStatus(){
-        StatusDAO statusDao = new StatusDAO();
+        SituacaoDAO statusDao = new SituacaoDAO();
        // status = new HashMap<Integer, String> ();
         status = statusDao.getAllStatus();
         return status;        
