@@ -61,7 +61,7 @@ public class CadastroController {
         } else if(!cadastroCM.validarStatusCurso(this.status_curso)){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Status do curso e Data de Conclusão do curso não conferem. Por favor verifique.", ""));
         }else{
-            if (cadastroCM.getCredencial().getSenha().equalsIgnoreCase(cadastroCM.getCredencial().getSenha2())) {
+            if (cadastroCM.getCredencial().getSenha().equals(cadastroCM.getCredencial().getSenha2())) {
                 cadastroCM.getUsuario().setStatus_curso(buscar.getStatus().get(this.status_curso));
 
                 cadastroCM.salvar();
