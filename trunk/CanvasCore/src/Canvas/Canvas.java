@@ -7,7 +7,7 @@ package Canvas;
 
 import Base.Usuario;
 import DAO.CredencialDAO;
-import DAO.SituacaoDAO;
+import DAO.StatusDAO;
 import DAO.UsuarioDAO;
 import Modelo.Login;
 

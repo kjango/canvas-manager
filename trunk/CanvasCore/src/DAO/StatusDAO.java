@@ -17,15 +17,15 @@ import java.util.Map;
  * @author Francisco
  */
 
-public class SituacaoDAO {
+public class StatusDAO {
     
-    public SituacaoDAO(){
+    public StatusDAO(){
     
     }
 
     public Map<String, Integer> getAllStatus() {
         Connection con = ConnectionFactory.getConnection();
-        String query = "SELECT * FROM situacao;";
+        String query = "SELECT * FROM status;";
         
         ResultSet rs;
         Map<String, Integer> resultado = new HashMap<String, Integer>();
