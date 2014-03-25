@@ -3,6 +3,7 @@ package View;
 import Base.Usuario;
 import Controller.ProjetoController;
 import Controller.UsuarioController;
+import Controller.WindowController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -38,13 +39,14 @@ public class VPrincipalUsuario extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
-                UsuarioController uc = new UsuarioController();
-                hasha = uc.getDadosVPrincipalUsuario(3);
+//                HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
+//                UsuarioController uc = UsuarioController.getInstance();
+//                hasha = uc.getDadosVPrincipalUsuario(2);
 
                 try {
-                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 3);
-                    frame.setVisible(true);
+                    WindowController.getInstance().criaVPrincipalUsuario(2);
+//                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 2);
+//                    frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -82,7 +84,7 @@ public class VPrincipalUsuario extends JFrame {
                 if (nomeProj != null) {
 
                     if (!nomeProj.equals("")) {
-                        ProjetoController pc = new ProjetoController();
+                        ProjetoController pc = ProjetoController.getInstance();
                         if (pc.getIdProjeto(nomeProj) == -1) {
                             int plano = -2;
                             plano = pc.criar(nomeProj, usuarioId);
@@ -119,8 +121,8 @@ public class VPrincipalUsuario extends JFrame {
     }
 
     public void atualiza() {
-        UsuarioController uc = new UsuarioController();
-        conteudo = uc.getDadosVPrincipalUsuario(usuarioId);
+        UsuarioController uc = UsuarioController.getInstance();
+        conteudo = WindowController.getInstance().getDadosVPrincipalUsuario(usuarioId);
         
         JPanel jpOuter = null;
         JPanel jpInner = null;

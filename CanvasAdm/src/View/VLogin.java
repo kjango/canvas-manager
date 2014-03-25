@@ -1,5 +1,6 @@
 package View;
 
+import Controller.LoginController;
 import Modelo.Login;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -84,7 +85,7 @@ public class VLogin extends JFrame {
                 if (textFieldUsuario.getText().length() > 0 && passwordField.getText().length() > 0) {
                     Modelo.Login login = new Login(textFieldUsuario.getText(), passwordField.getText());
 
-                    if (Controller.LoginController.logar(login)) {
+                    if (LoginController.getInstance().logar(login) != -1) {
                         //cria a mainWindow
                     } else {
                         JOptionPane.showMessageDialog(null, "Login inválido");

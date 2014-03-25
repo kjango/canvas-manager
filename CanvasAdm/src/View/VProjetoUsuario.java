@@ -1,6 +1,7 @@
 package View;
 
 import Controller.ProjetoController;
+import Controller.WindowController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -23,9 +24,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import java.awt.Color;
-import java.awt.Component;
 import javax.swing.JOptionPane;
-import javax.swing.JRootPane;
 import javax.swing.UIManager;
 
 /**
@@ -60,8 +59,9 @@ public class VProjetoUsuario extends JFrame {
             public void run() {
 
                 try {
-                    VProjetoUsuario frame = new VProjetoUsuario(new ProjetoController().getDadosVprojetoUsuario(18, 3));
-                    frame.setVisible(true);
+                    WindowController.getInstance().criaVProjetoUsuario(1, 3);
+//                    VProjetoUsuario frame = new VProjetoUsuario(ProjetoController.getInstance().getDadosVprojetoUsuario(18, 3));
+//                    frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -110,7 +110,7 @@ public class VProjetoUsuario extends JFrame {
             public void actionPerformed(ActionEvent arg0) {
                 //TODO Envia
                 salvaRespostas();
-                ProjetoController pc = new ProjetoController();
+                ProjetoController pc = ProjetoController.getInstance();
                 if (pc.podeEnviar(projetoId)){
                     pc.enviaProjetoAvaliacao(projetoId);
                     JOptionPane.showMessageDialog(null, "Plano " + projetoId + " enviado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -166,7 +166,7 @@ public class VProjetoUsuario extends JFrame {
         JPanel jpInner = null;
         JScrollPane sp = null;
 
-        ProjetoController pc = new ProjetoController();
+        ProjetoController pc = ProjetoController.getInstance();
         boolean podeEditar = pc.podeEditar(myUserId, projetoId);
 
         tabbedPane.removeAll();
@@ -220,7 +220,7 @@ public class VProjetoUsuario extends JFrame {
      */
     public void atualizaBotoes() {
 
-        ProjetoController pd = new ProjetoController();
+        ProjetoController pd = ProjetoController.getInstance();
         boolean bol = pd.podeEditar(myUserId, projetoId);
         btnEnviar.setEnabled(bol);
         btnSalvar.setEnabled(bol);
@@ -228,7 +228,7 @@ public class VProjetoUsuario extends JFrame {
     }
 
     public void salvaRespostas() {
-        ProjetoController pc = new ProjetoController();
+        ProjetoController pc = ProjetoController.getInstance();
         for (int i = 0; i < myPPerguntas.size(); i++) {
             if (!myPPerguntas.get(i).getResposta().equals("")) {
                 myPPerguntas.get(i).getPerguntaId();
@@ -238,7 +238,7 @@ public class VProjetoUsuario extends JFrame {
     }
     
     public void atualizaTudo(){
-        VProjetoUsuarioCM dados = new ProjetoController().getDadosVprojetoUsuario(projetoId, myUserId);
+        VProjetoUsuarioCM dados = WindowController.getInstance().getDadosVProjetoUsuario(projetoId, myUserId);
         atualizaBotoes();
         atualizaMembros(dados.getConteudoMembros());
         atualizaPerguntas(dados.getConteudoPerguntas());
