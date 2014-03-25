@@ -434,4 +434,55 @@ public class ProjetoDAO {
         return resp;
 
     }
+
+    public boolean podeAvaliar(int usuarioId, int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT EXISTS (SELECT p.id FROM projeto p WHERE p.id_situacao IN (1, 3) AND p.id = ?) AND EXISTS (SELECT u.id FROM usuario u WHERE u.id_tipo = 2 AND u.id = ?);";
+
+        ResultSet rs;
+        boolean resp = false;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, projetoId);
+            stmt.setInt(2, usuarioId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getBoolean(1);
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.podeAvaliar");
+            e.printStackTrace();
+        }
+
+        return resp;
+    }
+
+    public boolean podeEmitirParecer(int usuarioId, int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT EXISTS (SELECT p.id FROM projeto p WHERE p.id_situacao = 3 AND p.id = ?) AND EXISTS (SELECT u.id FROM usuario u WHERE u.id_tipo = 3 AND u.id = ?);";
+
+        ResultSet rs;
+        boolean resp = false;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, projetoId);
+            stmt.setInt(2, usuarioId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getBoolean(1);
+            }
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.podeEmitirParecer");
+            e.printStackTrace();
+        }
+
+        return resp;
+    }
+
 }

@@ -103,5 +103,13 @@ public class ProjetoController {
         ProjetoDAO pd = new ProjetoDAO();
         return pd.enviaProjetoAvaliacao(projetoId);
     }
+
+    boolean podeAvaliar(int usuarioId, int projetoId) {
+        return new ProjetoDAO().podeAvaliar(usuarioId, projetoId);
+    }
+
+    boolean podeEmitirParecer(int usuarioId, int projetoId) {
+        return new ProjetoDAO().podeEmitirParecer(usuarioId, projetoId);
+    }
     
 }

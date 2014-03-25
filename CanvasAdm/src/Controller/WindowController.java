@@ -114,9 +114,19 @@ public class WindowController {
         return ret;
     }
 
-    public void criaVProjetoUsuario(int projetoId, int usuarioId) {
-        VProjetoUsuario frame = new VProjetoUsuario(getDadosVProjetoUsuario(projetoId, usuarioId));
-        frame.setVisible(true);
+    public void criaVProjeto(int projetoId, int usuarioId) {
+        ProjetoController pc = ProjetoController.getInstance();
+        if (pc.podeAvaliar(usuarioId, projetoId)) {
+//            VProjetoAvaliador frame = new VProjetoAvaliador(getDadosVProjetoAvaliador(projetoId, usuarioId));
+//            frame.setVisible(true);
+        } else if (pc.podeEmitirParecer(usuarioId, projetoId)) {
+//            VProjetoParecer frame = new VProjetoParecer(getDadosVProjetoParecer(projetoId, usuarioId));
+//            frame.setVisible(true);
+        } else {
+            VProjetoUsuario frame = new VProjetoUsuario(getDadosVProjetoUsuario(projetoId, usuarioId));
+            frame.setVisible(true);
+        }
+
     }
 
     public void criaVPrincipalAvaliador(int usuarioId) {
