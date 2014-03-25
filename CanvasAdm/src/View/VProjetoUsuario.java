@@ -45,7 +45,6 @@ public class VProjetoUsuario extends JFrame {
     private JTextPane txtpnMembros;
     private JLabel lblLder;
     private String lider;
-    private JButton btnAddMembro;
     private int projetoId;
     private int myUserId;
     private JButton btnSalvar;
@@ -139,31 +138,6 @@ public class VProjetoUsuario extends JFrame {
         lblLder = new JLabel(" Líder: " + this.lider);
         panelMembros.add(lblLder, BorderLayout.NORTH);
 
-        btnAddMembro = new JButton("Adicionar membro");
-        btnAddMembro.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                String emailMembro = "";
-                emailMembro = JOptionPane.showInputDialog(null, "Digite o email do membro.", "Novo membro", JOptionPane.QUESTION_MESSAGE);
-                if (emailMembro != null) {
-                    if (!emailMembro.equals("")) {
-                        ProjetoController pc = new ProjetoController();
-                        int id_membro = -2;
-                        id_membro = pc.inserirMembro(emailMembro, projetoId);
-                        if (id_membro > 0) {
-                            JOptionPane.showMessageDialog(null, "Membro " + emailMembro + " adicionado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Erro ao adicionar membro " + emailMembro + ".", "Erro", JOptionPane.ERROR_MESSAGE);
-                        }
-                        atualizaMembros(pc.getMembros(projetoId));
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Email pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-
-            }
-        });
-        panelMembros.add(btnAddMembro, BorderLayout.SOUTH);
-
         txtpnMembros = new JTextPane();
         txtpnMembros.setEditable(false);
         txtpnMembros.setBackground(new Color(240, 240, 240));
@@ -248,8 +222,6 @@ public class VProjetoUsuario extends JFrame {
 
         ProjetoController pd = new ProjetoController();
         boolean bol = pd.podeEditar(myUserId, projetoId);
-
-        btnAddMembro.setEnabled(bol);
         btnEnviar.setEnabled(bol);
         btnSalvar.setEnabled(bol);
         repaint();

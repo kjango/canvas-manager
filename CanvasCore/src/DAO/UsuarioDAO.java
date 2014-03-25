@@ -196,10 +196,10 @@ public class UsuarioDAO {
         return email;
     }
 
-    public ArrayList<PProjetoCM> getTodosProjetos(int idUsuario) {
+    public ArrayList<PProjetoCM> getTodosProjetosUsuario(int idUsuario) {
 
         Connection con = ConnectionFactory.getConnection();
-        String query = "SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM usuario u JOIN projeto p ON u.id = p.lider JOIN situacao s ON s.id = p.id_situacao WHERE u.id = ? UNION SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM equipe e JOIN projeto p ON e.id_projeto = p.id JOIN usuario u ON p.lider = u.id JOIN situacao s ON s.id = p.id_situacao WHERE e.id_usuario = ?;";
+        String query = "SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM usuario u JOIN projeto p ON u.id = p.lider JOIN situacao s ON s.id = p.id_situacao WHERE u.id = ? AND p.id_situacao <> 7 UNION SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM equipe e JOIN projeto p ON e.id_projeto = p.id JOIN usuario u ON p.lider = u.id JOIN situacao s ON s.id = p.id_situacao WHERE e.id_usuario = ? AND p.id_situacao <> 7;";
 
         ResultSet rs;
         ArrayList<PProjetoCM> res = new ArrayList<>();
@@ -216,6 +216,28 @@ public class UsuarioDAO {
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.getTodosProjetos");
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
+    public ArrayList<PProjetoCM> getTodosProjetosAvaliador(int idUsuario) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT u.nome as nome_lider, u.id as id_lider, p.nome, p.id as id_proj, s.descricao FROM usuario u JOIN projeto p ON u.id = p.lider JOIN situacao s ON s.id = p.id_situacao WHERE p.id_situacao <> 7;";
+
+        ResultSet rs;
+        ArrayList<PProjetoCM> res = new ArrayList<>();
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                res.add(new PProjetoCM(rs.getString("descricao"), rs.getString("nome_lider"), rs.getString("nome"), rs.getInt("id_lider"), idUsuario, rs.getInt("id_proj")));
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do UsuarioDAO.getTodosProjetosAvaliador");
             e.printStackTrace();
         }
         return res;
@@ -269,4 +291,6 @@ public class UsuarioDAO {
         }
         return cod;
     }
+
+
 }

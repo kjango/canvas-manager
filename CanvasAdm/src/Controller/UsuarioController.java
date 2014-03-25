@@ -35,16 +35,14 @@ public class UsuarioController {
         return ret;
     }
     
-    public HashMap<String, ArrayList<PProjetoCM>> getDadosVPrincipal(int idUsuario){
+    public HashMap<String, ArrayList<PProjetoCM>> getDadosVPrincipalUsuario(int idUsuario){
         UsuarioDAO ud = new UsuarioDAO();
-        ArrayList<PProjetoCM> conteudo = ud.getTodosProjetos(idUsuario);
+        ArrayList<PProjetoCM> conteudo = ud.getTodosProjetosUsuario(idUsuario);
         HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
         
         for (int i = 0; i < conteudo.size(); i++) {
             String sit = conteudo.get(i).getStatusProjeto();
-            if (sit.equals("Excluído")){
-                continue;
-            }
+
             if (!hasha.containsKey(sit)){
                 hasha.put(sit, new ArrayList<PProjetoCM>());
             }
@@ -55,6 +53,35 @@ public class UsuarioController {
                 }
                 hasha.get("Líder").add(conteudo.get(i));
             }else{
+                if (!hasha.containsKey("Membro")){
+                    hasha.put("Membro", new ArrayList<PProjetoCM>());
+                }
+                hasha.get("Membro").add(conteudo.get(i));
+            }
+        }
+        return hasha;
+    }
+
+    public HashMap<String, ArrayList<PProjetoCM>> getDadosVPrincipalAvaliador(int idUsuario) {
+        UsuarioDAO ud = new UsuarioDAO();
+        ProjetoController pc = new ProjetoController();
+        ArrayList<PProjetoCM> conteudo = ud.getTodosProjetosAvaliador(idUsuario);
+        HashMap<String, ArrayList<PProjetoCM>> hasha = new HashMap<>();
+        
+        for (int i = 0; i < conteudo.size(); i++) {
+            String sit = conteudo.get(i).getStatusProjeto();
+
+            if (!hasha.containsKey(sit)){
+                hasha.put(sit, new ArrayList<PProjetoCM>());
+            }
+            hasha.get(sit).add(conteudo.get(i));
+            if (conteudo.get(i).getIdLider() == idUsuario){
+                if (!hasha.containsKey("Líder")){
+                    hasha.put("Líder", new ArrayList<PProjetoCM>());
+                }
+                hasha.get("Líder").add(conteudo.get(i));
+            }
+            if (pc.isMembro(idUsuario, conteudo.get(i).getProjetoId())){
                 if (!hasha.containsKey("Membro")){
                     hasha.put("Membro", new ArrayList<PProjetoCM>());
                 }
