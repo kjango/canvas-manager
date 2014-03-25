@@ -10,6 +10,7 @@ import Base.Projeto;
 import DAO.IODica;
 import DAO.ProjetoDAO;
 import Modelo.PPerguntaCM;
+import Modelo.SalvaRespostasCM;
 import Modelo.VProjetoUsuarioCM;
 import Util.StatusProjeto;
 import java.io.IOException;
@@ -94,11 +95,6 @@ public class ProjetoController {
             ArrayList<PPerguntaCM> grupo = cont.get(chave);
             for (int i = 0; i < grupo.size(); i++){
                 grupo.get(i).setResposta(pd.getResposta(grupo.get(i).getPerguntaId(), projetoId));
-//                try {
-//                    grupo.get(i).setDica(IODica.getText(grupo.get(i).getPerguntaId()));
-//                } catch (IOException ex) {
-//                    Logger.getLogger(ProjetoController.class.getName()).log(Level.SEVERE, null, ex);
-//                }
             }
         }
         
@@ -112,6 +108,11 @@ public class ProjetoController {
             idResposta = pd.insereResposta(perguntaId, projetoId, resposta);
         }
         return idResposta;
+    }
+    
+    public boolean podeEnviar(int projetoId) {
+        ProjetoDAO pd = new ProjetoDAO();
+        return pd.podeEnviar(projetoId);
     }
     
 }

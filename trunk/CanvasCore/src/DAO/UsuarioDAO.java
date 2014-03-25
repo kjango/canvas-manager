@@ -33,6 +33,7 @@ public class UsuarioDAO {
             if (rs.next()) {
                 cod = rs.getInt("id");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.getIdUsuario");
@@ -61,6 +62,7 @@ public class UsuarioDAO {
             if (rs.next()) {
                 cod = rs.getInt("id");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.inserir");
@@ -85,6 +87,7 @@ public class UsuarioDAO {
             if (rs.next()) {
                 tot = rs.getInt("total");
             }
+            con.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -108,6 +111,7 @@ public class UsuarioDAO {
             while (rs.next()) {
                 projetos.add(rs.getInt("id"));
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.getProjetosLider");
@@ -132,6 +136,7 @@ public class UsuarioDAO {
             while (rs.next()) {
                 projetos.add(rs.getInt("id"));
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.getProjetosMembro");
@@ -154,6 +159,7 @@ public class UsuarioDAO {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.podeCriar");
@@ -181,6 +187,7 @@ public class UsuarioDAO {
             if (rs.next()) {
                 email = rs.getString("email");
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.getEmail");
@@ -205,6 +212,7 @@ public class UsuarioDAO {
             while (rs.next()) {
                 res.add(new PProjetoCM(rs.getString("descricao"), rs.getString("nome_lider"), rs.getString("nome"), rs.getInt("id_lider")));
             }
+            con.close();
 
         } catch (SQLException e) {
             System.out.println("Erro no SQL do UsuarioDAO.getTodosProjetos");
