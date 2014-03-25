@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Modelo.BuscarStatus;
+import Modelo.BuscarSituacao;
 import Modelo.CadastroCM;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class LogadoController {
 
     private List<String> status;
     private String status_curso;
-    private BuscarStatus buscar;
+    private BuscarSituacao buscar;
     private String tab;
 
     public List<String> getStatus() {
@@ -50,7 +50,7 @@ public class LogadoController {
     }
 
     public LogadoController() {
-        buscar = new BuscarStatus();
+        buscar = new BuscarSituacao();
         status = new ArrayList();
         status = new ArrayList(buscar.getAllStatus().keySet());
         user = new CadastroCM();
