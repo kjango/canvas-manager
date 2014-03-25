@@ -5,8 +5,10 @@
  */
 package Canvas;
 
+import Base.Usuario;
 import DAO.CredencialDAO;
 import DAO.StatusDAO;
+import DAO.UsuarioDAO;
 import Modelo.Login;
 
 /**
@@ -18,6 +20,11 @@ public class Canvas {
     public static void main(String[] args) {
         Login login = new Login("Rosana", "teste");
         System.out.println(login.logar());
+        
+//        UsuarioDAO user = new UsuarioDAO();
+//        Usuario u = user.getUsuario(1);
+//        System.out.println(u.getData_conclusao_curso());
+//        System.out.println(u.getData_conclusao_curso_Date());
     }
 
 }

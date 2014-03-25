@@ -14,8 +14,8 @@ import java.sql.Date;
  */
 public class Credencial {
     
-    private int id_usuario;
-    private String senha;
+    protected int id_usuario;
+    protected String senha;
     private Date atualizado_em;
 
     public Credencial(int id_usuario, String senha, Date atualizado_em) {
