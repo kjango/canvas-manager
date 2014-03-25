@@ -114,5 +114,10 @@ public class ProjetoController {
         ProjetoDAO pd = new ProjetoDAO();
         return pd.podeEnviar(projetoId);
     }
+
+    public int enviaProjetoAvaliacao(int projetoId) {
+        ProjetoDAO pd = new ProjetoDAO();
+        return pd.enviaProjetoAvaliacao(projetoId);
+    }
     
 }
