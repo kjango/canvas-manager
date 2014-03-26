@@ -12,6 +12,7 @@ public class PPerguntaCM {
     private String grupo;
     private int perguntaId;
     private int projetoId;
+    private int respostaId;
 
     public PPerguntaCM(String pergunta, String resposta, String dica,
         String grupo, int perguntaId, int projetoId) {
@@ -22,6 +23,14 @@ public class PPerguntaCM {
         this.grupo = grupo;
         this.perguntaId = perguntaId;
         this.projetoId = projetoId;
+    }
+
+    public int getRespostaId() {
+        return respostaId;
+    }
+
+    public void setRespostaId(int respostaId) {
+        this.respostaId = respostaId;
     }
 
     public int getProjetoId() {

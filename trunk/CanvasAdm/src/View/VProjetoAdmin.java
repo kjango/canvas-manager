@@ -252,7 +252,7 @@ public class VProjetoAdmin extends JFrame {
         btnSalvar.setEnabled(bol);
         txtPParecer.setText(pd.getComentarioParecer(projetoId));
         txtPParecer.setEditable(bol);
-        if (bol){
+        if (!bol){
             txtPParecer.setBackground(new Color(240, 240, 240));
         }
         repaint();

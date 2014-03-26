@@ -146,7 +146,7 @@ public class WindowController {
             VProjetoAvaliador frame = new VProjetoAvaliador(getDadosVProjetoAvaliador(projetoId, usuarioId));
             frame.setVisible(true);
         } else if (pc.podeEmitirParecer(usuarioId, projetoId)) {
-            VProjetoAdmin frame = new VProjetoAdmin(getDadosVProjetoUsuario(projetoId, usuarioId));
+            VProjetoAdmin frame = new VProjetoAdmin(getDadosVProjetoAdmin(projetoId, usuarioId));
             frame.setVisible(true);
         } else {
             VProjetoUsuario frame = new VProjetoUsuario(getDadosVProjetoUsuario(projetoId, usuarioId));
@@ -193,5 +193,24 @@ public class WindowController {
             }
         }
         return hasha;
+    }
+
+    private VProjetoUsuarioCM getDadosVProjetoAdmin(int projetoId, int usuarioId) {
+        ProjetoDAO pd = new ProjetoDAO();
+        VProjetoUsuarioCM ret = pd.getBasicoProjeto(projetoId);
+        ret.setMyUserId(usuarioId);
+        ret.setConteudoMembros(pd.getNomesMembros(projetoId));
+        ret.setConteudoPerguntas(pd.getPerguntasVProjetoUsuario(projetoId));
+        //adicionando as respostas
+        HashMap<String, ArrayList<PPerguntaCM>> cont = ret.getConteudoPerguntas();
+        for (String chave : ret.getConteudoPerguntas().keySet()) {
+            ArrayList<PPerguntaCM> grupo = cont.get(chave);
+            for (int i = 0; i < grupo.size(); i++) {
+                grupo.get(i).setResposta(pd.getResposta(grupo.get(i).getPerguntaId(), projetoId));
+                grupo.get(i).setRespostaId(pd.getIdResposta(grupo.get(i).getPerguntaId(), projetoId));
+            }
+        }
+
+        return ret;
     }
 }

@@ -132,9 +132,9 @@ public class ProjetoController {
         return idComentario;
     }
 
-    public ArrayList<PPerguntaAvaliacaoCM> getAvaliacoes(int perguntaId) {
+    public ArrayList<PPerguntaAvaliacaoCM> getAvaliacoes(int respostaId) {
         ProjetoDAO pd = new ProjetoDAO();
-        return pd.getAvaliacoes(perguntaId);
+        return pd.getAvaliacoes(respostaId);
     }
 
     public int salvaParecer(int adminId, String text, int situacao, int projetoId) {

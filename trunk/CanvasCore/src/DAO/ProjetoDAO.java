@@ -303,7 +303,7 @@ public class ProjetoDAO {
             con.close();
 
         } catch (SQLException e) {
-            System.out.println("Erro no SQL do ProjetoDAO.getRespostasVProjetoUsuario");
+            System.out.println("Erro no SQL do ProjetoDAO.getPerguntasVProjetoUsuario");
             e.printStackTrace();
         }
 
@@ -335,6 +335,31 @@ public class ProjetoDAO {
         return resp;
     }
 
+        public int getIdResposta(int perguntaId, int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT id FROM resposta WHERE id_pergunta = ? AND id_projeto = ?";
+
+        int resp = -1;
+        ResultSet rs;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, perguntaId);
+            stmt.setInt(2, projetoId);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getInt("id");
+            }
+            con.close();
+
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.getResposta");
+            e.printStackTrace();
+        }
+
+        return resp;
+    }
+        
     public int salvaResposta(int perguntaId, int projetoId, String resposta) {
         Connection con = ConnectionFactory.getConnection();
         String query = "UPDATE resposta SET texto = ? WHERE id_pergunta = ? AND id_projeto = ? RETURNING id";

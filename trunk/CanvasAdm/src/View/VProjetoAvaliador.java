@@ -117,7 +117,7 @@ public class VProjetoAvaliador extends JFrame {
                     JOptionPane.showMessageDialog(null, "Avaliação finalizada com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     atualizaTudo();
                 }else{
-                    JOptionPane.showMessageDialog(null, "Todas as perguntas devem ser comentadas antes de finalizar a avaliação.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Todas as respostas devem ser comentadas antes de finalizar a avaliação.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

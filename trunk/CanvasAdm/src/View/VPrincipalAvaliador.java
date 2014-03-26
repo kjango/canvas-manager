@@ -44,7 +44,7 @@ public class VPrincipalAvaliador extends JFrame {
 
                 try {
 //                    WindowController.getInstance().criaVPrincipalAvaliador(5);
-                    WindowController.getInstance().criaVPrincipalAdmin(5);
+                    WindowController.getInstance().criaVPrincipalAdmin(6);
 //                    VPrincipalAvaliador frame = new VPrincipalAvaliador(hasha, 5);
 //                    frame.setVisible(true);
                 } catch (Exception e) {
