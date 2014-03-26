@@ -7,6 +7,7 @@ package Controller;
 
 import Base.Projeto;
 import DAO.ProjetoDAO;
+import Modelo.PPerguntaAvaliacaoCM;
 import java.util.ArrayList;
 
 /**
@@ -131,9 +132,32 @@ public class ProjetoController {
         return idComentario;
     }
 
-//    public int emiteParecer(int projetoId, int adminId, String text, int situacao) {
-//        ProjetoDAO pd = new ProjetoDAO();
-//        return pd.emiteParecer(projetoId, adminId, text, situacao);
-//    }
+    public ArrayList<PPerguntaAvaliacaoCM> getAvaliacoes(int perguntaId) {
+        ProjetoDAO pd = new ProjetoDAO();
+        return pd.getAvaliacoes(perguntaId);
+    }
 
+    public int salvaParecer(int adminId, String text, int situacao, int projetoId) {
+        ProjetoDAO pd = new ProjetoDAO();
+        int ret = pd.salvaParecer(projetoId, adminId, text, situacao);
+        if (ret == -1) {
+            ret = pd.insereParecer(projetoId, adminId, text, situacao);
+        }
+        return ret;
+    }
+
+    public int emiteParecer(int adminId, String text, int situacao, int projetoId) {
+        ProjetoDAO pd = new ProjetoDAO();
+        int ret = pd.salvaParecer(projetoId, adminId, text, situacao);
+        if (ret == -1) {
+            ret = pd.insereParecer(projetoId, adminId, text, situacao);
+        }
+        ret = pd.emiteParecer(projetoId, situacao);
+        
+        return ret;
+    }
+
+    public String getComentarioParecer(int projetoId) {
+        return new ProjetoDAO().getComentarioParecer(projetoId);
+    }
 }

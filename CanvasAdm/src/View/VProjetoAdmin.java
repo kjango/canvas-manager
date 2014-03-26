@@ -2,8 +2,9 @@ package View;
 
 import Controller.ProjetoController;
 import Controller.WindowController;
-import Modelo.PPerguntaAvaliacaoCM;
+import Modelo.PPerguntaCM;
 import Modelo.VProjetoAvaliadorCM;
+import Modelo.VProjetoUsuarioCM;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -20,7 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-import Modelo.VProjetoUsuarioCM;
 import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
@@ -50,7 +50,6 @@ public class VProjetoAdmin extends JFrame {
     private int projetoId;
     private int myUserId;
     private JButton btnSalvar;
-    private ArrayList<PPerguntaAvaliacao> myPPerguntas;
     private JPanel panelParecer;
     private JTextPane txtPParecer;
     private JComboBox comboBox;
@@ -65,7 +64,7 @@ public class VProjetoAdmin extends JFrame {
             public void run() {
 
                 try {
-                    WindowController.getInstance().criaVProjeto(3, 6);
+                    WindowController.getInstance().criaVProjeto(2, 6);
 //                    VProjetoUsuario frame = new VProjetoUsuario(ProjetoController.getInstance().getDadosVprojetoUsuario(18, 3));
 //                    frame.setVisible(true);
                 } catch (Exception e) {
@@ -78,12 +77,12 @@ public class VProjetoAdmin extends JFrame {
     /**
      * Cria o frame.
      *
-     * @param conteudo Lista de objetos da camada de modelo contendo
-     * tudo o que é necessário para os panels dessa view (a pergunta, a resposta
-     * e a dica da pergunta, grupo da pergunta, avaliador, nota e comentário).
+     * @param conteudo Lista de objetos da camada de modelo contendo tudo o que
+     * é necessário para os panels dessa view (a pergunta, a resposta e a dica
+     * da pergunta, grupo da pergunta, avaliador, nota e comentário).
      */
-    public VProjetoAdmin(VProjetoAvaliadorCM conteudo) {
-        this.myPPerguntas = new ArrayList<>();
+    public VProjetoAdmin(VProjetoUsuarioCM conteudo) {
+//        this.myPPerguntas = new ArrayList<>();
         this.myUserId = conteudo.getMyUserId();
         this.status = conteudo.getStatusProjeto();
         this.lider = conteudo.getNomelider();
@@ -110,32 +109,37 @@ public class VProjetoAdmin extends JFrame {
         btnEnviar = new JButton("Emitir");
         panelBotoes.add(btnEnviar);
         btnEnviar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
                 //TODO emitir
-//                salvaAvaliacoes();
-//                ProjetoController pc = ProjetoController.getInstance();
-//                if (!txtPParecer.getText().equals("")){
-//                    int situacao = -1;
-//                    if (comboBox.getSelectedItem().equals("Aprovado")){
-//                        situacao = 5;
-//                    }else if (comboBox.getSelectedItem().equals("Recusado")){
-//                        situacao = 6;
-//                    }
-//                    pc.emiteParecer(projetoId, myUserId, txtPParecer.getText(), situacao);
-//                    JOptionPane.showMessageDialog(null, "Parecer emitido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-//                    atualizaTudo();
-//                }else{
-//                    JOptionPane.showMessageDialog(null, "Escreva um comentário antes de emitir o parecer.", "Erro", JOptionPane.ERROR_MESSAGE);
-//                }
+                ProjetoController pc = ProjetoController.getInstance();
+                if (!txtPParecer.getText().equals("")) {
+                    int situacao = -1;
+                    if (comboBox.getSelectedItem().equals("Aprovado")) {
+                        situacao = 5;
+                    } else if (comboBox.getSelectedItem().equals("Recusado")) {
+                        situacao = 6;
+                    }
+                    pc.emiteParecer(myUserId, txtPParecer.getText(), situacao, projetoId);
+                    JOptionPane.showMessageDialog(null, "Parecer emitido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    atualizaTudo();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Escreva um comentário antes de emitir o parecer.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         btnSalvar = new JButton("Salvar");
         panelBotoes.add(btnSalvar);
         btnSalvar.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent arg0) {
-                salvaAvaliacoes();
-                JOptionPane.showMessageDialog(null, "Parecer salvo com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                if (!txtPParecer.getText().equals("")) {
+                    salvaParecer();
+                    JOptionPane.showMessageDialog(null, "Parecer salvo com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nada para salvar.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -155,23 +159,23 @@ public class VProjetoAdmin extends JFrame {
 
         scrollPane = new JScrollPane(txtpnMembros);
         panelMembros.add(scrollPane);
-        
+
         panelParecer = new JPanel();
         panelParecer.setBorder(new TitledBorder(null, "Parecer", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         contentPane.add(panelParecer, BorderLayout.SOUTH);
         panelParecer.setLayout(new BorderLayout(0, 0));
-        
+
         txtPParecer = new JTextPane();
         panelParecer.add(txtPParecer, BorderLayout.CENTER);
         
+
         comboBox = new JComboBox();
-        comboBox.setModel(new DefaultComboBoxModel(new String[] {"Aprovado", "Recusado"}));
+        comboBox.setModel(new DefaultComboBoxModel(new String[]{"Aprovado", "Recusado"}));
         comboBox.setMaximumRowCount(2);
         panelParecer.add(comboBox, BorderLayout.EAST);
 
         atualizaPerguntas(conteudo.getConteudoPerguntas());
         atualizaMembros(conteudo.getConteudoMembros());
-
 
     }
 
@@ -182,7 +186,7 @@ public class VProjetoAdmin extends JFrame {
      * tudo o que é necessário para os panels dessa view (a pergunta, a resposta
      * e a dica da pergunta, grupo da pergunta, avaliador, nota e comentário).
      */
-    public void atualizaPerguntas(HashMap<String, ArrayList<PPerguntaAvaliacaoCM>> conteudoPerguntas) {
+    public void atualizaPerguntas(HashMap<String, ArrayList<PPerguntaCM>> conteudoPerguntas) {
 
         JPanel jpOuter = null;
         JPanel jpInner = null;
@@ -192,7 +196,7 @@ public class VProjetoAdmin extends JFrame {
         boolean podeEmitirParecer = pc.podeEmitirParecer(myUserId, projetoId);
 
         tabbedPane.removeAll();
-        myPPerguntas.removeAll(myPPerguntas);
+//        myPPerguntas.removeAll(myPPerguntas);
 
         Set<String> keys = conteudoPerguntas.keySet();
         for (String grupoPergunta : keys) {
@@ -210,9 +214,9 @@ public class VProjetoAdmin extends JFrame {
             sp.setViewportView(jpInner);
             jpInner.setLayout(new GridLayout(0, 1, 0, 0));
 
-            for (PPerguntaAvaliacaoCM cont : conteudoPerguntas.get(grupoPergunta)) {
-                PPerguntaAvaliacao pp = new PPerguntaAvaliacao(cont, podeEmitirParecer);
-                myPPerguntas.add(pp);
+            for (PPerguntaCM cont : conteudoPerguntas.get(grupoPergunta)) {
+                PPerguntaAdmin pp = new PPerguntaAdmin(cont);
+//                myPPerguntas.add(pp);
                 jpInner.add(pp);
             }
         }
@@ -246,20 +250,25 @@ public class VProjetoAdmin extends JFrame {
         boolean bol = pd.podeEmitirParecer(myUserId, projetoId);
         btnEnviar.setEnabled(bol);
         btnSalvar.setEnabled(bol);
+        txtPParecer.setText(pd.getComentarioParecer(projetoId));
+        txtPParecer.setEditable(bol);
+        if (bol){
+            txtPParecer.setBackground(new Color(240, 240, 240));
+        }
         repaint();
     }
 
-    public void salvaAvaliacoes() {
+    public void salvaParecer() {
         ProjetoController pc = ProjetoController.getInstance();
-        for (int i = 0; i < myPPerguntas.size(); i++) {
-            if (!myPPerguntas.get(i).getComentario().equals("")) {
-                int comentarioId = pc.salvaComentario(myUserId, myPPerguntas.get(i).getRespostaId(), myPPerguntas.get(i).getComentario(), myPPerguntas.get(i).getNota());
-            }
+        if (!txtPParecer.getText().equals("")) {
+            pc.salvaParecer(myUserId, txtPParecer.getText(), 4, projetoId);
+//            JOptionPane.showMessageDialog(null, "Parecer salvo com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
+
     }
-    
-    public void atualizaTudo(){
-        VProjetoAvaliadorCM dados = WindowController.getInstance().getDadosVProjetoAvaliador(projetoId, myUserId);
+
+    public void atualizaTudo() {
+        VProjetoUsuarioCM dados = WindowController.getInstance().getDadosVProjetoUsuario(projetoId, myUserId);
         atualizaBotoes();
         atualizaMembros(dados.getConteudoMembros());
         atualizaPerguntas(dados.getConteudoPerguntas());

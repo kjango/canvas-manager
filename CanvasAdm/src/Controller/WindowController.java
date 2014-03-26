@@ -15,6 +15,7 @@ import Modelo.VProjetoAvaliadorCM;
 import Modelo.VProjetoUsuarioCM;
 import View.VPrincipalAvaliador;
 import View.VPrincipalUsuario;
+import View.VProjetoAdmin;
 import View.VProjetoAvaliador;
 import View.VProjetoUsuario;
 import java.util.ArrayList;
@@ -145,8 +146,8 @@ public class WindowController {
             VProjetoAvaliador frame = new VProjetoAvaliador(getDadosVProjetoAvaliador(projetoId, usuarioId));
             frame.setVisible(true);
         } else if (pc.podeEmitirParecer(usuarioId, projetoId)) {
-//            VProjetoParecer frame = new VProjetoParecer(getDadosVProjetoParecer(projetoId, usuarioId));
-//            frame.setVisible(true);
+            VProjetoAdmin frame = new VProjetoAdmin(getDadosVProjetoUsuario(projetoId, usuarioId));
+            frame.setVisible(true);
         } else {
             VProjetoUsuario frame = new VProjetoUsuario(getDadosVProjetoUsuario(projetoId, usuarioId));
             frame.setVisible(true);

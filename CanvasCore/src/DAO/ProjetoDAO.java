@@ -256,7 +256,7 @@ public class ProjetoDAO {
         }
         return ret;
     }
-    
+
     public ArrayList<String> getNomesMembros(int projetoId) {
 
         Connection con = ConnectionFactory.getConnection();
@@ -499,7 +499,7 @@ public class ProjetoDAO {
 
         try {
             CallableStatement stmt = con.prepareCall(query);
-            stmt.setInt(1, projetoId);            
+            stmt.setInt(1, projetoId);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 bloco = rs.getString("bloco");
@@ -515,7 +515,7 @@ public class ProjetoDAO {
             e.printStackTrace();
         }
 
-        return ret;        
+        return ret;
     }
 
     public ComentarioNotaCM getComentarioNota(int usuarioId, int respostaId) {
@@ -540,7 +540,7 @@ public class ProjetoDAO {
             e.printStackTrace();
         }
 
-        return ret;            
+        return ret;
     }
 
     public int insereComentario(int avaliadorId, int respostaId, String comentario, double nota) {
@@ -568,7 +568,7 @@ public class ProjetoDAO {
 
         return comentarioId;
     }
-    
+
     public int salvaComentario(int avaliadorId, int respostaId, String comentario, double nota) {
         Connection con = ConnectionFactory.getConnection();
         String query = "UPDATE avaliacao SET comentario = ?, nota = ? WHERE id_usuario = ? AND id_resposta = ? RETURNING id;";
@@ -593,7 +593,7 @@ public class ProjetoDAO {
         }
 
         return comentarioId;
-    }    
+    }
 
     public boolean podeFinalizarAvaliacao(int projetoId) {
         Connection con = ConnectionFactory.getConnection();
@@ -643,30 +643,134 @@ public class ProjetoDAO {
         return resp;
     }
 
-//    public int emiteParecer(int projetoId, int adminId, String text, int situacao) {;
-//        Connection con = ConnectionFactory.getConnection();
-//        String query = "INSERT INTO parecer(id_admin, comentario, id_resultado, id_projeto) VALUES (?, ?, ?, ?);";
-//
-//        ResultSet rs;
-//        int resp = -1;
-//
-//        try {
-//            CallableStatement stmt = con.prepareCall(query);
-//            stmt.setInt(1, adminId);
-//            stmt.setString(2, text);
-//            stmt.setInt(3, id_resultado);
-//            
-//
-//            rs = stmt.executeQuery();
-//            while (rs.next()) {
-//                resp = rs.getInt(1);
-//            }
-//
-//            con.close();
-//        } catch (SQLException e) {
-//            System.out.println("Erro no SQL do ProjetoDAO.emiteParecer");
-//            e.printStackTrace();
-//        }
-//        return resp;
-//    }
+    public ArrayList<PPerguntaAvaliacaoCM> getAvaliacoes(int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT a.id, a.id_resposta, a.nota, a.comentario, a.id_usuario, u.nome FROM avaliacao a JOIN usuario u ON u.id = a.id_usuario WHERE id_resposta = ?;";
+
+        ResultSet rs;
+        ArrayList<PPerguntaAvaliacaoCM> resp = new ArrayList<>();
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, projetoId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp.add(new PPerguntaAvaliacaoCM(rs.getInt("id_resposta"), rs.getDouble("nota"), rs.getString("comentario"), rs.getInt("id_usuario"), rs.getString("nome")));
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.getAvaliacoes");
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    public int insereParecer(int projetoId, int adminId, String text, int situacao) {;
+        Connection con = ConnectionFactory.getConnection();
+        String query = "INSERT INTO parecer(id_admin, comentario, id_resultado, id_projeto) VALUES (?, ?, ?, ?) RETURNING id;";
+
+        ResultSet rs;
+        int resp = -1;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+            stmt.setInt(1, adminId);
+            stmt.setString(2, text);
+            stmt.setInt(3, situacao);
+            stmt.setInt(4, projetoId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getInt(1);
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.emiteParecer");
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    public int salvaParecer(int projetoId, int adminId, String text, int situacao) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "UPDATE parecer SET comentario = ?, id_resultado = ? WHERE id_projeto = ? AND id_admin = ? RETURNING id;";
+
+        ResultSet rs;
+        int resp = -1;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+
+            stmt.setString(1, text);
+            stmt.setInt(2, situacao);
+            stmt.setInt(3, projetoId);
+            stmt.setInt(4, adminId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getInt(1);
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.salvaParecer");
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    public int emiteParecer(int projetoId, int situacao) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "UPDATE projeto SET id_situacao = ? WHERE id = ? RETURNING id_situacao;";
+
+        ResultSet rs;
+        int resp = -1;
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+
+            stmt.setInt(1, situacao);
+            stmt.setInt(2, projetoId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getInt(1);
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.emiteParecer");
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    public String getComentarioParecer(int projetoId) {
+        Connection con = ConnectionFactory.getConnection();
+        String query = "SELECT comentario FROM parecer WHERE id_projeto = ?;";
+
+        ResultSet rs;
+        String resp = "";
+
+        try {
+            CallableStatement stmt = con.prepareCall(query);
+
+            stmt.setInt(1, projetoId);
+
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                resp = rs.getString(1);
+            }
+
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Erro no SQL do ProjetoDAO.emiteParecer");
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
 }

@@ -253,6 +253,7 @@ public class VProjetoUsuario extends JFrame {
         boolean bol = pd.podeEditar(myUserId, projetoId);
         btnEnviar.setEnabled(bol);
         btnSalvar.setEnabled(bol);
+        btnAddMembro.setEnabled(bol);
         repaint();
     }
 

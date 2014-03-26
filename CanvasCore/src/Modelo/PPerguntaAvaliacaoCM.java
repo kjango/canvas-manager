@@ -26,6 +26,16 @@ public class PPerguntaAvaliacaoCM {
         this.nota = nota;
     }
 
+    public PPerguntaAvaliacaoCM(int respostaId, double nota, String comentario, int avaliadorId, String avaliador) {
+        this.respostaId = respostaId;
+        this.avaliador = avaliador;
+        this.avaliadorId = avaliadorId;
+        this.comentario = comentario;
+        this.nota = nota;
+    }
+
+
+
     public String getPergunta() {
         return pergunta;
     }
