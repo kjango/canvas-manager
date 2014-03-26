@@ -60,7 +60,7 @@ public class VProjetoAvaliador extends JFrame {
             public void run() {
 
                 try {
-                    WindowController.getInstance().criaVProjeto(3, 4);
+                    WindowController.getInstance().criaVProjeto(2, 6);
 //                    VProjetoUsuario frame = new VProjetoUsuario(ProjetoController.getInstance().getDadosVprojetoUsuario(18, 3));
 //                    frame.setVisible(true);
                 } catch (Exception e) {
