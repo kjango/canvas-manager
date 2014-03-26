@@ -1,4 +1,33 @@
-﻿CREATE TABLE status(
+﻿
+--DROP TABLE status CASCADE;
+
+--DROP TABLE TipoUsuario CASCADE;
+
+--DROP TABLE usuario CASCADE;
+
+--DROP TABLE historico CASCADE;
+
+--DROP TABLE credencial CASCADE;
+
+--DROP TABLE pergunta CASCADE;
+
+--DROP TABLE situacao CASCADE;
+
+--DROP TABLE projeto CASCADE;
+
+--DROP TABLE resposta CASCADE;
+
+--DROP TABLE avaliacao CASCADE;
+
+--DROP TABLE equipe CASCADE;
+
+--DROP TABLE resultado CASCADE;
+
+--DROP TABLE parecer CASCADE;
+
+
+
+CREATE TABLE status(
 	id serial primary key not null,
 	descricao varchar(50) not null,
 	unique (descricao)
@@ -104,31 +133,6 @@ CREATE TABLE parecer(
 );
 
 
-DROP TABLE status CASCADE;
-
-DROP TABLE TipoUsuario CASCADE;
-
-DROP TABLE usuario CASCADE;
-
-DROP TABLE historico CASCADE;
-
-DROP TABLE credencial CASCADE;
-
-DROP TABLE pergunta CASCADE;
-
-DROP TABLE situacao CASCADE;
-
-DROP TABLE projeto CASCADE;
-
-DROP TABLE resposta CASCADE;
-
-DROP TABLE avaliacao CASCADE;
-
-DROP TABLE equipe CASCADE;
-
-DROP TABLE resultado CASCADE;
-
-DROP TABLE parecer CASCADE;
 
 --------------------------------------------DADOS
 
