@@ -54,9 +54,13 @@ public class CredencialDAO {
             cod = stmt.executeUpdate();
 
         } catch (SQLException e) {
+            System.out.println("Erro no SQL do salvar credencial");
+            e.printStackTrace();
             throw new RuntimeException(e);
-            //System.out.println("Erro no SQL do salvar credencial");
-            //e.printStackTrace();
+            
+            
+            
+            
         }
         return cod;
     }

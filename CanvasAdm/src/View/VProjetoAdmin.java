@@ -112,21 +112,21 @@ public class VProjetoAdmin extends JFrame {
         btnEnviar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 //TODO emitir
-                salvaAvaliacoes();
-                ProjetoController pc = ProjetoController.getInstance();
-                if (!txtPParecer.getText().equals("")){
-                    int situacao = -1;
-                    if (comboBox.getSelectedItem().equals("Aprovado")){
-                        situacao = 5;
-                    }else if (comboBox.getSelectedItem().equals("Recusado")){
-                        situacao = 6;
-                    }
-                    pc.emiteParecer(projetoId, myUserId, txtPParecer.getText(), situacao);
-                    JOptionPane.showMessageDialog(null, "Parecer emitido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    atualizaTudo();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Escreva um comentário antes de emitir o parecer.", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
+//                salvaAvaliacoes();
+//                ProjetoController pc = ProjetoController.getInstance();
+//                if (!txtPParecer.getText().equals("")){
+//                    int situacao = -1;
+//                    if (comboBox.getSelectedItem().equals("Aprovado")){
+//                        situacao = 5;
+//                    }else if (comboBox.getSelectedItem().equals("Recusado")){
+//                        situacao = 6;
+//                    }
+//                    pc.emiteParecer(projetoId, myUserId, txtPParecer.getText(), situacao);
+//                    JOptionPane.showMessageDialog(null, "Parecer emitido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+//                    atualizaTudo();
+//                }else{
+//                    JOptionPane.showMessageDialog(null, "Escreva um comentário antes de emitir o parecer.", "Erro", JOptionPane.ERROR_MESSAGE);
+//                }
             }
         });
 
