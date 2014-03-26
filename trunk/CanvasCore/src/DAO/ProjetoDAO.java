@@ -643,7 +643,30 @@ public class ProjetoDAO {
         return resp;
     }
 
-    public int emiteParecer(int projetoId, int adminId, String text, int situacao) {
-        
-    }
+//    public int emiteParecer(int projetoId, int adminId, String text, int situacao) {;
+//        Connection con = ConnectionFactory.getConnection();
+//        String query = "INSERT INTO parecer(id_admin, comentario, id_resultado, id_projeto) VALUES (?, ?, ?, ?);";
+//
+//        ResultSet rs;
+//        int resp = -1;
+//
+//        try {
+//            CallableStatement stmt = con.prepareCall(query);
+//            stmt.setInt(1, adminId);
+//            stmt.setString(2, text);
+//            stmt.setInt(3, id_resultado);
+//            
+//
+//            rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                resp = rs.getInt(1);
+//            }
+//
+//            con.close();
+//        } catch (SQLException e) {
+//            System.out.println("Erro no SQL do ProjetoDAO.emiteParecer");
+//            e.printStackTrace();
+//        }
+//        return resp;
+//    }
 }

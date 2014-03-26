@@ -48,6 +48,7 @@ public class VProjetoUsuario extends JFrame {
     private int myUserId;
     private JButton btnSalvar;
     private ArrayList<PPergunta> myPPerguntas;
+    private JButton btnAddMembro;
 
     /**
      * Main usada para testes.
@@ -59,7 +60,7 @@ public class VProjetoUsuario extends JFrame {
             public void run() {
 
                 try {
-                    WindowController.getInstance().criaVProjeto(1, 3);
+                    WindowController.getInstance().criaVProjeto(3, 1);
 //                    VProjetoUsuario frame = new VProjetoUsuario(ProjetoController.getInstance().getDadosVprojetoUsuario(18, 3));
 //                    frame.setVisible(true);
                 } catch (Exception e) {
@@ -68,6 +69,7 @@ public class VProjetoUsuario extends JFrame {
             }
         });
     }
+
 
     /**
      * Cria o frame.
@@ -103,6 +105,32 @@ public class VProjetoUsuario extends JFrame {
         panelBotoes = new JPanel();
         panelBotoes.setBorder(new TitledBorder(null, "A\u00E7\u00F5es", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panelLateral.add(panelBotoes, BorderLayout.SOUTH);
+        
+        
+        btnAddMembro = new JButton("Adicionar membro");
+        btnAddMembro.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                String emailMembro = "";
+                emailMembro = JOptionPane.showInputDialog(null, "Digite o email do membro.", "Novo membro", JOptionPane.QUESTION_MESSAGE);
+                if (emailMembro != null) {
+                    if (!emailMembro.equals("")) {
+                        ProjetoController pc = ProjetoController.getInstance();
+                        int id_membro = -2;
+                        id_membro = pc.inserirMembro(emailMembro, projetoId);
+                        if (id_membro > 0) {
+                            JOptionPane.showMessageDialog(null, "Membro " + emailMembro + " adicionado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Erro ao adicionar membro " + emailMembro + ".", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                        atualizaMembros(pc.getMembros(projetoId));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Email pode ser vazio.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                
+            }
+        });
+
 
         btnEnviar = new JButton("Enviar");
         panelBotoes.add(btnEnviar);
@@ -134,6 +162,7 @@ public class VProjetoUsuario extends JFrame {
         panelMembros.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Integrantes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panelLateral.add(panelMembros, BorderLayout.CENTER);
         panelMembros.setLayout(new BorderLayout(0, 0));
+        panelMembros.add(btnAddMembro, BorderLayout.SOUTH);
 
         lblLder = new JLabel(" Líder: " + this.lider);
         panelMembros.add(lblLder, BorderLayout.NORTH);

@@ -338,4 +338,5 @@ public class UsuarioDAO {
         return tipo;        
     }
 
+
 }

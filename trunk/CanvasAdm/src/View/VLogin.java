@@ -1,6 +1,8 @@
 package View;
 
 import Controller.LoginController;
+import Controller.UsuarioController;
+import Controller.WindowController;
 import Modelo.Login;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -85,8 +87,19 @@ public class VLogin extends JFrame {
                 if (textFieldUsuario.getText().length() > 0 && passwordField.getText().length() > 0) {
                     Modelo.Login login = new Login(textFieldUsuario.getText(), passwordField.getText());
 
+                    int userId = LoginController.getInstance().logar(login);
                     if (LoginController.getInstance().logar(login) != -1) {
                         //cria a mainWindow
+                        UsuarioController uc = UsuarioController.getInstance();
+                        WindowController wc = WindowController.getInstance();
+                        int tipo = uc.getTipoUsuario(userId);
+                        if (tipo == 3){
+                            wc.criaVPrincipalAdmin(userId);
+                        }else if (tipo == 2){
+                            wc.criaVPrincipalAvaliador(userId);
+                        }else if (tipo == 1){
+                            wc.criaVPrincipalUsuario(userId);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "Login inválido");
                     }

@@ -6,6 +6,7 @@
 
 package Base;
 
+import DAO.UsuarioDAO;
 import java.sql.Date;
 
 /**
@@ -34,6 +35,8 @@ public class Credencial {
 
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
+//        UsuarioDAO ud = new UsuarioDAO();
+//        ud.guardaSenha(id_usuario, senha);
     }
 
     public String getSenha() {
