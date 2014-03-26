@@ -7,21 +7,11 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${file.reference.primefaces-4.0.jar}</file>
-                </library>
-                <library dirs="200">
                     <file>${reference.CanvasCore.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.postgresql-9.3-1101.jdbc4.jar}</file>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.primefaces-4.0.jar-1}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.postgresql-9.3-1101.jdbc4.jar-1}</file>
+                    <file>${file.reference.primefaces-4.0.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
