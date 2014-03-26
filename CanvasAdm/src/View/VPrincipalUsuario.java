@@ -44,7 +44,7 @@ public class VPrincipalUsuario extends JFrame {
 //                hasha = uc.getDadosVPrincipalUsuario(2);
 
                 try {
-                    WindowController.getInstance().criaVPrincipalUsuario(1);
+                    WindowController.getInstance().criaVPrincipalUsuario(3);
 //                    VPrincipalUsuario frame = new VPrincipalUsuario(hasha, 2);
 //                    frame.setVisible(true);
                 } catch (Exception e) {

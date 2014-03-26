@@ -21,8 +21,10 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
 import Modelo.PPerguntaCM;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 /**
@@ -39,6 +41,7 @@ public class PPerguntaAdmin extends JPanel {
     private JTextArea txtrResposta;
     private int perguntaId;
     private int projetoId;
+    private int respostaId;
 
     public int getProjetoId() {
         return projetoId;
@@ -83,6 +86,7 @@ public class PPerguntaAdmin extends JPanel {
     public PPerguntaAdmin(PPerguntaCM conteudo) {
         pergunta = conteudo.getPergunta();
         resposta = conteudo.getResposta();
+        respostaId = conteudo.getRespostaId();
         dica = conteudo.getDica();
         perguntaId = conteudo.getPerguntaId();
         projetoId = conteudo.getProjetoId();
@@ -133,16 +137,16 @@ public class PPerguntaAdmin extends JPanel {
         JScrollPane sp = null;
 
         ProjetoController pc = ProjetoController.getInstance();
-        ArrayList<PPerguntaAvaliacaoCM> conteudoAvaliacoes = pc.getAvaliacoes(perguntaId);
+        ArrayList<PPerguntaAvaliacaoCM> conteudoAvaliacoes = pc.getAvaliacoes(respostaId);
 
-        sp = new JScrollPane();
-        sp.setAutoscrolls(true);
+//        sp = new JScrollPane();
+//        sp.setAutoscrolls(true);
 
-        sp.setViewportView(panelAvaliacoes);
+//        sp.setViewportView(panelAvaliacoes);
         panelAvaliacoes.setLayout(new GridLayout(0, 1, 0, 0));
 
         for (PPerguntaAvaliacaoCM cont : conteudoAvaliacoes) {
-            PAvaliacao pa = new PAvaliacao(cont, true);
+            PAvaliacao pa = new PAvaliacao(cont);
             panelAvaliacoes.add(pa);
         }
 

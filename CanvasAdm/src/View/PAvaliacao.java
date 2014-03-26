@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import Modelo.PPerguntaAvaliacaoCM;
+import java.awt.Color;
 
 /**
  * Classe contendo o panel que é necessário na view para a avaliação dos
@@ -57,11 +58,8 @@ public class PAvaliacao extends JPanel {
      * @param conteudo Objeto da camada de modelo contendo tudo o que é
      * necessário para esse panel (o nome do avaliador, sua nota e seu
      * comentário)
-     * @param isAvaliacao Boolean que indica se o panel vai ser usado para uma
-     * avaliação ou para um parecer. Caso seja um parecer, a área do comentário
-     * e nota não poderá ser modificada.
      */
-    public PAvaliacao(PPerguntaAvaliacaoCM conteudo, boolean isAvaliacao) {
+    public PAvaliacao(PPerguntaAvaliacaoCM conteudo) {
         pergunta = conteudo.getPergunta();
         resposta = conteudo.getResposta();
         dica = conteudo.getDica();
@@ -85,7 +83,8 @@ public class PAvaliacao extends JPanel {
         textFieldNota.setColumns(10);
         panelNota.add(textFieldNota, BorderLayout.SOUTH);
 
-        textFieldNota.setEditable(isAvaliacao);
+        textFieldNota.setEditable(false);
+        textFieldNota.setBackground(new Color(240, 240, 240));
 
         txtrAvaliacao = new JTextArea();
         add(txtrAvaliacao, BorderLayout.CENTER);
@@ -93,7 +92,8 @@ public class PAvaliacao extends JPanel {
         txtrAvaliacao.setText(comentario);
         txtrAvaliacao.setLineWrap(true);
         txtrAvaliacao.setColumns(2);
-        txtrAvaliacao.setEditable(isAvaliacao);
+        txtrAvaliacao.setEditable(false);
+        txtrAvaliacao.setBackground(new Color(240, 240, 240));
 
     }
 }
